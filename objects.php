@@ -121,7 +121,7 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
 
                 if (date(strtotime($value->date_stop), strtotime("-1 week")) <= date('Y-m-d'))
                 {
-                    echo '<span id="clock'.$value->_id.'" class="red"></span>';
+                    echo '<span id="clock'.$value->_id.'"></span>';
                 }
                 else
                 {
@@ -132,10 +132,13 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
 
             <script>
 
-            $('#clock<?php echo $value->_id?>').countdown('<?php echo strftime("%Y/%m/%d", $date_stop); ?>', function(event) {
-                $(this).html(event.strftime('%D jours %H:%M:%S restants'));
-            });
+            $('#clock<?php echo $value->_id?>').countdown('<?php echo strftime("%Y/%m/%d", $date_stop); ?>').on('update.countdown', function(event) {
 
+                if (!$(this).hasClass("red") && event.strftime('%D') < 7) {
+                    $(this).addClass("red");
+                }
+                $(this).html(event.strftime('%D jours %H:%M:%S restants'));
+                });
             </script>
 
         </div>
