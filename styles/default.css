@@ -1,0 +1,223 @@
+/*
+ * Default ressources
+ * @Embraser01
+ * Under Creative Commons - 2015
+ */
+
+
+/*=====HEADER=====*/
+
+.mdl-layout__header {
+    /* This background is dark, so we set text to white. Use 87% black instead if
+       your background is light. */
+    background: url('../images/header.png') center / cover;
+}
+
+.mdl-layout__header-row {
+    background: rgba(0, 0, 0, .25);
+}
+
+@media screen and (max-width: 1024px) {
+    .mdl-layout__header {
+        display: flex !important;
+    }
+}
+
+/*===== MISC =====*/
+
+html, body {
+    background-color: #E9E9E9;
+    font-family: 'Roboto', sans-serif;
+}
+
+.tabulation {
+    padding: 0 20px;
+}
+
+.list_card_wrapper {
+    text-align: center;
+}
+
+.list_card {
+    margin: 20px 20px;
+    display: inline-block;
+}
+
+.centre_card {
+    margin: 50px auto;
+}
+
+.titre_card {
+    color: #fff;
+    /*-webkit-background-size: contain !important;*/
+    -webkit-background-size: cover !important;
+    /*background-size: 100% 100% !important;*/
+    background: #C83737 no-repeat;
+}
+
+.object_card > .titre_card, .edit_card > .titre_card {
+    height: 178px;
+}
+
+.delete_card > .titre_card {
+    background: #F44336;
+    text-align: center;
+}
+
+.film_card {
+    max-width: 75%;
+    margin: 20px auto 50px;
+}
+
+.film_desc {
+    background: url('../images/hp_desc_bg.jpg') center / cover;
+}
+
+.delete_card > .titre_card {
+    height: 250px;
+    background: url('../images/delete_card_bg.png') center / cover;
+}
+
+.signin_card > .titre_card {
+    height: 200px;
+    background: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3) ), url('../images/add_user_bg.png') center / cover;
+}
+
+.page-selector {
+    text-align: center;
+    margin: 50px auto;
+    padding: 25px;
+    font-size: 1em;
+}
+
+.page-link {
+    /*margin: 10px;*/
+    /*font-size: 1em;*/
+    color: #999;
+}
+
+.no-interaction {
+    pointer-events:none;
+}
+
+/*===== MENU =====*/
+
+#header-row {
+    padding-left: 30px !important;
+}
+
+/*===== FONT STYLE =====*/
+
+.link-no-style {
+    text-decoration: none;
+}
+
+.centrer_texte {
+    text-align: center;
+}
+
+.object_card > .mdl-card__supporting-text {
+    font-weight: 500;
+    font-size: 1em;
+}
+
+.error {
+    color: #F44336;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.error > i {
+    padding: 10px;
+    margin: 15px 0px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+}
+
+.success {
+    color: #2ecc71;
+    text-align: center;
+}
+
+.success > i {
+    background: #2ecc71;
+    color: #fff;
+    padding: 10px;
+    margin: 15px 0px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+    font-size: 2em;
+}
+
+.icone-modifier {
+    color: #fff;
+}
+
+.object_card > .material-icons {
+    height: 24px;
+}
+
+.less_padding {
+    padding: 8px 0 !important;
+}
+
+.red {
+    color: #F44336;
+}
+
+/*===== UPLOAD BUTTON =====*/
+
+.fileUpload {
+    overflow: hidden;
+}
+
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+/*===== STICKY FOOTER =====*/
+
+
+footer {
+    margin-bottom: auto;
+    padding: 16px 16px !important;
+}
+
+footer ul {
+    /*margin-left: auto;
+    margin-right: auto;*/
+    margin: auto !important;
+    padding: 0 !important;
+}
+
+footer p {
+    margin: 0;
+    padding: 0;
+}
+
+@media screen and (max-height: 600px){
+    main {
+        height: 100% !important;
+    }
+    footer {
+        visibility: hidden !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    footer ul {
+        margin: 0 !important;
+    }
+}
