@@ -73,7 +73,7 @@ if (isset($_SESSION['mail'])) {
 }
 
 if ($num_error == 0) {
-    header('Location: ../objects.php?page=1&success=2');
+    header('Location: ../user_objects.php?page=1&success=2');
 } elseif ($num_error == 4) {
     header('Location: ../login.php?error=4');
 } else {

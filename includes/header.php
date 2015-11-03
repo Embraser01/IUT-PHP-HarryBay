@@ -27,6 +27,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/application.js"></script>
 
     <meta charset="UTF-8"/>
 
@@ -82,7 +83,7 @@ if (session_status() == PHP_SESSION_NONE) {
                                 {
                                     echo '<div class="mdl-navigation__link less_padding">|</div>';
                                 }
-                                echo '<div class="mdl-navigation__link">'.$res->prenom.' '.$res->nom.'</div>';
+                                echo '<a class="mdl-navigation__link" href="edit_user.php?id='.$_SESSION['_id'].'">'.$res->prenom.' '.$res->nom.'</a>';
                             }
                             else
                             {

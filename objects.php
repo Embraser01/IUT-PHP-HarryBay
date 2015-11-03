@@ -104,7 +104,7 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
         <div class="mdl-card mdl-shadow--4dp list_card object_card">
 
         <div class="mdl-card__title titre_card"
-             style="background: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25) ),url('./images/get_obj_img.php?id=<?php echo $value->_id ?>') center / cover;">
+             style="background: linear-gradient( rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25) ),url('./images/get_obj_img.php?id=<?php echo $value->_id ?>') center / cover;">
             <h1 class="mdl-card__title-text"><?php echo htmlentities($value->desc); ?></h1>
         </div>
 
@@ -118,27 +118,29 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                     echo 'Par: ' . htmlentities($value->prenom) . " " . htmlentities($value->nom) . '<br>';
                 }
                 echo 'Jusqu\'au '.strftime("%d ", $date_stop) . $months[strftime("%m", $date_stop)] . strftime(" %G", $date_stop).'<br>';
-
-                if (date(strtotime($value->date_stop), strtotime("-1 week")) <= date('Y-m-d'))
-                {
-                    echo '<span id="clock'.$value->_id.'"></span>';
-                }
-                else
-                {
-                    echo '<span id="clock'.$value->_id.'"></span>';
-                }
-
+                echo '<span id="clock'.$value->_id.'"></span>';
             ?>
 
             <script>
 
-            $('#clock<?php echo $value->_id?>').countdown('<?php echo strftime("%Y/%m/%d", $date_stop); ?>').on('update.countdown', function(event) {
+            $('#clock<?php echo $value->_id?>').countdown('<?php echo strftime("%Y/%m/%d", $date_stop); ?>')
+            .on('update.countdown', function(event) {
 
                 if (!$(this).hasClass("red") && event.strftime('%D') < 7) {
                     $(this).addClass("red");
                 }
                 $(this).html(event.strftime('%D jours %H:%M:%S restants'));
-                });
+
+            })
+            .on('finish.countdown', function(event) {
+
+                if ($(this).hasClass("red")) {
+                    $(this).removeClass("red");
+                }
+                $(this).html('L\'enchère est terminée.').parent().addClass('disabled');
+                $(this > 'input').attr("disabled").);
+
+            });
             </script>
 
         </div>
@@ -151,7 +153,7 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                     <form method="POST" action="action/bid.php?id=<?php echo $value->_id; ?>">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="text" pattern="[0-9]*" width="100px" name="prix"
-                                   id="prix"/>
+                                   id="prix" pattern="^\d{1,6}((,|\.)\d{1,2})?$"/>
                             <label class="mdl-textfield__label" for="prix">Montant de l'enchère:</label>
                             <span class="mdl-textfield__error">Entrez un montant valide.</span>
                         </div>

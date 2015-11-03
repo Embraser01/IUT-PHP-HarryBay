@@ -68,7 +68,7 @@ if (isset($_GET['success'])) {
 
     // On fait la requete dans la DB Objet pour avoir l'id
 
-    $req = $db->prepare('SELECT Objet.`_id`, Objet.nom AS `desc`, Objet.prix_now, Objet.date_start, Objet.date_stop, Objet.best_user_id, User.prenom, User.nom FROM Objet LEFT JOIN User ON Objet.best_user_id = User._id WHERE Objet.proprio_id =:id ORDER BY Objet.date_start, Objet.`_id` DESC LIMIT :perPage OFFSET :off');
+    $req = $db->prepare('SELECT Objet.`_id`, Objet.nom AS `desc`, Objet.prix_now, Objet.date_start, Objet.date_stop, Objet.best_user_id, User.prenom, User.nom FROM Objet LEFT JOIN User ON Objet.best_user_id = User._id WHERE Objet.proprio_id =:id ORDER BY Objet.`_id` DESC LIMIT :perPage OFFSET :off');
     $req->bindValue(':off', $offset, PDO::PARAM_INT);
     $req->bindValue(':perPage', $objPerPage, PDO::PARAM_INT);
     $req->bindValue(':id', $_SESSION['_id'], PDO::PARAM_INT);
@@ -109,8 +109,20 @@ if (isset($_GET['success'])) {
                     echo 'Votre objet est sorti le: ' . strftime("%d ", $date_start) . $months[strftime("%m", $date_start)] . strftime(" %G", $date_start) . '<br>';
                 } ?>
 
-                Jusqu'au <?php echo strftime("%d ", $date_stop) . $months[strftime("%m", $date_stop)] . strftime(" %G", $date_stop);?>
+                Jusqu'au <?php echo strftime("%d ", $date_stop) . $months[strftime("%m", $date_stop)] . strftime(" %G", $date_stop) . '<br>';
+                echo '<span id="clock'.$value->_id.'"></span>';
+            ?>
             </div>
+            <script>
+
+                $('#clock<?php echo $value->_id?>').countdown('<?php echo strftime("%Y/%m/%d", $date_stop); ?>').on('update.countdown', function(event) {
+
+                    if (!$(this).hasClass("red") && event.strftime('%D') < 7) {
+                        $(this).addClass("red");
+                    }
+                    $(this).html(event.strftime('%D jours %H:%M:%S restants'));
+                    });
+            </script>
 
             <div class="mdl-card__menu">
             <?php if($value->date_start <= date("Y-m-d") AND $value->date_stop >= date("Y-m-d")){

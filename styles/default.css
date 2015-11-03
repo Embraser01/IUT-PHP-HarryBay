@@ -4,7 +4,6 @@
  * Under Creative Commons - 2015
  */
 
-
 /*=====HEADER=====*/
 
 .mdl-layout__header {
@@ -21,6 +20,9 @@
     .mdl-layout__header {
         display: flex !important;
     }
+    .mdl-layout__header-row {
+        overflow-x: scroll;
+    }
 }
 
 /*===== MISC =====*/
@@ -34,36 +36,6 @@ html, body {
     padding: 0 20px;
 }
 
-.list_card_wrapper {
-    text-align: center;
-}
-
-.list_card {
-    margin: 20px 20px;
-    display: inline-block;
-}
-
-.centre_card {
-    margin: 50px auto;
-}
-
-.titre_card {
-    color: #fff;
-    /*-webkit-background-size: contain !important;*/
-    -webkit-background-size: cover !important;
-    /*background-size: 100% 100% !important;*/
-    background: #C83737 no-repeat;
-}
-
-.object_card > .titre_card, .edit_card > .titre_card {
-    height: 178px;
-}
-
-.delete_card > .titre_card {
-    background: #F44336;
-    text-align: center;
-}
-
 .film_card {
     max-width: 75%;
     margin: 20px auto 50px;
@@ -73,14 +45,11 @@ html, body {
     background: url('../images/hp_desc_bg.jpg') center / cover;
 }
 
-.delete_card > .titre_card {
-    height: 250px;
-    background: url('../images/delete_card_bg.png') center / cover;
-}
+
 
 .signin_card > .titre_card {
     height: 200px;
-    background: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3) ), url('../images/add_user_bg.png') center / cover;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/add_user_bg.png') center / cover;
 }
 
 .page-selector {
@@ -97,7 +66,7 @@ html, body {
 }
 
 .no-interaction {
-    pointer-events:none;
+    pointer-events: none;
 }
 
 /*===== MENU =====*/
@@ -116,10 +85,11 @@ html, body {
     text-align: center;
 }
 
-.object_card > .mdl-card__supporting-text {
-    font-weight: 500;
-    font-size: 1em;
+.red {
+    color: #F44336;
 }
+
+/*===== NOTIFICATIONS =====*/
 
 .error {
     color: #F44336;
@@ -130,7 +100,7 @@ html, body {
 
 .error > i {
     padding: 10px;
-    margin: 15px 0px;
+    margin: 15px 0;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
     border-radius: 100px;
@@ -152,6 +122,43 @@ html, body {
     font-size: 2em;
 }
 
+/*===== DESC CARD =====*/
+
+.object_card > .mdl-card__supporting-text {
+    font-weight: 500;
+    font-size: 1em;
+}
+
+/*===== CARDS LIST =====*/
+
+.list_card_wrapper {
+    text-align: center;
+}
+
+.list_card {
+    margin: 20px 20px;
+    display: inline-block;
+}
+
+.centre_card {
+    margin: 50px auto;
+}
+
+.titre_card {
+    color: #fff;
+    -webkit-background-size: cover !important;
+    background: #C83737 no-repeat;
+}
+
+.object_card > .titre_card, .edit_card > .titre_card {
+    height: 178px;
+}
+
+.delete_card > .titre_card {
+    background: #F44336;
+    text-align: center;
+}
+
 .icone-modifier {
     color: #fff;
 }
@@ -160,12 +167,13 @@ html, body {
     height: 24px;
 }
 
-.less_padding {
-    padding: 8px 0 !important;
+.delete_card > .titre_card {
+    height: 250px;
+    background: url('../images/delete_card_bg.png') center / cover;
 }
 
-.red {
-    color: #F44336;
+.less_padding {
+    padding: 8px 0 !important;
 }
 
 /*===== UPLOAD BUTTON =====*/
@@ -188,7 +196,6 @@ html, body {
 
 /*===== STICKY FOOTER =====*/
 
-
 footer {
     margin-bottom: auto;
     padding: 16px 16px !important;
@@ -206,10 +213,11 @@ footer p {
     padding: 0;
 }
 
-@media screen and (max-height: 600px){
+@media screen and (max-height: 600px) {
     main {
         height: 100% !important;
     }
+
     footer {
         visibility: hidden !important;
         height: 0 !important;

@@ -81,7 +81,7 @@ if ($req->rowCount()==1)
 
         <div class="mdl-card mdl-shadow--16dp centre_card edit_card">
 
-            <div class="mdl-card__title titre_card" style="background: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25) ),url('./images/get_obj_img.php?id=<?php echo $_GET['id'] ?>');">
+            <div class="mdl-card__title titre_card" style="background: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25) ),url('./images/get_obj_img.php?id=<?php echo $_GET['id'] ?>') center / cover;">
                 <h1 class="mdl-card__title-text">Modifier un objet</h1>
             </div>
 

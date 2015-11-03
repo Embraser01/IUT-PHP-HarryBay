@@ -64,23 +64,25 @@ if (isset($_GET['error'])) {
                 </div>
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" name="prix_min" id="prix_min" pattern="^\d+((,|\.)\d{1,2})?$"/>
+                    <input class="mdl-textfield__input" type="text" name="prix_min" id="prix_min" pattern="^\d{1,6}((,|\.)\d{1,2})?$"/>
                     <label class="mdl-textfield__label" for="prix_min">Prix minimum</label>
                 </div>
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="date" name="date_start" id="date_start" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value="<?php echo date("Y-m-d") ?>"/>
+                    <input class="mdl-textfield__input" type="date" name="date_start" id="date_start" pattern="(([0-2][0-9]|3[0-1])/(0[0-9]|1[0-2])/20[1-3][0-9])|(20[1-3][0-9]-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1]))" value="<?php echo date("Y-m-d") ?>"/>
                     <label class="mdl-textfield__label" for="date_start">Date de mise en ligne de l'enchère (jj/mm/yyyy)</label>
                 </div>
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="date" name="date_stop" id="date_stop" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" value="<?php echo date("d/m/Y", strtotime("+1 week")) ?>"/>
+                    <input class="mdl-textfield__input" type="date" name="date_stop" id="date_stop" pattern="(([0-2][0-9]|3[0-1])/(0[0-9]|1[0-2])/20[1-3][0-9])|(20[1-3][0-9]-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1]))" value="<?php echo date("Y-m-d", strtotime("+1 week")) ?>"/>
                     <label class="mdl-textfield__label" for="date_stop">Date de fin de l'enchère (jj/mm/yyyy)</label>
                 </div>
 
-                <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" id="submit_button" type="submit">
                     Valider
                 </button>
+
+                <div class="mdl-spinner mdl-js-spinner"></div>
 
             </form>
         </div>
