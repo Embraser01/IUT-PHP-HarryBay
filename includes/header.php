@@ -19,12 +19,13 @@ if (session_status() == PHP_SESSION_NONE) {
     <link rel="icon" type="image/png" href="images/favicon.png">
 
 
-    <script src="styles/material.min.js"></script>
+
     <link
         href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"
         rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
+    <script src="js/material.min.js"></script>
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/jquery.countdown.min.js"></script>
     <script src="js/application.js"></script>
