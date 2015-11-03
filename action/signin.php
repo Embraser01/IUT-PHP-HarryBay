@@ -3,7 +3,7 @@ session_start();
 
 $num_error = 0;
 
-if (isset($_POST['mail']) AND isset($_POST['nom']) AND isset($_POST['prenom']) AND isset($_POST['num']) AND isset($_POST['mdp']) AND isset($_POST['verif']) AND ($_POST['mail'] != "") AND ($_POST['nom'] != "") AND ($_POST['prenom'] != "") AND ($_POST['num'] != "") AND ($_POST['mdp'] != "") AND ($_POST['verif'] != "")) { // Toutes les infos + mot de passe verifié
+if (isset($_POST['mail']) AND isset($_POST['nom']) AND isset($_POST['prenom']) AND isset($_POST['num']) AND isset($_POST['mdp']) AND isset($_POST['verif']) AND ($_POST['mail'] != "") AND ($_POST['nom'] != "") AND ($_POST['prenom'] != "") AND ($_POST['num'] != "") AND ($_POST['mdp'] != "") AND ($_POST['verif'] != "")) { // Toutes les infos
 
     if (!isset($_SESSION['mail'])) {
 

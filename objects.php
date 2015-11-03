@@ -138,7 +138,8 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                     $(this).removeClass("red");
                 }
                 $(this).html('L\'enchère est terminée.').parent().addClass('disabled');
-                $(this > 'input').attr("disabled").);
+                $(this).parent().find("#prix").attr("disabled");
+                $(this).parent().find("#prix").attr("disabled");
 
             });
             </script>

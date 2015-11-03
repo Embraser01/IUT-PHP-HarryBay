@@ -7,7 +7,7 @@ if (isset($_SESSION['mail']) AND isset($_GET['id']) AND isset($_POST['prix'])) {
 
     // On vérifie que l'objet existe
 
-    $req = $db->prepare('SELECT _id, prix_now, proprio_id FROM Objet WHERE _id=:id');
+    $req = $db->prepare('SELECT _id, prix_now, proprio_id FROM Objet WHERE _id=:id AND date_start <= NOW() AND date_stop >= NOW()');
     $req->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
     $req->execute();
 
