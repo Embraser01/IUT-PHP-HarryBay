@@ -52,6 +52,12 @@ html, body {
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/add_user_bg.png') center / cover;
 }
 
+.edit_card > .titre_card {
+    min-height: 200px;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/edit_user_bg.png');
+    background-size: cover;
+}
+
 .page-selector {
     text-align: center;
     margin: 50px auto;

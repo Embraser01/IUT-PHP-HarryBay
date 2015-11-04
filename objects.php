@@ -123,6 +123,7 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
 
             <script>
 
+            //Script gérant le conpte à rebours: affichage du temps restant, affichage en rouge si bientot fini, désactivation du form si timer fini
             $('#clock<?php echo $value->_id?>').countdown('<?php echo strftime("%Y/%m/%d", $date_stop); ?>')
             .on('update.countdown', function(event) {
 
@@ -137,12 +138,32 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                 if ($(this).hasClass("red")) {
                     $(this).removeClass("red");
                 }
-                $(this).html('L\'enchère est terminée.').parent().addClass('disabled');
-                $(this).parent().find("#prix").attr("disabled");
-                $(this).parent().find("#prix").attr("disabled");
+                $(this).html('L\'enchère est terminée.');
+                $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").val('');
+                $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").parent().find("label").html('Enchère désactivée...');
+                $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").attr("disabled", true);
+                $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#submit_button").attr("disabled", true);
 
             });
+
+            /*$(document).ready(function() {
+                $("#annuler<?php //echo $value->_id ?>").on('click', function() {
+                $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").val('');
+                $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").parent().find("label").html('Enchère désactivée...');
+                $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").attr("disabled", true);
+                $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#submit_button").attr("disabled", true);
+            });
+            });*/
+
+
             </script>
+
+<!--
+            <br><div class="mdl-button mdl-js-button" id="annuler<?php echo $value->_id ?>">
+                Désactiver enchère
+            </div>
+-->
+
 
         </div>
 
@@ -159,12 +180,19 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                             <span class="mdl-textfield__error">Entrez un montant valide.</span>
                         </div>
                         <div class="mdl-layout-spacer"></div>
-                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" id="submit_button" type="submit">
                             Enchérir
                         </button>
                     </form>
                 </div>
+                <!--<div class="mdl-card__menu">
+                    <div class="mdl-button mdl-js-button mdl-js-ripple-effect" id="annuler<?php echo $value->_id; ?>">
+                        <i class="material-icons icone-modifier">thumb_down</i>
+                    </div>
+                </div>-->
+
                 </div>
+
                 <?php
             } else {
                 ?>
@@ -192,6 +220,8 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                         Modifier
                     </span>
                 </div>
+
+
 
                 </div>
                 <?php

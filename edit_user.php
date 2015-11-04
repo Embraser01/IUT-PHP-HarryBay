@@ -6,6 +6,13 @@
  * Time: 13:23
  */
 
+session_start();
+
+if(!isset($_GET['id'])){
+    header('Location: index.php');
+    exit;
+}
+
 include('includes/header.php');
 
 if (isset($_GET['error'])) {
@@ -21,6 +28,7 @@ if (isset($_GET['error'])) {
 
     echo '</p><hr>';
 }
+
 
 //On prépare la requète et on l'execute
 $req = $db->prepare('SELECT _id, nom, prenom, mail, num_tel, mdp FROM User WHERE User.`_id` = :id');
@@ -43,7 +51,7 @@ if ($req->rowCount()==1)
 
         <div class="mdl-card mdl-shadow--16dp centre_card edit_card">
 
-            <div class="mdl-card__title titre_card" style="background: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25) ),url('./images/get_obj_img.php?id=<?php echo $_GET['id'] ?>') cover / center;">
+            <div class="mdl-card__title titre_card">
                 <h1 class="mdl-card__title-text">Mon compte</h1>
             </div>
 
@@ -52,84 +60,34 @@ if ($req->rowCount()==1)
                 <form enctype="multipart/form-data" method="POST" action="action/edit_user.php?id=<?php echo $_GET['id'] ?>">
 
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" name="nom" id="nom" value="<?php echo $res->desc ?>" pattern="?+$"/>
+                        <input class="mdl-textfield__input" type="text" name="nom" id="nom" value="<?php echo $res->nom ?>" pattern="?+$"/>
                         <label class="mdl-textfield__label" for="nom">Nom</label>
                     </div>
 
-                    <!--<div id="photo-form-file-group">
-                        File label
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input id="photo-label-input" class="mdl-textfield__input" disabled/>
-                            <label class="mdl-textfield__label" for="photo-label-input" id="photo-label">Vous ne pouvez pas changer de photo.</label>
-                        </div>
-
-                        Upload button
-
-                        <div class="mdl-button mdl-js-button mdl-button--raised fileUpload">
-                            <span>Choisir le fichier</span>
-                            <input type="file" name="img" id="img" class="upload" required/>
-                        </div>
-                    </div>-->
-
-                    <?php
-
-                    if ($res->best_user_id == PDO::PARAM_NULL)
-                    {
-                        //Affichage du prix minimum si aucune enchère n'a été faite.
-                        ?>
-
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="number" name="prix_min" id="prix_min" value="<?php echo $res->prix_min ?>" required/>
-                            <label class="mdl-textfield__label" for="prix_min">Prix minimum</label>
-                        </div>
-
-                        <?php
-
-                    }
-                    else
-                    {
-                        //Affichage du prix minimum si une enchère a été faite sur cet objet
-                        ?>
-
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input no-interaction" type="number" name="prix_min" id="prix_min" value="<?php echo $res->prix_min ?>" readonly="true"/>
-                            <label class="mdl-textfield__label" for="prix_min">Prix minimum (prix actuel: <?php echo $res->prix_now ?> €)</label>
-                            Vous ne pouvez pas modifier le prix minimum, car une enchère a déjà été proposée.
-                        </div>
-
-                        <?php
-                    }
-
-                    if ($res->date_start <= date("Y-m-d"))
-                    {
-                        //Affichage de la date de début mais sans possibilité de la modifier
-                        ?>
-
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input no-interaction" type="date" name="date_start" id="date_start" value="<?php echo $res->date_start ?>" readonly="true"/>
-                            <label class="mdl-textfield__label" for="date_start">Date de mise en ligne de l'enchère.</label>
-                            <span>Vous ne pouvez pas modifier la date de mise en ligne d'une enchère déjà parue.</span>
-                        </div>
-
-                        <?php
-                    }
-                    else
-                    {
-                        ?>
-
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="date" name="date_start" id="date_start" value="<?php echo $res->date_start ?>" required/>
-                            <label class="mdl-textfield__label" for="date_start">Date de mise en ligne de l'enchère</label>
-                        </div>
-
-                        <?php
-                    }
-
-                    ?>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" name="prenom" id="prenom" value="<?php echo $res->prenom ?>" pattern="?+$"/>
+                        <label class="mdl-textfield__label" for="prenom">Prénom</label>
+                    </div>
 
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="date" name="date_stop" id="date_stop" value="<?php echo $res->date_stop ?>" required/>
-                        <label class="mdl-textfield__label" for="date_stop">Date de fin de l'enchère</label>
+                        <input class="mdl-textfield__input" type="text" name="mail" id="mail" value="<?php echo $res->mail ?>" pattern="?+$"/>
+                        <label class="mdl-textfield__label" for="mail">Adresse email</label>
+                        <span class="mdl-textfield__error">Entrez une adresse email valide.</span>
+                    </div>
+
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" name="num" id="num" value="<?php echo $res->num_tel ?>" pattern="^0[0-9]{9}$"/>
+                        <label class="mdl-textfield__label" for="num">Numéro de téléphone:</label>
+                        <span class="mdl-textfield__error">Entrez un numéro de téléphone valide.</span>
+                    </div>
+
+                    <div class="mdl-card__title">
+                        Pour valider vos changements, entrez votre mot de passe.
+                    </div>
+
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="password" name="pwd" id="pwd" pattern=".+$"/>
+                        <label class="mdl-textfield__label" for="pwd">Mot de passe:</label>
                     </div>
 
                     <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
@@ -148,25 +106,14 @@ if ($req->rowCount()==1)
             <div class="mdl-card__title titre_card">
                 <!--<i class="material-icons" style="margin-right: 15px;">delete</i> Supprimer l'enchère-->
                 <div class="mdl-card__title-text centrer_texte">
-                    Supprimer cet objet
+                    Modifier le mot de passe
                 </div>
             </div>
 
-            <div class="mdl-card__supporting-text">
-                <!--
+            <div class="mdl-card__supporting-text centrer_texte">
+
                 <i class="material-icons">edit</i><br/>
                 work in progress...
-                -->
-
-                <form method="POST" action="action/delete_object.php?id=<?php echo $res->_id; ?>">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="password" name="pwd" id="pwd" pattern=".+$"/>
-                        <label class="mdl-textfield__label" for="pwd">Mot de passe:</label>
-                    </div>
-                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
-                        Wingardium supprimssah!
-                    </button>
-                </form>
 
             </div>
 
@@ -176,10 +123,9 @@ if ($req->rowCount()==1)
     }
     else
     {
-        header('location: objects.php?error=7');    //pas connecté
+        header('Location: objects.php?error=7');    //pas connecté
         exit;
     }
-
 }
 
 ?>

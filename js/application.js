@@ -12,7 +12,7 @@ $(document).ready( function() {
         {
             event.preventDefault();
             $(".mdl-spinner").addClass("is-active");
-            $("#submit_button").hide();
+            $(this).hide();
             $('form').submit();
         }
 
