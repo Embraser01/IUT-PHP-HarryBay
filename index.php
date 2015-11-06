@@ -20,13 +20,25 @@ $months = array('01' => "Janvier",
     '10' => "Octobre",
     '11' => "Novembre",
     '12' => "Décembre");
+
+if (isset($_GET['success'])) {
+    echo '<p class="success"><i class="material-icons md-48">check</i><br/>';
+
+    if ($_GET['success'] == 1)
+    {
+        echo 'Votre compte a bien été supprimé. Au revoir. :(';
+    }
+
+    echo '</p><hr>';
+
+}
 ?>
 
     <h3 class="centrer_texte">Carte de description de la saga:</h3>
 
 <!-- Carte de description de Harry Potter -->
 
-    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--8dp film_card">
+    <section class="section--center mdl-grid film_card">
         <header
             class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--red-500 film_desc">
         </header>

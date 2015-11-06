@@ -19,7 +19,7 @@ if (isset($_POST['mail']) AND isset($_POST['nom']) AND isset($_POST['prenom']) A
             try {
                 $req = $db->prepare('INSERT INTO User( mail, nom, prenom, num_tel, mdp) VALUE (:mail, :nom, :prenom, :num_tel, :mdp)');
                 $req->bindValue(':mail', $_POST['mail'], PDO::PARAM_STR);
-                $req->bindValue(':nom', $_POST['nom'], PDO::PARAM_STR);
+                $req->bindValue(':nom', strtoupper($_POST['nom']), PDO::PARAM_STR);
                 $req->bindValue(':prenom', $_POST['prenom'], PDO::PARAM_STR);
                 $req->bindValue(':num_tel', $_POST['num'], PDO::PARAM_STR);
                 $req->bindValue(':mdp', sha1(sha1($_POST['mdp']) . "42jeej42"), PDO::PARAM_STR);

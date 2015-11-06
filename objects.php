@@ -139,10 +139,10 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                     $(this).removeClass("red");
                 }
                 $(this).html('L\'enchère est terminée.');
-                $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").val('');
-                $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").parent().find("label").html('Enchère désactivée...');
-                $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").attr("disabled", true);
-                $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#submit_button").attr("disabled", true);
+                $(this).parent().next().find("#prix").val('');
+                $(this).parent().next().find("#prix").parent().find("label").html('Objet indisponible...');
+                $(this).parent().next().find("#prix").attr("disabled", true);
+                $(this).parent().next().find("#submit_button").attr("disabled", true);
 
             });
 

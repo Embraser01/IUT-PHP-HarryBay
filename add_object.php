@@ -15,10 +15,10 @@ if (isset($_GET['error'])) {
 
     switch ($_GET['error']) {
         case 2:
-            echo 'L\'image que vous avez envoyé n\'est pas valide (extension, poids ou erreur d\'envoi).';
+            echo 'L\'image que vous avez envoyée n\'est pas valide (extension, poids ou erreur d\'envoi).';
             break;
         case 3:
-            echo 'Les informations que vous avez envoyé ne sont pas correctes.';
+            echo 'Les informations que vous avez envoyées ne sont pas correctes.';
             break;
         case 4:
             echo 'Vous devez <a href="login.php">vous connecter</a> pour proposer une enchère.';

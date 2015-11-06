@@ -25,6 +25,13 @@
     }
 }
 
+@media screen and (max-width: 500px) {
+    .object_card {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
 /*===== MISC =====*/
 
 html, body {
@@ -45,8 +52,6 @@ html, body {
     background: url('../images/hp_desc_bg.jpg') center / cover;
 }
 
-
-
 .signin_card > .titre_card {
     height: 200px;
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/add_user_bg.png') center / cover;
@@ -55,6 +60,19 @@ html, body {
 .edit_card > .titre_card {
     min-height: 200px;
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/edit_user_bg.png');
+    background-size: cover;
+}
+
+.password_card > .titre_card {
+    min-height: 200px;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/edit_password_bg.png');
+    background-size: cover;
+}
+
+.delete_user_card > .titre_card {
+    min-height: 200px;
+    /*background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/delete_user_bg.png');*/
+    background: #F44336;
     background-size: cover;
 }
 
@@ -72,7 +90,7 @@ html, body {
 }
 
 .no-interaction {
-    pointer-events: none;
+    cursor: default !important;
 }
 
 /*===== MENU =====*/
@@ -91,8 +109,16 @@ html, body {
     text-align: center;
 }
 
+.left_text {
+    text-align: left;
+}
+
 .red {
     color: #F44336;
+}
+
+.mdl-button > .mdl-card__title-text {
+    text-transform: none;
 }
 
 /*===== NOTIFICATIONS =====*/
@@ -121,7 +147,7 @@ html, body {
     background: #2ecc71;
     color: #fff;
     padding: 10px;
-    margin: 15px 0px;
+    margin: 15px 0;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
     border-radius: 100px;
@@ -139,11 +165,14 @@ html, body {
 
 .list_card_wrapper {
     text-align: center;
+    padding: 20px 0;
 }
 
 .list_card {
     margin: 20px 20px;
     display: inline-block;
+    vertical-align: top;
+    text-align: left;
 }
 
 .centre_card {

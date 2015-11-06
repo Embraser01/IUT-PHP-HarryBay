@@ -39,7 +39,7 @@ if (session_status() == PHP_SESSION_NONE) {
             <header class="mdl-layout__header mdl-layout--fixed-header">
                 <div class="mdl-layout__header-row mdl-layout--fixed-header tabulation">
                     <!-- Title -->
-                    <span class="mdl-layout-title"><a class="link-no-style mdl-color-text--white" href="index.php">Harry
+                    <span class="mdl-layout-title "><a class="link-no-style mdl-color-text--white " href="index.php">Harry
                             Bay</a></span>
                     <!-- Add spacer, to align navigation to the right -->
                     <div class="mdl-layout-spacer"></div>

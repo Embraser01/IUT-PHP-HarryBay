@@ -5,51 +5,74 @@
  * Date: 30/10/2015
  * Time: 13:37...       YAY!
  */
-function sendMail($mail, $value, $is_proprio = TRUE, $is_max = FALSE)
+
+function sendMail($value, $is_max = FALSE)
 {
+    $passage_ligne = "\n";
 
-    /*======== MAIL FOR THE OWNER ========*/
+    //===== Définition du sujet.
+    $sujet = "Harry Bay | $value->nom";
+    //=========
 
-    if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $proprio_mail)) { // On filtre les serveurs qui rencontrent des bogues.
-        $passage_ligne = "\r\n";
-    } else {
-        $passage_ligne = "\n";
-    }
+    //===== Définition du footer.
+    $footer = "--<br>Harry Bay,<br>Projet de PHP fait dans le cadre du DUT Informatique S3<br>A l'IUT Lyon 1 - Site du Bourg-en-Bresse<br>Par:<br> - Nicolas POURPRIX<br> - Marc-Antoine FERNANDES</body></html>";
+    //=========
+    if($is_max) $footer = "<br>PS: Cet objet détient désormais le record de la plus cher enchère ! <br>Félicitation !<br>" . $footer;
 
-    //=====Déclaration des messages au format texte et au format HTML.
-    $message_txt = "Vous";
-    $message_html = "<html><head></head><body><b>Salut à tous</b>, voici un e-mail envoyé par un <i>script PHP</i>.</body></html>";
+
+    //=====Création de la boundary
+    $boundary = "-----=" . md5(rand());
     //==========
 
-//=====Création de la boundary
-    $boundary = "-----=" . md5(rand());
-//==========
-
-//=====Définition du sujet.
-    $sujet = "Harry Bay";
-//=========
-
-//=====Création du header de l'e-mail.
+    //===== Création du header des e-mail.
     $header = "From: \"Harry Bay\" <marc-antoine.fernandes@etu.univ-lyon1.fr>" . $passage_ligne;
-    $header .= "Reply-to: \"Marc-Antoine FERNANDES\" <marc-antoine.fernandes@etu.univ-lyon1.fr>" . $passage_ligne;
+    $header .= "Reply-to: \"Harry Bay\" <marc-antoine.fernandes@etu.univ-lyon1.fr>" . $passage_ligne;
     $header .= "MIME-Version: 1.0" . $passage_ligne;
     $header .= "Content-Type: multipart/alternative;" . $passage_ligne . " boundary=\"$boundary\"" . $passage_ligne;
-//==========
+    //==========
 
-//=====Création du message.
+/*======== MAIL FOR THE OWNER ========*/
+
+    //=====Déclaration des messages au format HTML.
+    $message_html = "<html><head></head><body>Bonsoir $value->proprioPrenom $value->proprioNom,<br>L'enchère de votre objet \"$value->nom\" est arrivé à échéance, veuillez contacter $value->bestPrenom " . substr($value->bestNom, 0, 1) . ". <br> - Téléphone: $value->bestNum <br> - Mail: $value->bestMail";
+    //==========
+
+    //=====Création du message.
     $message = $passage_ligne . "--" . $boundary . $passage_ligne;
-//=====Ajout du message au format HTML
+    //=====Ajout du message au format HTML
+    $message .= "Content-Type: text/html; charset=\"UTF-8\"" . $passage_ligne;
+    $message .= "Content-Transfer-Encoding: 8bit" . $passage_ligne;
+    $message .= $passage_ligne . $message_html . $footer . $passage_ligne;
+    //==========
+    $message .= $passage_ligne . "--" . $boundary . "--" . $passage_ligne;
+    $message .= $passage_ligne . "--" . $boundary . "--" . $passage_ligne;
+    //==========
+
+    //=====Envoi de l'e-mail.
+    mail($value->proprioMail, $sujet, $message, $header);
+    //==========
+
+
+/*======== MAIL FOR THE BUYER ========*/
+
+    //=====Déclaration des messages au format HTML.
+    $message_html = "<html><head></head><body>Bonsoir $value->bestPrenom $value->bestNom,<br>L'enchère de l'objet \"$value->nom\" est arrivé à échéance, et vous êtes le meilleur enchérisseur, veuillez contacter $value->proprioPrenom " . substr($value->proprioNom, 0, 1) . ". <br> - Téléphone: $value->proprioNum <br> - Mail: $value->proprioMail";
+    //==========
+
+    //=====Création du message.
+    $message = $passage_ligne . "--" . $boundary . $passage_ligne;
+    //=====Ajout du message au format HTML
     $message .= "Content-Type: text/html; charset=\"ISO-8859-1\"" . $passage_ligne;
     $message .= "Content-Transfer-Encoding: 8bit" . $passage_ligne;
-    $message .= $passage_ligne . $message_html . $passage_ligne;
-//==========
+    $message .= $passage_ligne . $message_html . $footer . $passage_ligne;
+    //==========
     $message .= $passage_ligne . "--" . $boundary . "--" . $passage_ligne;
     $message .= $passage_ligne . "--" . $boundary . "--" . $passage_ligne;
-//==========
+    //==========
 
-//=====Envoi de l'e-mail.
-    mail($mail, $sujet, $message, $header);
-//==========
+    //=====Envoi de l'e-mail.
+    mail($value->bestMail, $sujet, $message, $header);
+    //==========
 }
 
 session_start();
@@ -60,7 +83,7 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4) 
 
     $num_error = 0;
 
-    $req = $db->prepare('SELECT Objet.nom, Objet.prix_now, uProprio.mail AS proprioMail, uProprio.num_tel AS proprioNum, uBest.mail AS bestMail, uBest.num_tel AS bestNum FROM Objet JOIN User uProprio ON Objet.proprio_id=uProprio.`_id` LEFT JOIN User uBest ON Objet.best_user_id=uBest.`_id` WHERE Objet.date_stop < NOW() ORDER BY is_max DESC');
+    $req = $db->prepare('SELECT Objet.nom AS obj_nom, Objet.prix_now, uProprio.mail AS proprioMail, uProprio.num_tel AS proprioNum, uBest.mail AS bestMail, uBest.num_tel AS bestNum, uProprio.nom AS proprioNom, uProprio.prenom AS proprioPrenom, uBest.nom AS bestNom, uBest.prenom AS bestPrenom FROM Objet JOIN User uProprio ON Objet.proprio_id=uProprio.`_id` LEFT JOIN User uBest ON Objet.best_user_id=uBest.`_id` WHERE Objet.date_stop < NOW() ORDER BY is_max DESC');
     $req->execute();
 
     if ($req->rowCount() >= 2) {
@@ -92,7 +115,9 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4) 
             if ($value->_id != $id_max) {
                 array_push($list_to_delete, $value->_id);
                 unlink(__DIR__ . "/../images/objects/" . basename($value->_id));
-                // TODO : Envoyer mail à l'acheteur et le vendeur
+                sendMail($value, FALSE);
+            } else {
+                sendMail($value, TRUE);
             }
         }
 

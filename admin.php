@@ -8,7 +8,7 @@
 
 session_start();
 
-if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4) {
+if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 OR $_SESSION['_id'] == 7) {
 
     include('includes/header.php');
     ?>

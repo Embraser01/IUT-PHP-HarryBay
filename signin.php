@@ -41,13 +41,13 @@ if (isset($_GET['error'])) {
             <form method="POST" action="action/signin.php">
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" name="nom" id="nom" pattern="[a-zA-Z ]+$"/>
+                    <input class="mdl-textfield__input" type="text" name="nom" id="nom" pattern="[a-zA-Zéèàîâêïäëôûöü' ]+$"/>
                     <label class="mdl-textfield__label" for="nom">Nom:</label>
                     <span class="mdl-textfield__error">Votre nom doit uniquement contenir des lettres et espaces.</span>
                 </div>
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" name="prenom" id="prenom" pattern="[a-zA-Z ]+$"/>
+                    <input class="mdl-textfield__input" type="text" name="prenom" id="prenom" pattern="[a-zA-Zéèàîâêïäëôûöü' ]+$"/>
                     <label class="mdl-textfield__label" for="prenom">Prénom:</label>
                     <span class="mdl-textfield__error">Votre prénom doit uniquement contenir des lettres et espaces.</span>
                 </div>

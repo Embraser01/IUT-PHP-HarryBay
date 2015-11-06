@@ -24,6 +24,12 @@ if (isset($_GET['error'])) {
         case 14:
             echo 'Vous êtes déconnecté. Veuillez vous reconnecter pour supprimer vos objets.';
             break;
+        case 15:
+            echo 'Vous êtes déconnecté. Veuillez vous reconnecter pour modifier votre compte.';
+            break;
+        case 16:
+            echo 'Vous êtes déconnecté. Veuillez vous reconnecter pour supprimer votre compte.';
+            break;
         default:
             echo 'Un problème est survenu.';
     }

@@ -128,7 +128,7 @@ if (isset($_GET['success'])) {
             <?php if($value->date_start <= date("Y-m-d") AND $value->date_stop >= date("Y-m-d")){
                 ?>
                 <div class="mdl-button mdl-button--icon" id="showcased_objet<?php echo $value->_id; ?>">
-                    <i class="material-icons icone-modifier">visibility</i>
+                    <i class="material-icons icone-modifier no-interaction">visibility</i>
                 </div>
                 <span class="mdl-tooltip" for="showcased_objet<?php echo $value->_id; ?>"
                       style="margin-right: 50px;">
@@ -136,7 +136,7 @@ if (isset($_GET['success'])) {
                 </span>
             <?php } else { ?>
 
-                <div class="mdl-button mdl-button--icon" id="showcased_objet<?php echo $value->_id; ?>">
+                <div class="mdl-button mdl-button--icon no-interaction" id="showcased_objet<?php echo $value->_id; ?>">
                     <i class="material-icons icone-modifier">visibility_off</i>
                 </div>
                 <span class="mdl-tooltip" for="showcased_objet<?php echo $value->_id; ?>"
