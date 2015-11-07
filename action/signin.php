@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Range error : 90 - 99
+ */
+
 session_start();
 
 $num_error = 0;
@@ -31,17 +36,17 @@ if (isset($_POST['mail']) AND isset($_POST['nom']) AND isset($_POST['prenom']) A
                 $_SESSION['prenom'] = $_POST['prenom'];
 
             } catch (PDOException $ex) {
-                $num_error = 1;
+                $num_error = 91;
             }
         } else {
-            $num_error = 2;
+            $num_error = 92;
         }
     } else {
-        $num_error = 3;
+        $num_error = 93;
     }
 
 } else {
-    $num_error = 4;
+    $num_error = 94;
 }
 
 if ($num_error == 0) {

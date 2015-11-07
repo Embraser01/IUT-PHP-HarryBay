@@ -26,9 +26,12 @@
 }
 
 @media screen and (max-width: 500px) {
-    .object_card {
+    /*.object_card {*/
+    .list_card {
         margin-left: 0 !important;
         margin-right: 0 !important;
+        padding: 0 !important;
+        width: 100%;
     }
 }
 
@@ -57,23 +60,27 @@ html, body {
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/add_user_bg.png') center / cover;
 }
 
-.edit_card > .titre_card {
+#edit_card > .titre_card {
     min-height: 200px;
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/edit_user_bg.png');
     background-size: cover;
 }
 
-.password_card > .titre_card {
+#password_card > .titre_card {
     min-height: 200px;
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/edit_password_bg.png');
     background-size: cover;
 }
 
-.delete_user_card > .titre_card {
+#delete_user_card > .titre_card {
     min-height: 200px;
     /*background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/delete_user_bg.png');*/
     background: #F44336;
     background-size: cover;
+}
+
+#edit_card > .mdl-card__supporting-text, #password_card > .mdl-card__supporting-text, #delete_user_card > .mdl-card__supporting-text {
+    display: none;
 }
 
 .page-selector {
@@ -91,6 +98,30 @@ html, body {
 
 .no-interaction {
     cursor: default !important;
+}
+
+.titre_page > img {
+    max-width: 320px;
+    width: 50%;
+}
+
+.object_card > .titre_card {
+    opacity: 0;
+    animation-duration: .5s;
+    -webkit-animation-duration: .5s;
+    -moz-animation-duration: .5s;
+    -o-animation-duration: .5s;
+    transition-duration: .5s;
+    -webkit-transition-duration: .5s;
+    -moz-transition-duration: .5s;
+    -o-transition-duration: .5s;
+
+}
+
+#background {
+    position: absolute;
+    margin: auto;
+    overflow: hidden;
 }
 
 /*===== MENU =====*/
@@ -119,6 +150,23 @@ html, body {
 
 .mdl-button > .mdl-card__title-text {
     text-transform: none;
+}
+
+.titre_page {
+    width: 100%;
+    max-font-size: 32px;
+    font-size: 3em;
+    font-weight: 300;
+    padding: 64px 0;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.simple_text {
+    max-width: 640px;
+    padding: 32px 32px 64px;
+    /*text-align: center;*/
+    margin: 0 auto;
 }
 
 /*===== NOTIFICATIONS =====*/
@@ -173,6 +221,14 @@ html, body {
     display: inline-block;
     vertical-align: top;
     text-align: left;
+    animation-duration: .5s;
+    -webkit-animation-duration: .5s;
+    -moz-animation-duration: .5s;
+    -o-animation-duration: .5s;
+    transition-duration: .5s;
+    -webkit-transition-duration: .5s;
+    -moz-transition-duration: .5s;
+    -o-transition-duration: .5s;
 }
 
 .centre_card {

@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Range error : 00 - 09
+ */
+
 session_start();
 
 function upload($index, $maxsize = FALSE, $extensions = FALSE)
@@ -58,23 +63,23 @@ if (isset($_SESSION['mail'])) { //si connecté
 
             } catch (PDOException $ex) {
                 // Reste sur la page et affiche l'erreur;
-                $num_error = 1;
+                $num_error = 01;
                 echo $ex;
             }
         } else {
-            $num_error = 2;
+            $num_error = 02;
         }
 
     } else {
-        $num_error = 3;
+        $num_error = 03;
     }
 } else {
-    $num_error = 4;
+    $num_error = 04;
 }
 
 if ($num_error == 0) {
-    header('Location: ../objects.php?page=1');
-} elseif ($num_error == 1) {
+    header('Location: ../objects.php?page=1&success=00');
+} elseif ($num_error == 01) {
 
 } else {
     header('Location: ../add_object.php?page=1&error=' . $num_error);

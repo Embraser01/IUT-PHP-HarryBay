@@ -34,7 +34,13 @@ if (isset($_GET['success'])) {
 }
 ?>
 
-    <h3 class="centrer_texte">Carte de description de la saga:</h3>
+    <div class="titre_page">
+        <img src="./images/logo.png" alt="Logo de Harry Bay"/>
+    </div>
+
+    <div class="simple_text">
+        Bienvenue sur Harry Bay, le seul site qui a comme nom un jeu de mots plutôt badass. Sur ce site, vous pourrez vendre et acheter des objets ayant servi au tournage des films de la saga Harry Potter. C'est en quelque sorte un eBay pour Harry Potter (d'où le jeu de mots!).
+    </div>
 
 <!-- Carte de description de Harry Potter -->
 
@@ -72,7 +78,7 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
     $date_stop = strtotime($res->date_stop);
     ?>
 
-    <div class="mdl-card mdl-shadow--4dp object_card centre_card centrer_texte">
+    <div class="mdl-card mdl-shadow--4dp object_card centre_card centrer_texte" id="objet<?php echo $res->_id ?>">
 
         <div class="mdl-card__title titre_card"
              style="background: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25) ),url('./images/get_obj_img.php?id=<?php echo $res->_id ?>') center / cover;">
@@ -101,6 +107,17 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
         </div>
 
     </div>
+
+    <script>
+        $(document).ready( function(){
+            var img<?php echo $value->_id ?> = new Image();
+            img<?php echo $value->_id ?>.onload = function()
+            {
+                $("#objet<?php echo $value->_id ?>").find(".titre_card").animate({opacity: 1});
+            };
+            img<?php echo $value->_id ?>.src = './images/get_obj_img.php?id=<?php echo $value->_id ?>';
+        });
+    </script>
 
     <?php
 }

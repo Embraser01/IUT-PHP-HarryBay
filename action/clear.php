@@ -1,10 +1,9 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: Nicolas POURPRIX
- * Date: 30/10/2015
- * Time: 13:37...       YAY!
+ * Range error : 20 - 29
  */
+
 
 function sendMail($value, $is_max = FALSE)
 {
@@ -77,11 +76,11 @@ function sendMail($value, $is_max = FALSE)
 
 session_start();
 
+$num_error = 0;
+
 if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4) {
 
     require __DIR__ . '/../lib/class.Database.php';
-
-    $num_error = 0;
 
     $req = $db->prepare('SELECT Objet.nom AS obj_nom, Objet.prix_now, uProprio.mail AS proprioMail, uProprio.num_tel AS proprioNum, uBest.mail AS bestMail, uBest.num_tel AS bestNum, uProprio.nom AS proprioNom, uProprio.prenom AS proprioPrenom, uBest.nom AS bestNom, uBest.prenom AS bestPrenom FROM Objet JOIN User uProprio ON Objet.proprio_id=uProprio.`_id` LEFT JOIN User uBest ON Objet.best_user_id=uBest.`_id` WHERE Objet.date_stop < NOW() ORDER BY is_max DESC');
     $req->execute();
@@ -138,17 +137,22 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4) 
             $req->execute();
 
         } catch (PDOException $ex) {
-            $num_error = 1; //Problème dans la base de données
+            $num_error = 21; //Problème dans la base de données
         }
-    }
-
-
-    if ($num_error == 0) {
-        header('Location: ../admin.php?success=1');
-    } elseif ($num_error == 1) {
-        echo $ex->getMessage();
-        echo '<br>' . $query;
     } else {
-        header('Location: ../index.php');
+        $num_error = 22;
     }
+} else {
+    $num_error = 23;
+}
+
+if ($num_error == 0) {
+    header('Location: ../admin.php?success=20');
+} elseif ($num_error == 21) {
+    echo $ex->getMessage();
+    echo '<br>' . $query;
+} elseif( $num_error == 23) {
+    header('Location: ../index.php');
+} else {
+    header('Location: ../admin.php?error=' . $num_error);
 }

@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Range error : 80 - 89
+ */
+
 session_start();
 
 $num_error = 0;
@@ -26,13 +31,13 @@ if (isset($_POST['pwd']) AND isset($_POST['mail'])) { // Pas déjà co et mot de
             $_SESSION['bid_count'] = 0;
 
         } else { // aucune correspondance trouvé
-            $num_error = 1;
+            $num_error = 81;
         }
     } else {
-        $num_error = 2;
+        $num_error = 82;
     }
 } else {
-    $num_error = 3;
+    $num_error = 83;
 }
 
 if ($num_error == 0) {

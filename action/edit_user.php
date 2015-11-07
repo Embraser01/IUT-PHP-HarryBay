@@ -1,9 +1,7 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: Nicolas POURPRIX
- * Date: 04/11/2015
- * Time: 20:12
+ * Range error : 70 - 79
  */
 
 session_start();
@@ -53,32 +51,30 @@ if (isset($_SESSION['_id'])) { //Si l'utilisateur est connecté
                         $req->bindValue(':mail', strtolower($_POST['mail']), PDO::PARAM_STR);
                         $req->execute();
                     } catch (PDOException $ex) {
-                        // Reste sur la page et affiche l'erreur;
-                        $num_error = 1;
-                        echo $ex;
+                        $num_error = 71;
                     }
 
                 } else {
-                    $num_error = 2; //mauvais mot de passe
+                    $num_error = 72; //mauvais mot de passe
                 }
 
             } else {
-                $num_error = 3; //aucun compte avec cet id
+                $num_error = 73; //aucun compte avec cet id
             }
         } else {
-            $num_error = 4; //Les champs ne sont pas tous renseignés
+            $num_error = 74; //Les champs ne sont pas tous renseignés
         }
     } else {
-        $num_error = 5; //Le compte à modifier n'est pas le compte actuellement utilisé
+        $num_error = 75; //Le compte à modifier n'est pas le compte actuellement utilisé
     }
 } else {
-    $num_error = 6; //L'utilisateur n'est pas ou plus connecté
+    $num_error = 76; //L'utilisateur n'est pas ou plus connecté
 }
 
 if ($num_error == 0) {
-    header('Location: ../user_objects.php?page=1&success=2');
-} elseif ($num_error == 6) {
-    header('Location: ../login.php?error=4');
+    header('Location: ../user_objects.php?page=1&success=70');
+} elseif ($num_error == 76) {
+    header('Location: ../login.php?error=' . $num_error);
 } else {
     header('Location: ../edit_user.php?id=' . $_GET['id'] . '&error=' . $num_error);
 }

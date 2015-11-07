@@ -69,9 +69,13 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
     if ((isset($_SESSION['_id'])) && ($res->_id == $_SESSION['_id'])) {
         ?>
 
+        <div class="titre_page">
+            Configuration du compte
+        </div>
+
         <div class="list_card_wrapper">
 
-            <div class="mdl-card mdl-shadow--16dp edit_card list_card">
+            <div class="mdl-card mdl-shadow--16dp list_card" id="edit_card">
 
                 <div class="mdl-card__title titre_card mdl-button mdl-js-button mdl-js-ripple-effect">
                     <h1 class="mdl-card__title-text">Mon compte</h1>
@@ -117,6 +121,8 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
                             <label class="mdl-textfield__label" for="mdp">Mot de passe:</label>
                         </div>
 
+                        <br>
+
                         <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
                             <i class="material-icons">done</i> Valider
                         </button>
@@ -128,7 +134,7 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
 
             <!--Carte pour supprimer l'objet-->
 
-            <div class="mdl-card mdl-shadow--16dp password_card list_card">
+            <div class="mdl-card mdl-shadow--16dp list_card" id="password_card">
 
                 <div class="mdl-card__title titre_card mdl-button mdl-js-button mdl-js-ripple-effect">
                     <!--<i class="material-icons" style="margin-right: 15px;">delete</i> Supprimer l'enchère-->
@@ -165,6 +171,8 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
                             <span class="mdl-textfield__error">Les mots de passe ne sont pas identiques.</span>
                         </div>
 
+                        <br>
+
                         <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
                             <i class="material-icons">done</i> Valider
                         </button>
@@ -175,7 +183,7 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
 
             </div>
 
-            <div class="mdl-card mdl-shadow--16dp delete_user_card list_card">
+            <div class="mdl-card mdl-shadow--16dp list_card" id="delete_user_card">
 
                 <div class="mdl-card__title titre_card mdl-button mdl-js-button mdl-js-ripple-effect">
                     <!--<i class="material-icons" style="margin-right: 15px;">delete</i> Supprimer l'enchère-->
@@ -208,6 +216,8 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
                                    pattern="^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,}$"/>
                             <label class="mdl-textfield__label" for="pwd">Mot de passe:</label>
                         </div>
+
+                        <br>
 
                         <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
                             <i class="material-icons">clear</i> DROP ACCOUNT IF EXISTS!

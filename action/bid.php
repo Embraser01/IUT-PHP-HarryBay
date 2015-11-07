@@ -1,5 +1,13 @@
 <?php
+
+/**
+ * Range error : 10 - 19
+ */
+
+
 session_start();
+
+$num_error = 0;
 
 if (isset($_SESSION['mail']) AND isset($_GET['id']) AND isset($_POST['prix'])) {
 
@@ -26,25 +34,25 @@ if (isset($_SESSION['mail']) AND isset($_GET['id']) AND isset($_POST['prix'])) {
                         $req->execute();
 
                         $_SESSION['bid_count'] += 1;
-
-                        header('Location: ../objects.php?page=1&success=1');
-                        exit;
                     } catch (PDOException $ex) {
-                        $num_error = 5;
+                        $num_error = 11;
                     }
                 } else {
-                    $num_error = 6;
+                    $num_error = 12;
                 }
             } else { // Limite de bid atteinte
-                $num_error = 1;
+                $num_error = 13;
             }
         } else { // Prix inférieur
-            $num_error = 2;
+            $num_error = 14;
         }
     } else { // L'objet n'existe pas
-        $num_error = 3;
+        $num_error = 15;
     }
 } else { // Pas les bons paramètres
-    $num_error = 4;
+    $num_error = 16;
 }
-header('Location: ../objects.php?page=1&error=' . $num_error);
+if($num_error == 0)
+    header('Location: ../objects.php?page=1&success=10');
+else
+    header('Location: ../objects.php?page=1&error=' . $num_error);

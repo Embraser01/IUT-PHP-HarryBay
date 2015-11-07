@@ -1,9 +1,7 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: Nicolas POURPRIX
- * Date: 05/11/2015
- * Time: 00:20
+ * Range error : 60 - 69
  */
 
 session_start();
@@ -48,39 +46,31 @@ if (isset($_SESSION['_id'])) { //Si l'utilisateur est connecté
                             $req->bindValue(':id', $_GET['id'], PDO::PARAM_STR);
                             $req->execute();
                         } catch (PDOException $ex) {
-                            // Reste sur la page et affiche l'erreur;
-                            $num_error = 1;
-                            echo $ex;
+                            $num_error = 61;
                         }
-
                     } else {
-                        $num_error = 12; //mauvais ancien mot de passe
+                        $num_error = 62; //mauvais ancien mot de passe
                     }
-
                 } else {
-                    $num_error = 3; //aucun compte avec cet id
+                    $num_error = 63; //aucun compte avec cet id
                 }
-            }
-            else
-            {
-                $num_error = 14; //les nouveaux mots de passe ne concordent pas
+            } else {
+                $num_error = 64; //les nouveaux mots de passe ne concordent pas
             }
         } else {
-            $num_error = 4; //Les champs ne sont pas tous renseignés
+            $num_error = 65; //Les champs ne sont pas tous renseignés
         }
     } else {
-        $num_error = 5; //Le compte à modifier n'est pas le compte actuellement utilisé
+        $num_error = 66; //Le compte à modifier n'est pas le compte actuellement utilisé
     }
 } else {
-    $num_error = 6; //L'utilisateur n'est pas ou plus connecté
+    $num_error = 67; //L'utilisateur n'est pas ou plus connecté
 }
 
 if ($num_error == 0) {
-    header('Location: ../user_objects.php?page=1&success=2');
-} elseif ($num_error == 6) {
-    header('Location: ../login.php?error=15');
-} elseif ($num_error == 1) {
-
+    header('Location: ../user_objects.php?page=1&success=60');
+} elseif ($num_error == 67) {
+    header('Location: ../login.php?error=' . $num_error);
 } else {
     header('Location: ../edit_user.php?id=' . $_GET['id'] . '&error=' . $num_error);
 }

@@ -5,7 +5,7 @@
       <paths name="Marco | Finch 4">
         <serverdata>
           <mappings>
-            <mapping deploy="/iut/hp" local="$PROJECT_DIR$" web="iut/hp" />
+            <mapping deploy="/hp" local="$PROJECT_DIR$" web="/hp" />
           </mappings>
         </serverdata>
       </paths>

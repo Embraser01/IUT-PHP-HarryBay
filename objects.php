@@ -72,7 +72,9 @@ if (isset($_GET['success'])) {
 
 ?>
 
-    <h3 class="centrer_texte">Ici sont affichés les objets mis aux enchères.</h3>
+    <div class="titre_page">
+        Enchères
+    </div>
 
     <div class="list_card_wrapper">
 
@@ -101,10 +103,9 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
         $date_stop = strtotime($value->date_stop);
         ?>
 
-        <div class="mdl-card mdl-shadow--4dp list_card object_card">
+        <div class="mdl-card mdl-shadow--4dp list_card object_card" id="objet<?php echo $value->_id ?>">
 
-        <div class="mdl-card__title titre_card"
-             style="background: linear-gradient( rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25) ),url('./images/get_obj_img.php?id=<?php echo $value->_id ?>') center / cover;">
+        <div class="mdl-card__title titre_card" style="background: linear-gradient( rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25) ), url('./images/get_obj_img.php?id=<?php echo $value->_id ?>') center / cover;">
             <h1 class="mdl-card__title-text"><?php echo htmlentities($value->desc); ?></h1>
         </div>
 
@@ -124,7 +125,9 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
             <script>
 
             //Script gérant le conpte à rebours: affichage du temps restant, affichage en rouge si bientot fini, désactivation du form si timer fini
-            $('#clock<?php echo $value->_id?>').countdown('<?php echo strftime("%Y/%m/%d", $date_stop); ?>')
+
+            $(document).ready(function() {
+                $('#clock<?php echo $value->_id?>').countdown('<?php echo strftime("%Y/%m/%d", $date_stop); ?>')
             .on('update.countdown', function(event) {
 
                 if (!$(this).hasClass("red") && event.strftime('%D') < 7) {
@@ -145,6 +148,15 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                 $(this).parent().next().find("#submit_button").attr("disabled", true);
 
             });
+
+            var img<?php echo $value->_id ?> = new Image();
+            img<?php echo $value->_id ?>.onload = function()
+            {
+                $("#objet<?php echo $value->_id ?>").find(".titre_card").animate({opacity: 1});
+            };
+            img<?php echo $value->_id ?>.src = './images/get_obj_img.php?id=<?php echo $value->_id ?>';
+            });
+
 
             /*$(document).ready(function() {
                 $("#annuler<?php //echo $value->_id ?>").on('click', function() {

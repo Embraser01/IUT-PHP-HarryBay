@@ -50,7 +50,13 @@ if (isset($_GET['success'])) {
 }
 ?>
 
-    <h3 class="centrer_texte">Ici sont affichés vos objets (par ordre d'ajout).</h3>
+    <div class="titre_page">
+        Mes objets
+    </div>
+
+    <div class="simple_text">
+        Les objets que vous avez déposés sur le site sont affichés ici, triés par date d'ajout. Vous pouvez voir pour chaque objet s'il est actuellement ouvert aux enchères ou non, et vous pouvez modifier vos objets, y compris ceux qui seront proposés ultérieurement.
+    </div>
 
     <div class="list_card_wrapper">
 

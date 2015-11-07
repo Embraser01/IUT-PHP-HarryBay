@@ -13,6 +13,123 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 O
     include('includes/header.php');
     ?>
 
+    <div class="titre_page">
+        Interface administrateur
+    </div>
+
+    <div class="simple_text">
+        Ahhhhhhhhh
+        <br>        Ya ya yaaaah
+        <br>        Ya ya yaaah
+        <br>        Yaaah ya yah
+        <br>
+        <br>        Ohohohohoooo
+        <br>        Oh ya yaaah
+        <br>        Ya ya yaaah
+        <br>        Yaaah ya yah
+        <br>
+        <br>        Ye-ye-ye-ye-yeh
+        <br>        Ye-ye-yeh
+        <br>        Ye-ye-yeh
+        <br>        Ohohohohoh
+        <br>
+        <br>        Ye-ye-ye-ye-yeh
+        <br>        Ye-ye-yeh
+        <br>        Ye-ye-yeh
+        <br>        Ohohohohooooooooooo
+        <br>        Aaaaoooooh aaaooo
+        <br>        Hooo haha
+        <br>
+        <br>        Nah nah nah nah
+        <br>        Nuh nuh nuh
+        <br>        Nuh nuh nuh
+        <br>        Nuh nuh nuh
+        <br>        Nuh nuh nah!
+        <br>
+        <br>        Nah nah nah nah nun
+        <br>        Nun-ah nun
+        <br>        Nun-ah nuh
+        <br>        Nah nah nah nah nah!
+        <br>
+        <br>        Nah nah nah nah Naaaaaaaaaaaaaaaaaaaaaaaaah!
+        <br>        Dah dah daaaaaaaaaah...
+        <br>        Da-da-dah....
+        <br>        Daaah..
+        <br>        Da-dah...
+        <br>
+        <br>        Lololololoooooooooooooo!
+        <br>
+        <br>        Lah la-laaah
+        <br>        La la laaah
+        <br>        lol
+        <br>        haha
+        <br>
+        <br>        Ohohohoho
+        <br>        ho-ho-ho
+        <br>        ho-ho-ho
+        <br>        oh-ho-ho-ho-ho
+        <br>
+        <br>        Ohohohoho
+        <br>        ho-ho-ho
+        <br>        ho-ho-ho
+        <br>        Lololololooo...
+        <br>
+        <br>        AAIIEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        <br>        eeeee-eeeee-EEEEEEEEE!
+        <br>
+        <br>        Luh-luh-lah...
+        <br>        Lah
+        <br>        Lah-lah
+        <br>
+        <br>        Ohohohohooooooooo!
+        <br>        BOPadududu-dah-da-du-daaaah!
+        <br>        Da-da-daaaah
+        <br>        Daaah
+        <br>        Da-daaah...
+        <br>
+        <br>        Lololololo
+        <br>        lololo
+        <br>        lololol
+        <br>        Lalalalah!
+        <br>
+        <br>        Trololololo
+        <br>        lalala
+        <br>
+        <br>        Oh-hahaha-ho
+        <br>        Haha-hehe-ho
+        <br>        Hohoho-he-ho
+        <br>        Hahahaha-ho
+        <br>
+        <br>        Lolololololo
+        <br>        Lolololololo
+        <br>        Lolololololo
+        <br>        Lololo-LOL!
+        <br>
+        <br>        Aaaaaaaaaaahhhhhhhhhhhhh!
+        <br>        La-la-laaaah!
+        <br>        La la laaaah!
+        <br>        Laaaah
+        <br>        La-lah...
+        <br>
+        <br>        Ohohohohoooooooooo!
+        <br>        La, la-laaah!
+        <br>        La-la-laaah
+        <br>        lol
+        <br>        haha...
+        <br>
+        <br>        Lololololo
+        <br>        Lololo
+        <br>        Lololo
+        <br>
+        <br>        Ohohohoho!
+        <br>
+        <br>        Lololololol
+        <br>        Lololo
+        <br>        Lololo
+        <br>
+        <br>        Ohohohohooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo!
+    </div>
+
     <div class="mdl-card mdl-shadow--16dp centre_card">
         <div class="mdl-card__title">
             <h1 class="mdl-card__title-text">Système d'épuration des objets</h1>

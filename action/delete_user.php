@@ -1,16 +1,15 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: Nicolas POURPRIX
- * Date: 05/11/2015
- * Time: 23:23
+ * Range error : 40 - 49
  */
 
 session_start();
 
+$num_error = 0;
+
 require __DIR__ . '/../lib/class.Database.php';
 
-$num_error = 0;
 
 if (isset($_POST['accepte']) AND $_POST['accepte'] == true AND isset($_POST['pwd'])) { //Si les champs sont renseignés
 
@@ -63,28 +62,28 @@ if (isset($_POST['accepte']) AND $_POST['accepte'] == true AND isset($_POST['pwd
                         session_destroy ();
 
                     } catch (PDOException $ex) {
-                        $num_error = 11; //Problème dans la base de données
+                        $num_error = 41; //Problème dans la base de données
                     }
                 } else {
-                    $num_error = 6; //L'utilisateur a une enchère en cours
+                    $num_error = 42; //L'utilisateur a une enchère en cours
                 }
             } else {
-                $num_error = 2; //Le mot de passe est erroné
+                $num_error = 43; //Le mot de passe est erroné
             }
         } else {
-            $num_error = 16; //L'utilisateur n'est pas ou plus connecté
+            $num_error = 44; //L'utilisateur n'est pas ou plus connecté
         }
     } else {
-        $num_error = 11; //Problème dans la base de données
+        $num_error = 45; //Problème dans la base de données
     }
 } else {
-    $num_error = 4;
+    $num_error = 46;
 }
 
 if ($num_error == 0) {
-    header('Location: ../index.php?success=1');
-} elseif ($num_error == 16) {
-    header('Location: ../login.php?error=16');
+    header('Location: ../index.php?success=40');
+} elseif ($num_error == 44) {
+    header('Location: ../login.php?error=' . $num_error);
 } else {
     header('Location: ../edit_user.php?id=' . $_GET['id'] . '&error=' . $num_error);
 }
