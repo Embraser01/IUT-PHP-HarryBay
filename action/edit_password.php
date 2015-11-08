@@ -20,19 +20,11 @@ if (isset($_SESSION['_id'])) { //Si l'utilisateur est connecté
 
             if ($_POST['newpwd'] == $_POST['newpwdverif']) {
 
-                $getmdp;
-                $req;
-
                 require __DIR__ . '/../lib/class.Database.php';
 
-                try {
-                    $getmdp = $db->prepare('SELECT mdp FROM User WHERE User.`_id` = :id');
-                    $getmdp->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
-                    $getmdp->execute();
-                } catch (PDOException $exmdp) {
-                    $num_error = 1;
-                    echo $exmdp;
-                }
+                $getmdp = $db->prepare('SELECT mdp FROM User WHERE User.`_id` = :id');
+                $getmdp->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
+                $getmdp->execute();
 
                 if ($getmdp->rowCount() >= 1) {
                     $resmdp = $getmdp->fetch(PDO::FETCH_OBJ);
@@ -69,7 +61,7 @@ if (isset($_SESSION['_id'])) { //Si l'utilisateur est connecté
 
 if ($num_error == 0) {
     header('Location: ../user_objects.php?page=1&success=60');
-} elseif ($num_error == 67) {
+} elseif ($num_error == 67 || $num_error == 66) {
     header('Location: ../login.php?error=' . $num_error);
 } else {
     header('Location: ../edit_user.php?id=' . $_GET['id'] . '&error=' . $num_error);

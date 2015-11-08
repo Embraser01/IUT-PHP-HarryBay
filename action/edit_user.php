@@ -22,19 +22,13 @@ if (isset($_SESSION['_id'])) { //Si l'utilisateur est connecté
             AND $_POST['mdp'] != ""
         ) { // Si tous les champs sont renseignés
 
-            $getmdp;
-            $req;
 
             require __DIR__ . '/../lib/class.Database.php';
 
-            try {
                 $getmdp = $db->prepare('SELECT mdp FROM User WHERE User.`_id` = :id');
                 $getmdp->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
                 $getmdp->execute();
-            } catch (PDOException $exmdp) {
-                $num_error = 1;
-                echo $exmdp;
-            }
+
 
             if ($getmdp->rowCount() >= 1) {
                 $resmdp = $getmdp->fetch(PDO::FETCH_OBJ);
@@ -53,11 +47,9 @@ if (isset($_SESSION['_id'])) { //Si l'utilisateur est connecté
                     } catch (PDOException $ex) {
                         $num_error = 71;
                     }
-
                 } else {
                     $num_error = 72; //mauvais mot de passe
                 }
-
             } else {
                 $num_error = 73; //aucun compte avec cet id
             }
@@ -73,7 +65,7 @@ if (isset($_SESSION['_id'])) { //Si l'utilisateur est connecté
 
 if ($num_error == 0) {
     header('Location: ../user_objects.php?page=1&success=70');
-} elseif ($num_error == 76) {
+} elseif ($num_error == 76 || $num_error == 75) {
     header('Location: ../login.php?error=' . $num_error);
 } else {
     header('Location: ../edit_user.php?id=' . $_GET['id'] . '&error=' . $num_error);

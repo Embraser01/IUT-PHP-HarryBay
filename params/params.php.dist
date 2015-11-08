@@ -1,0 +1,10 @@
+<?php
+
+/* Base de données : */
+$host = "localhost";
+$user = "xxxxxxx";
+$password = "xxxxxxxxxx";
+$dbName = "xxxxxxxxx";
+
+/* VOIR SQL_Script_Init.sql pour initialiser la Base de données*/
+?>

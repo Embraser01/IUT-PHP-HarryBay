@@ -77,7 +77,7 @@ if (isset($_POST['accepte']) AND $_POST['accepte'] == true AND isset($_POST['pwd
         $num_error = 45; //Problème dans la base de données
     }
 } else {
-    $num_error = 46;
+    $num_error = 46; // Champs non renseigné
 }
 
 if ($num_error == 0) {

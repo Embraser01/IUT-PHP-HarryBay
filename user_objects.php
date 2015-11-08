@@ -27,27 +27,6 @@ $months = array('01' => "janvier",
 
 include('includes/header.php');
 
-
-//Affichage de l'éventuel message d'erreur
-
-if (isset($_GET['error'])) {
-    echo '<p class="error"><i class="material-icons md-48">error</i><br>Un problème est survenu.</p><hr>';
-}
-
-if (isset($_GET['success'])) {
-    echo '<p class="success"><i class="material-icons">done</i><br/>';
-
-    switch ($_GET['success']) {
-        case 2:
-            echo 'Vos modifications ont bien été prises en compte.</p><hr>';
-            break;
-        case 3:
-            echo 'L\'objet a bien été supprimé.</p><hr>';
-            break;
-        default:
-            echo 'Un message de félicitations devait s\'afficher ici, mais celui ci n\'a pas été configuré, car il n\'a pas été prévu par les développeurs..</p><hr>';
-    }
-}
 ?>
 
     <div class="titre_page">
@@ -74,7 +53,7 @@ if (isset($_GET['success'])) {
 
     // On fait la requete dans la DB Objet pour avoir l'id
 
-    $req = $db->prepare('SELECT Objet.`_id`, Objet.nom AS `desc`, Objet.prix_now, Objet.date_start, Objet.date_stop, Objet.best_user_id, User.prenom, User.nom FROM Objet LEFT JOIN User ON Objet.best_user_id = User._id WHERE Objet.proprio_id =:id ORDER BY Objet.`_id` DESC LIMIT :perPage OFFSET :off');
+    $req = $db->prepare('SELECT Objet.`_id`, Objet.nom AS `desc`, Objet.prix_now, Objet.date_start, Objet.date_stop, Objet.best_user_id, User.prenom, User.nom FROM Objet LEFT JOIN User ON Objet.best_user_id = User._id WHERE Objet.proprio_id =:id AND Objet.is_max = FALSE ORDER BY Objet.`_id` DESC LIMIT :perPage OFFSET :off');
     $req->bindValue(':off', $offset, PDO::PARAM_INT);
     $req->bindValue(':perPage', $objPerPage, PDO::PARAM_INT);
     $req->bindValue(':id', $_SESSION['_id'], PDO::PARAM_INT);
@@ -89,7 +68,7 @@ if (isset($_GET['success'])) {
             $date_start = strtotime($value->date_start);
 ?>
 
-        <div class="mdl-card mdl-shadow--4dp list_card object_card">
+        <div class="mdl-card mdl-shadow--4dp list_card object_card" id="objet<?php echo $value->_id; ?>">
 
             <div class="mdl-card__title titre_card"
                  style="background: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25) ),url('./images/get_obj_img.php?id=<?php echo $value->_id ?>') center / cover;">
@@ -120,14 +99,23 @@ if (isset($_GET['success'])) {
             ?>
             </div>
             <script>
+                $(document).ready( function() {
 
-                $('#clock<?php echo $value->_id?>').countdown('<?php echo strftime("%Y/%m/%d", $date_stop); ?>').on('update.countdown', function(event) {
+                    $('#clock<?php echo $value->_id?>').countdown('<?php echo strftime("%Y/%m/%d", $date_stop); ?>').on('update.countdown', function(event) {
 
                     if (!$(this).hasClass("red") && event.strftime('%D') < 7) {
                         $(this).addClass("red");
                     }
                     $(this).html(event.strftime('%D jours %H:%M:%S restants'));
                     });
+
+                    var img<?php echo $value->_id ?> = new Image();
+                    img<?php echo $value->_id ?>.onload = function()
+                    {
+                        document.getElementById("objet<?php echo $value->_id ?>").getElementsByClassName("titre_card")[0].style.opacity = "1";
+                    };
+                    img<?php echo $value->_id ?>.src = './images/get_obj_img.php?id=<?php echo $value->_id ?>';
+                });
             </script>
 
             <div class="mdl-card__menu">
@@ -154,13 +142,14 @@ if (isset($_GET['success'])) {
 
                 <a href="edit_object.php?id=<?php echo $value->_id ?>"
                    class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
-                   id="objet<?php echo $value->_id; ?>">
+                   id="editobjet<?php echo $value->_id; ?>">
                     <i class="material-icons icone-modifier">edit</i>
                 </a>
-                <span class="mdl-tooltip" for="objet<?php echo $value->_id; ?>" style="margin-right: 50px;">
+                <span class="mdl-tooltip" for="editobjet<?php echo $value->_id; ?>" style="margin-right: 50px;">
                     Modifier
                 </span>
             </div>
+
         </div>
 
         <?php

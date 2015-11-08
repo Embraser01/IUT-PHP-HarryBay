@@ -46,6 +46,81 @@ html, body {
     padding: 0 20px;
 }
 
+.page-selector {
+    text-align: center;
+    margin: 50px auto;
+    padding: 25px;
+    font-size: 1em;
+}
+
+.page-link {
+    /*margin: 10px;*/
+    /*font-size: 1em;*/
+    color: #999;
+}
+
+.no-interaction {
+    cursor: default !important;
+}
+
+.titre_page > img {
+    max-width: 320px;
+    width: 50%;
+}
+
+#description > .mdl-card {
+    margin-right: 64px;
+}
+
+#description {
+    background: url('../images/desc_bg.jpg') center / cover;
+    background-attachment: fixed;
+    padding: 64px;
+    margin-top: 32px;
+}
+
+#meilleure_enchere{
+    padding-top: 64px;
+}
+
+#meilleure_enchere > .more_padding {
+    padding: 0 64px;
+}
+
+#meilleure_enchere > a {
+    padding: 32px 0;
+}
+
+@media screen and (max-width: 600px) {
+
+    #meilleure_enchere {
+        background-attachment: fixed;
+        padding-top: 64px;
+    }
+
+    #meilleure_enchere > .more_padding {
+        padding: 0 64px;
+    }
+
+    #meilleure_enchere > a {
+        padding: 32px 0;
+    }
+
+    #description {
+        background: url('../images/desc_bg.jpg') center / cover;
+        background-attachment: fixed;
+        padding: 64px 0;
+        margin-top: 32px;
+    }
+
+    #description > .mdl-card {
+        margin: 0 auto;
+    }
+
+}
+
+/*===== CARDS =====*/
+
 .film_card {
     max-width: 75%;
     margin: 20px auto 50px;
@@ -74,35 +149,12 @@ html, body {
 
 #delete_user_card > .titre_card {
     min-height: 200px;
-    /*background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/delete_user_bg.png');*/
-    background: #F44336;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/delete_user_bg.png');
     background-size: cover;
 }
 
 #edit_card > .mdl-card__supporting-text, #password_card > .mdl-card__supporting-text, #delete_user_card > .mdl-card__supporting-text {
     display: none;
-}
-
-.page-selector {
-    text-align: center;
-    margin: 50px auto;
-    padding: 25px;
-    font-size: 1em;
-}
-
-.page-link {
-    /*margin: 10px;*/
-    /*font-size: 1em;*/
-    color: #999;
-}
-
-.no-interaction {
-    cursor: default !important;
-}
-
-.titre_page > img {
-    max-width: 320px;
-    width: 50%;
 }
 
 .object_card > .titre_card {
@@ -118,10 +170,13 @@ html, body {
 
 }
 
-#background {
-    position: absolute;
-    margin: auto;
-    overflow: hidden;
+/*.object_card > .mdl-textfield {
+    margin-left: 8px !important;
+    width: 100% !important;
+}*/
+
+.custom_textfield {
+    margin: 0 8px;
 }
 
 /*===== MENU =====*/
@@ -153,8 +208,8 @@ html, body {
 }
 
 .titre_page {
-    width: 100%;
-    max-font-size: 32px;
+    width: 80%;
+    line-height: normal;
     font-size: 3em;
     font-weight: 300;
     padding: 64px 0;
@@ -164,7 +219,7 @@ html, body {
 
 .simple_text {
     max-width: 640px;
-    padding: 32px 32px 64px;
+    padding: 32px 64px;
     /*text-align: center;*/
     margin: 0 auto;
 }
@@ -213,7 +268,7 @@ html, body {
 
 .list_card_wrapper {
     text-align: center;
-    padding: 20px 0;
+    padding: 0 0 20px;
 }
 
 .list_card {

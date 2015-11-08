@@ -21,55 +21,6 @@ $months = array('01' => "Janvier",
 
 include('includes/header.php');
 
-//Affichage de l'éventuel message d'erreur
-
-if (isset($_GET['error'])) {
-    echo '<p class="error"><i class="material-icons md-48">error</i><br/>';
-
-    switch ($_GET['error']) {
-        case 1:
-            echo 'Vous ne pouvez plus enchérir pour le moment.'; break;
-        case 2:
-            echo 'Vous ne pouvez pas proposer une enchère inférieure à l\'enchère actuelle.'; break;
-        case 3:
-            echo 'L\'objet que vous essayez d\'enchérir n\'éxiste pas.'; break;
-        case 4:
-            echo 'Vous devez <a href="login.php">vous connecter</a> pour proposer une enchère.'; break;
-        case 5:
-            echo 'SPARTA?';
-        case 7:
-            echo 'Vous ne pouvez pas modifier cet objet. Veuillez vous connecter avec le compte approprié.'; break;
-        case 12:
-            echo 'Cet objet est affiché sur la page d\'accueil. L\'objet n\'a pas été supprimé.'; break;
-        case 13:
-            echo 'Le mot de passe est erroné. L\'objet n\a pas été supprimé.'; break;
-        default:
-            echo 'Un problème est survenu.';
-    }
-
-    echo '</p><hr>';
-
-}
-
-if (isset($_GET['success'])) {
-    echo '<p class="success"><i class="material-icons">done</i><br/>';
-
-    switch ($_GET['success'])
-    {
-        case 1:
-            echo 'Votre enchère a bien été prise en compte</p><hr>';
-            break;
-        case 2:
-            echo 'Vos modifications ont bien été prises en compte.</p><hr>';
-            break;
-        case 3:
-            echo 'L\'objet a bien été supprimé.</p><hr>';
-            break;
-        default:
-            echo 'Un message de félicitations devait s\'afficher ici, mais celui ci n\'a pas été configuré, car il n\'a pas été prévu par les développeurs.</p><hr>';
-    }
-}
-
 ?>
 
     <div class="titre_page">
@@ -136,7 +87,7 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                 $(this).html(event.strftime('%D jours %H:%M:%S restants'));
 
             })
-            .on('finish.countdown', function(event) {
+            .on('finish.countdown', function() {
 
                 if ($(this).hasClass("red")) {
                     $(this).removeClass("red");
@@ -152,7 +103,8 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
             var img<?php echo $value->_id ?> = new Image();
             img<?php echo $value->_id ?>.onload = function()
             {
-                $("#objet<?php echo $value->_id ?>").find(".titre_card").animate({opacity: 1});
+                //alert(document.getElementById("objet<?php echo $value->_id ?>").getElementsByClassName("titre_card")[0].nodeName);
+                document.getElementById("objet<?php echo $value->_id ?>").getElementsByClassName("titre_card")[0].style.opacity = "1";
             };
             img<?php echo $value->_id ?>.src = './images/get_obj_img.php?id=<?php echo $value->_id ?>';
             });
@@ -185,13 +137,14 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                 ?>
                 <div class="mdl-card__actions mdl-card--border">
                     <form method="POST" action="action/bid.php?id=<?php echo $value->_id; ?>">
+                    <div class="custom_textfield">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" pattern="[0-9]*" width="100px" name="prix"
+                            <input class="mdl-textfield__input" type="text" width="100px" name="prix"
                                    id="prix" pattern="^\d{1,6}((,|\.)\d{1,2})?$"/>
                             <label class="mdl-textfield__label" for="prix">Montant de l'enchère:</label>
                             <span class="mdl-textfield__error">Entrez un montant valide.</span>
                         </div>
-                        <div class="mdl-layout-spacer"></div>
+                        </div>
                         <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" id="submit_button" type="submit">
                             Enchérir
                         </button>
@@ -225,10 +178,10 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                 </div>
                 <div class="mdl-card__menu">
 
-                    <a href="edit_object.php?id=<?php echo $value->_id ?>" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" id="objet<?php echo $value->_id; ?>">
+                    <a href="edit_object.php?id=<?php echo $value->_id ?>" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" id="editobjet<?php echo $value->_id; ?>">
                         <i class="material-icons icone-modifier">edit</i>
                     </a>
-                    <span class="mdl-tooltip" for="objet<?php echo $value->_id; ?>" style="margin-right: 50px;">
+                    <span class="mdl-tooltip" for="editobjet<?php echo $value->_id; ?>" style="margin-right: 50px;">
                         Modifier
                     </span>
                 </div>
@@ -256,23 +209,17 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
 
     $resQuery = $query->fetch();
 
-    $pageCount; //c'est dans le titre, c'est le nombre de pages
-    if ((int)(($resQuery->count)%$objPerPage)==0)
-    {
+    if ((int)(($resQuery->count)%$objPerPage)==0) {
         $pageCount = (int)(($resQuery->count)/$objPerPage);
     }
-    else
-    {
+    else {
         $pageCount = (int)(($resQuery->count)/$objPerPage)+1;
     }
-    //echo $resQuery->count.' objets répartis sur '.$pageCount.' pages.';
 
-    if ($_GET['page'] == 1)
-    {
+    if ($_GET['page'] == 1) {
         echo '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link"><</a>';
     }
-    else
-    {
+    else {
         echo '<a href="objects.php?page='.($_GET['page']-1).'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link"><</a>';
     }
 

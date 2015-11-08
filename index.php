@@ -21,17 +21,6 @@ $months = array('01' => "Janvier",
     '11' => "Novembre",
     '12' => "Décembre");
 
-if (isset($_GET['success'])) {
-    echo '<p class="success"><i class="material-icons md-48">check</i><br/>';
-
-    if ($_GET['success'] == 1)
-    {
-        echo 'Votre compte a bien été supprimé. Au revoir. :(';
-    }
-
-    echo '</p><hr>';
-
-}
 ?>
 
     <div class="titre_page">
@@ -39,12 +28,14 @@ if (isset($_GET['success'])) {
     </div>
 
     <div class="simple_text">
-        Bienvenue sur Harry Bay, le seul site qui a comme nom un jeu de mots plutôt badass. Sur ce site, vous pourrez vendre et acheter des objets ayant servi au tournage des films de la saga Harry Potter. C'est en quelque sorte un eBay pour Harry Potter (d'où le jeu de mots!).
+        Bienvenue sur Harry Bay, le seul site qui a comme nom un jeu de mots plutôt badass. Sur ce site, vous pourrez
+        vendre et acheter des objets ayant servi au tournage des films de la saga Harry Potter. C'est en quelque sorte
+        un eBay pour Harry Potter (d'où le jeu de mots!).
     </div>
 
-<!-- Carte de description de Harry Potter -->
+    <!-- Carte de description de Harry Potter -->
 
-    <section class="section--center mdl-grid film_card">
+    <!--<section class="section--center mdl-grid film_card">
         <header
             class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--red-500 film_desc">
         </header>
@@ -59,13 +50,33 @@ if (isset($_GET['success'])) {
                 brode, etc etc...
             </div>
             <div class="mdl-card__actions mdl-card--border">
-                <a href="http://www.imdb.com/title/tt0241527/" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--accent"><i class="material-icons">local_movies</i> Voir
+                <a href="http://www.imdb.com/title/tt0241527/"
+                   class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--accent"><i
+                        class="material-icons">local_movies</i> Voir
                     sur IMDb</a>
             </div>
         </div>
-    </section>
+    </section>-->
 
-    <h3 class="centrer_texte">Meilleure vente à ce jour:</h3>
+    <div id="description">
+        <div class="mdl-card mdl-shadow--4dp object_card centre_card">
+            <div class="mdl-card__title">
+                <h1 class="mdl-card__title-text">La saga Harry Potter</h1>
+            </div>
+            <div class="mdl-card__supporting-text">
+                Blah blah blah on parle des films, du succès qu'ils ont eu, blah blah, les conventions, blah blah, on
+                leur met <a href="https://soundcloud.com/smiggleton/harry-potter-dubstep-3">un lien dubstep</a> (rule
+                34.8 is life), on leur spoile la fin, même s'il faut pas dire que Dumbledore s'endort à la fin. On
+                brode, etc etc...
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <a href="http://www.imdb.com/title/tt0241527/"
+                   class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--accent"><i
+                        class="material-icons">local_movies</i> Voir
+                    sur IMDb</a>
+            </div>
+        </div>
+    </div>
 
 <?php
 
@@ -77,47 +88,60 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
     $res = $req->fetch(PDO::FETCH_OBJ);
     $date_stop = strtotime($res->date_stop);
     ?>
+    <div id="meilleure_enchere">
 
-    <div class="mdl-card mdl-shadow--4dp object_card centre_card centrer_texte" id="objet<?php echo $res->_id ?>">
+        <div class="more_padding">
 
-        <div class="mdl-card__title titre_card"
-             style="background: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25) ),url('./images/get_obj_img.php?id=<?php echo $res->_id ?>') center / cover;">
-            <h1 class="mdl-card__title-text"><?php echo htmlentities($res->desc); ?></h1>
-        </div>
+            <div class="centrer_texte mdl-typography--title-color-contrast">Meilleure vente à ce jour:</div>
 
-        <div class="mdl-card__supporting-text">
-            Meilleure enchère: <?php echo htmlentities($res->prix_now); ?> € <br/>
-            Par: <?php echo htmlentities($res->prenom) . " " . htmlentities($res->nom); ?><br>
-            Jusqu'au <?php echo strftime("%d ", $date_stop) . $months[strftime("%m", $date_stop)] . strftime(" %G", $date_stop); ?>
-        </div>
+            <div class="mdl-card mdl-shadow--4dp object_card centre_card"
+                 id="objet<?php echo $res->_id ?>">
 
-        <div class="mdl-card__actions mdl-card--border">
-            <form method="POST" action="action/bid.php">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" pattern="[0-9]*" width="100px" name="prix"
-                           id="prix"/>
-                    <label class="mdl-textfield__label" for="prix">Montant de l'enchère:</label>
-                    <span class="mdl-textfield__error">Entrez un montant valide.</span>
+                <div class="mdl-card__title titre_card"
+                     style="background: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25) ),url('./images/get_obj_img.php?id=<?php echo $res->_id ?>') center / cover;">
+                    <h1 class="mdl-card__title-text"><?php echo htmlentities($res->desc); ?></h1>
                 </div>
-                <div class="mdl-layout-spacer"></div>
-                <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
-                    Enchérir
-                </button>
-            </form>
+
+                <div class="mdl-card__supporting-text">
+                    Vendu <?php echo htmlentities($res->prix_now); ?> € <br/>
+                    par <?php echo htmlentities($res->prenom) . " " . htmlentities($res->nom); ?><br>
+                    le <?php echo strftime("%d ", $date_stop) . $months[strftime("%m", $date_stop)] . strftime(" %G", $date_stop); ?>
+                </div>
+
+            </div>
+
         </div>
+
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--accent" href="objects.php" style="width: 100% !important;">
+            Voir les objets en vente
+        </a>
 
     </div>
 
     <script>
-        $(document).ready( function(){
-            var img<?php echo $value->_id ?> = new Image();
-            img<?php echo $value->_id ?>.onload = function()
-            {
-                $("#objet<?php echo $value->_id ?>").find(".titre_card").animate({opacity: 1});
+        $(document).ready(function () {
+            var img<?php echo $res->_id ?> = new Image();
+            img<?php echo $res->_id ?>.onload = function () {
+                document.getElementById("objet<?php echo $res->_id ?>").getElementsByClassName("titre_card")[0].style.opacity = "1";
+                //$("#meilleure_enchere").css({"-webkit-filter: blur(10px); -moz-filter: blur");
+
             };
-            img<?php echo $value->_id ?>.src = './images/get_obj_img.php?id=<?php echo $value->_id ?>';
+            img<?php echo $res->_id ?>.src = './images/get_obj_img.php?id=<?php echo $res->_id ?>';
         });
     </script>
+
+    <?php
+}
+
+if (!isset($_SESSION['mail'])) {
+
+    ?>
+
+    <div class="simple_text centrer_texte">
+        Vous souhaitez aussi vendre ou acheter sur ce site?<br><a class="mdl-button mdl-button--colored"
+                                                                  href="login.php">connectez-vous</a> ou <a
+            class="mdl-button mdl-button--colored" href="signin.php">inscrivez-vous</a>
+    </div>
 
     <?php
 }

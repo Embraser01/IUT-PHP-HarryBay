@@ -4,7 +4,6 @@
  * Range error : 10 - 19
  */
 
-
 session_start();
 
 $num_error = 0;

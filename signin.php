@@ -7,27 +7,6 @@
  */
 
 include('includes/header.php');
-
-
-//Affichage de l'éventuel message d'erreur
-
-if (isset($_GET['error'])) {
-    echo '<p class="error"><i class="material-icons md-48">error</i><br/>';
-
-    switch ($_GET['error']) {
-        case 1:
-            echo 'Cet utilisateur existe déjà.'; break;
-        case 2:
-            echo 'Mauvais mot de passe'; break;
-        case 3:
-            echo 'Vous êtes déjà connecté, <a href="action/logout.php">Se déconnecter</a>.'; break;
-        case 4:
-            echo 'Veuillez renseigner tous les champs.'; break;
-        default:
-            echo 'Un problème est survenu.';
-    }
-    echo '</p><hr>';
-}
 ?>
 
     <div class="mdl-card mdl-shadow--16dp centre_card signin_card">
@@ -86,7 +65,7 @@ if (isset($_GET['error'])) {
 
     </div>
 
-    <p class="centrer_texte">Déjà un compte?<br/>
+    <p class="centrer_texte">Vous avez déjà un compte?<br/>
         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="login.php">
             Se connecter
         </a>

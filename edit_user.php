@@ -15,41 +15,6 @@ if (!isset($_GET['id'])) {
 
 include('includes/header.php');
 
-if (isset($_GET['error'])) {
-    echo '<p class="error"><i class="material-icons md-48">error</i><br/>';
-
-    switch ($_GET['error']) {
-        case 1:
-            echo 'Un problème est survenu dans la base de données';
-            break;
-        case 2:
-            echo 'Le mot de passe est erroné';
-            break;
-        case 3:
-            echo 'Le compte que vous essayez de modifier n\'existe pas.';
-            break;
-        case 4:
-            echo 'Les champs ne sont pas tous renseignés';
-            break;
-        case 5:
-            echo 'Vous ne pouvez modifier que votre propre compte.';
-            break;
-        case 6:
-            echo 'Vous ne pouvez pas supprimer votre compte pour le moment, car il y a un objet dont vous êtes le meilleur enchérisseur.';
-            break;
-        case 12:
-            echo 'Le mot de passe actuel est incorrect.';
-            break;
-        case 14:
-            echo 'Les nouveaux mots de passe ne sont pas identiques.';
-            break;
-        default:
-            echo 'Un problème est survenu.';
-    }
-
-    echo '</p><hr>';
-
-}
 
 
 //On prépare la requète et on l'execute
@@ -196,9 +161,14 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
 
                     <div class="red">
                         Si vous supprimez votre compte, toutes vos données seront effacées du serveur. Vos annonces en
-                        cours et en attente seront supprimées. Si vous avez des enchères en cours, celles-ci seront
-                        annulées. Cependant, si vous étiez le propriétaire de la meilleure vente affichée en page
-                        d'accueil, celle-ci ne sera pas retirée de la base.
+                        cours et en attente seront supprimées. Cependant, si vous êtes actuellement le meilleur
+                        enchérisseur sur un objet, vous ne pourrez pas supprimer votre compte tant que personne n'a
+                        proposé une meilleure enchère. De plus, si vous étiez le propriétaire de la meilleure vente
+                        affichée en page d'accueil, celle-ci ne sera pas retirée de la base.
+                        <br><br>
+                        C'était sympa. Bye bye!
+                        <br><br>
+                        - L'équipe
                     </div>
                     <br>
 

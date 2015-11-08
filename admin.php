@@ -11,123 +11,11 @@ session_start();
 if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 OR $_SESSION['_id'] == 7) {
 
     include('includes/header.php');
+
     ?>
 
     <div class="titre_page">
         Interface administrateur
-    </div>
-
-    <div class="simple_text">
-        Ahhhhhhhhh
-        <br>        Ya ya yaaaah
-        <br>        Ya ya yaaah
-        <br>        Yaaah ya yah
-        <br>
-        <br>        Ohohohohoooo
-        <br>        Oh ya yaaah
-        <br>        Ya ya yaaah
-        <br>        Yaaah ya yah
-        <br>
-        <br>        Ye-ye-ye-ye-yeh
-        <br>        Ye-ye-yeh
-        <br>        Ye-ye-yeh
-        <br>        Ohohohohoh
-        <br>
-        <br>        Ye-ye-ye-ye-yeh
-        <br>        Ye-ye-yeh
-        <br>        Ye-ye-yeh
-        <br>        Ohohohohooooooooooo
-        <br>        Aaaaoooooh aaaooo
-        <br>        Hooo haha
-        <br>
-        <br>        Nah nah nah nah
-        <br>        Nuh nuh nuh
-        <br>        Nuh nuh nuh
-        <br>        Nuh nuh nuh
-        <br>        Nuh nuh nah!
-        <br>
-        <br>        Nah nah nah nah nun
-        <br>        Nun-ah nun
-        <br>        Nun-ah nuh
-        <br>        Nah nah nah nah nah!
-        <br>
-        <br>        Nah nah nah nah Naaaaaaaaaaaaaaaaaaaaaaaaah!
-        <br>        Dah dah daaaaaaaaaah...
-        <br>        Da-da-dah....
-        <br>        Daaah..
-        <br>        Da-dah...
-        <br>
-        <br>        Lololololoooooooooooooo!
-        <br>
-        <br>        Lah la-laaah
-        <br>        La la laaah
-        <br>        lol
-        <br>        haha
-        <br>
-        <br>        Ohohohoho
-        <br>        ho-ho-ho
-        <br>        ho-ho-ho
-        <br>        oh-ho-ho-ho-ho
-        <br>
-        <br>        Ohohohoho
-        <br>        ho-ho-ho
-        <br>        ho-ho-ho
-        <br>        Lololololooo...
-        <br>
-        <br>        AAIIEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-        <br>        eeeee-eeeee-EEEEEEEEE!
-        <br>
-        <br>        Luh-luh-lah...
-        <br>        Lah
-        <br>        Lah-lah
-        <br>
-        <br>        Ohohohohooooooooo!
-        <br>        BOPadududu-dah-da-du-daaaah!
-        <br>        Da-da-daaaah
-        <br>        Daaah
-        <br>        Da-daaah...
-        <br>
-        <br>        Lololololo
-        <br>        lololo
-        <br>        lololol
-        <br>        Lalalalah!
-        <br>
-        <br>        Trololololo
-        <br>        lalala
-        <br>
-        <br>        Oh-hahaha-ho
-        <br>        Haha-hehe-ho
-        <br>        Hohoho-he-ho
-        <br>        Hahahaha-ho
-        <br>
-        <br>        Lolololololo
-        <br>        Lolololololo
-        <br>        Lolololololo
-        <br>        Lololo-LOL!
-        <br>
-        <br>        Aaaaaaaaaaahhhhhhhhhhhhh!
-        <br>        La-la-laaaah!
-        <br>        La la laaaah!
-        <br>        Laaaah
-        <br>        La-lah...
-        <br>
-        <br>        Ohohohohoooooooooo!
-        <br>        La, la-laaah!
-        <br>        La-la-laaah
-        <br>        lol
-        <br>        haha...
-        <br>
-        <br>        Lololololo
-        <br>        Lololo
-        <br>        Lololo
-        <br>
-        <br>        Ohohohoho!
-        <br>
-        <br>        Lololololol
-        <br>        Lololo
-        <br>        Lololo
-        <br>
-        <br>        Ohohohohooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo!
     </div>
 
     <div class="mdl-card mdl-shadow--16dp centre_card">
@@ -141,7 +29,7 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 O
         </div>
         <div class="mdl-card__actions mdl-card--border">
             <a href="action/clear.php" class="mdl-button mdl-js-button mdl-js-ripple-effect"><i class="material-icons">clear_all</i>
-                Epurer la Base de Données</a>
+                Épurer la Base de Données</a>
         </div>
     </div>
 
@@ -197,7 +85,7 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 O
     if ($req->rowCount() != 0) {
         ?>
 
-<!--        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp centre_card">-->
+        <!--        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp centre_card">-->
         <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp centre_card">
             <thead>
             <tr>
@@ -206,7 +94,7 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 O
                        href="<?php if (isset($_GET['desc']) AND $_GET['uorder'] == 1) echo 'admin.php?uorder=1'; else echo 'admin.php?uorder=1&desc' ?>">Nom
                     </a>
                     <?php if ($_GET['uorder'] == 1) {
-                        if(isset($_GET['desc'])){
+                        if (isset($_GET['desc'])) {
                             echo '<i class="material-icons">arrow_drop_down</i>';
                         } else {
                             echo '<i class="material-icons">arrow_drop_up</i>';
@@ -218,7 +106,7 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 O
                        href="<?php if (isset($_GET['desc']) AND $_GET['uorder'] == 2) echo 'admin.php?uorder=2'; else echo 'admin.php?uorder=2&desc' ?>">Vendeur
                     </a>
                     <?php if ($_GET['uorder'] == 2) {
-                        if(isset($_GET['desc'])){
+                        if (isset($_GET['desc'])) {
                             echo '<i class="material-icons">arrow_drop_down</i>';
                         } else {
                             echo '<i class="material-icons">arrow_drop_up</i>';
@@ -231,7 +119,7 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 O
                         de base
                     </a>
                     <?php if ($_GET['uorder'] == 3) {
-                        if(isset($_GET['desc'])){
+                        if (isset($_GET['desc'])) {
                             echo '<i class="material-icons">arrow_drop_down</i>';
                         } else {
                             echo '<i class="material-icons">arrow_drop_up</i>';
@@ -244,7 +132,7 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 O
                         enchère
                     </a>
                     <?php if ($_GET['uorder'] == 4) {
-                        if(isset($_GET['desc'])){
+                        if (isset($_GET['desc'])) {
                             echo '<i class="material-icons">arrow_drop_down</i>';
                         } else {
                             echo '<i class="material-icons">arrow_drop_up</i>';
@@ -257,7 +145,7 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 O
                         acheteur
                     </a>
                     <?php if ($_GET['uorder'] == 5) {
-                        if(isset($_GET['desc'])){
+                        if (isset($_GET['desc'])) {
                             echo '<i class="material-icons">arrow_drop_down</i>';
                         } else {
                             echo '<i class="material-icons">arrow_drop_up</i>';
@@ -270,7 +158,7 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 O
                         de début
                     </a>
                     <?php if ($_GET['uorder'] == 6) {
-                        if(isset($_GET['desc'])){
+                        if (isset($_GET['desc'])) {
                             echo '<i class="material-icons">arrow_drop_down</i>';
                         } else {
                             echo '<i class="material-icons">arrow_drop_up</i>';
@@ -283,7 +171,7 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 O
                         de fin
                     </a>
                     <?php if ($_GET['uorder'] == 7) {
-                        if(isset($_GET['desc'])){
+                        if (isset($_GET['desc'])) {
                             echo '<i class="material-icons">arrow_drop_down</i>';
                         } else {
                             echo '<i class="material-icons">arrow_drop_up</i>';
@@ -315,7 +203,8 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 O
                         ?>
                         <td class="mdl-data-table__cell--non-numeric"><a
                                 class="link-no-style"
-                                href="#user_id_<?php echo $row->best_user_id; ?>"><?php echo $row->best_user_id; ?> - ICI</a>
+                                href="#user_id_<?php echo $row->best_user_id; ?>"><?php echo $row->best_user_id; ?> -
+                                ICI</a>
                         </td>
                     <?php }
                     ?>
@@ -381,7 +270,7 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 O
                        href="<?php if (isset($_GET['desc']) AND $_GET['order'] == 1) echo 'admin.php?order=1'; else echo 'admin.php?order=1&desc' ?>">Nom
                     </a>
                     <?php if ($_GET['order'] == 1) {
-                        if(isset($_GET['desc'])){
+                        if (isset($_GET['desc'])) {
                             echo '<i class="material-icons">arrow_drop_down</i>';
                         } else {
                             echo '<i class="material-icons">arrow_drop_up</i>';
@@ -393,7 +282,7 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 O
                        href="<?php if (isset($_GET['desc']) AND $_GET['order'] == 2) echo 'admin.php?order=2'; else echo 'admin.php?order=2&desc' ?>">Prénom
                     </a>
                     <?php if ($_GET['order'] == 2) {
-                        if(isset($_GET['desc'])){
+                        if (isset($_GET['desc'])) {
                             echo '<i class="material-icons">arrow_drop_down</i>';
                         } else {
                             echo '<i class="material-icons">arrow_drop_up</i>';
@@ -405,7 +294,7 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 O
                        href="<?php if (isset($_GET['desc']) AND $_GET['order'] == 3) echo 'admin.php?order=3'; else echo 'admin.php?order=3&desc' ?>">Mail
                     </a>
                     <?php if ($_GET['order'] == 3) {
-                        if(isset($_GET['desc'])){
+                        if (isset($_GET['desc'])) {
                             echo '<i class="material-icons">arrow_drop_down</i>';
                         } else {
                             echo '<i class="material-icons">arrow_drop_up</i>';

@@ -62,14 +62,11 @@ if (isset($_SESSION['mail'])) { //si connecté
 
 
             } catch (PDOException $ex) {
-                // Reste sur la page et affiche l'erreur;
                 $num_error = 01;
-                echo $ex;
             }
         } else {
             $num_error = 02;
         }
-
     } else {
         $num_error = 03;
     }
@@ -79,8 +76,6 @@ if (isset($_SESSION['mail'])) { //si connecté
 
 if ($num_error == 0) {
     header('Location: ../objects.php?page=1&success=00');
-} elseif ($num_error == 01) {
-
 } else {
     header('Location: ../add_object.php?page=1&error=' . $num_error);
 }

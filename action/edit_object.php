@@ -30,8 +30,6 @@ if (isset($_SESSION['mail'])) {
 
                 try {
 
-                    $req;
-
                     if ($_GET['price_changed'] == 0) {   //si le prix n'a changé (pas d'enchère), la requète modifiera le prix actuel pour le mettre au même niveau que le prix minimum
                         $req = $db->prepare('UPDATE Objet SET nom = :nom, date_start= :date_start, date_stop = :date_stop, prix_min = :prix_min, prix_now = :prix_min WHERE Objet.`_id` = :id');
                         $req->bindValue(':prix_min', $_POST['prix_min'], PDO::PARAM_STR);
