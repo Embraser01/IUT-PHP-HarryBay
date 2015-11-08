@@ -4,5 +4,6 @@
 out
 gen
 
+/.idea
 # DB Params
 params/params.php
