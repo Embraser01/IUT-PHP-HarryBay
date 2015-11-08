@@ -1,20 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Nicolas POURPRIX
- * Date: 03/11/2015
- * Time: 13:23
- */
 
 session_start();
 
 if (!isset($_GET['id'])) {
-    header('Location: index.php');
+    header('Location: index.php?error=-1');
+    exit;
+}
+
+if (!isset($_SESSION['mail'])) {
+    header('Location: login.php?error=76');
     exit;
 }
 
 include('includes/header.php');
-
 
 
 //On prépare la requète et on l'execute
@@ -31,7 +29,7 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
      * Si c'est pas identique, ou si la personne n'est pas connectée, l'envoyer balader.
      */
 
-    if ((isset($_SESSION['_id'])) && ($res->_id == $_SESSION['_id'])) {
+    if ($res->_id == $_SESSION['_id']) {
         ?>
 
         <div class="titre_page">
@@ -203,9 +201,12 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
 
         <?php
     } else {
-        header('Location: objects.php?error=7');    //pas connecté
+        header('Location: objects.php?error=73');
         exit;
     }
+} else {
+    header('Location: objects.php?error=73');
+    exit;
 }
 
 ?>

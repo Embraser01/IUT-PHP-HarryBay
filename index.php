@@ -112,7 +112,8 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
 
         </div>
 
-        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--accent" href="objects.php" style="width: 100% !important;">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--accent" href="objects.php"
+           style="width: 100% !important;">
             Voir les objets en vente
         </a>
 
@@ -137,10 +138,12 @@ if (!isset($_SESSION['mail'])) {
 
     ?>
 
-    <div class="simple_text centrer_texte">
-        Vous souhaitez aussi vendre ou acheter sur ce site?<br><a class="mdl-button mdl-button--colored"
-                                                                  href="login.php">connectez-vous</a> ou <a
-            class="mdl-button mdl-button--colored" href="signin.php">inscrivez-vous</a>
+    <div class="invitation">
+        <div class="simple_text centrer_texte white">
+            Vous souhaitez faire comme tous ces gens sur l'image de fond?<br><a class="mdl-button mdl-button--colored mdl-color-text--accent"
+                                                                      href="login.php">connectez-vous</a> ou <a
+                class="mdl-button mdl-button--colored mdl-color-text--accent" href="signin.php">inscrivez-vous</a>
+        </div>
     </div>
 
     <?php

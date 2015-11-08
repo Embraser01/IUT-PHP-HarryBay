@@ -119,6 +119,13 @@ html, body {
 
 }
 
+.invitation {
+    background: url('../images/chemin_de_traverse.jpg') center / cover;
+    background-attachment: fixed;
+    width: 100%;
+    padding: 128px 0;
+}
+
 /*===== CARDS =====*/
 
 .film_card {
@@ -201,6 +208,10 @@ html, body {
 
 .red {
     color: #F44336;
+}
+
+.white {
+    color: #fff;
 }
 
 .mdl-button > .mdl-card__title-text {

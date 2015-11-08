@@ -40,33 +40,30 @@ include('includes/header.php');
     <div class="list_card_wrapper">
 
 <?php
-    $objPerPage = 10; //nombre d'objets par page
+$objPerPage = 10; //nombre d'objets par page
 
-    if (!isset($_GET['page'])){
-        $_GET['page'] = 1;
-    }
-    elseif ($_GET['page'] < 1){
-        $_GET['page'] = 1;
-    }
+$_GET['page'] = (isset($_GET['page'])) ? abs($_GET['page']) : 1;
 
-    $offset = ($_GET["page"] - 1) * $objPerPage;
+$offset = ($_GET["page"] - 1) * $objPerPage;
 
-    // On fait la requete dans la DB Objet pour avoir l'id
 
-    $req = $db->prepare('SELECT Objet.`_id`, Objet.nom AS `desc`, Objet.prix_now, Objet.date_start, Objet.date_stop, Objet.best_user_id, User.prenom, User.nom FROM Objet LEFT JOIN User ON Objet.best_user_id = User._id WHERE Objet.proprio_id =:id AND Objet.is_max = FALSE ORDER BY Objet.`_id` DESC LIMIT :perPage OFFSET :off');
-    $req->bindValue(':off', $offset, PDO::PARAM_INT);
-    $req->bindValue(':perPage', $objPerPage, PDO::PARAM_INT);
-    $req->bindValue(':id', $_SESSION['_id'], PDO::PARAM_INT);
-    $req->execute();
+// On fait la requete dans la DB Objet pour avoir l'id
 
-    if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
+$req = $db->prepare('SELECT Objet.`_id`, Objet.nom AS `desc`, Objet.prix_now, Objet.date_start, Objet.date_stop, Objet.best_user_id, User.prenom, User.nom FROM Objet LEFT JOIN User ON Objet.best_user_id = User._id WHERE Objet.proprio_id =:id AND Objet.is_max = FALSE ORDER BY Objet.`_id` DESC LIMIT :perPage OFFSET :off');
+$req->bindValue(':off', $offset, PDO::PARAM_INT);
+$req->bindValue(':perPage', $objPerPage, PDO::PARAM_INT);
+$req->bindValue(':id', $_SESSION['_id'], PDO::PARAM_INT);
+$req->execute();
 
-        $res = $req->fetchAll();
 
-        foreach ($res as $key => $value) {
-            $date_stop = strtotime($value->date_stop);
-            $date_start = strtotime($value->date_start);
-?>
+if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
+
+    $res = $req->fetchAll();
+
+    foreach ($res as $key => $value) {
+        $date_stop = strtotime($value->date_stop);
+        $date_start = strtotime($value->date_start);
+        ?>
 
         <div class="mdl-card mdl-shadow--4dp list_card object_card" id="objet<?php echo $value->_id; ?>">
 
@@ -152,7 +149,7 @@ include('includes/header.php');
 
         </div>
 
-        <?php
+    <?php
     }
 }
 
@@ -161,40 +158,30 @@ echo '<div class="page-selector">';
 
 //Sélecteur de page
 
-$req = $db->prepare('SELECT COUNT(_id) AS `count` FROM Objet WHERE proprio_id=:user_id');
-$req->bindParam(':user_id', $_SESSION['_id'], PDO::PARAM_INT);
-$req->execute();
-$row_count = $req->fetch()->count;
+$query = $db->prepare('SELECT COUNT(_id) AS `count` FROM Objet WHERE proprio_id=:user_id');
+$query->bindParam(':user_id', $_SESSION['_id'], PDO::PARAM_INT);
+$query->execute();
+
+$resQuery = $query->fetch();
+
+$pageCount = (int)(($resQuery->count)/$objPerPage);
+
+if ((int)(($resQuery->count)%$objPerPage)!= 0) $pageCount += 1;
+
+echo ($_GET['page'] == 1) ? '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link"><</a>'
+    : '<a href="user_objects.php?page='.($_GET['page']-1).'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link"><</a>';
 
 
-if ($row_count % $objPerPage == 0) {
-    $page_count = (int)(($row_count) / $objPerPage);
-} else {
-    $page_count = (int)(($row_count) / $objPerPage) + 1;
-}
-
-
-if ($_GET['page'] == 1) {
-    echo '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link"><</a>';
-} else {
-    echo '<a href="user_objects.php?page=' . ($_GET['page'] - 1) . '" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link"><</a>';
-}
-
-for ($i = $_GET['page'] - 2; $i < $_GET['page'] + 3; $i++) {
-    if (($i > 0) && ($i < $page_count + 1)) {
-        if ($i == $_GET['page']) {
-            echo '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link"><b>' . $i . '</b></a>';
-        } else {
-            echo '<a href="user_objects.php?page=' . $i . '" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">   ' . $i . '   </a>';
-        }
+for ($i = $_GET['page']-2; $i < $_GET['page']+3; $i++) {
+    if (($i > 0) && ($i < $pageCount+1)) {
+        echo ($i == $_GET['page']) ? '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link"><b>'.$i.'</b></a>'
+            : '<a href="user_objects.php?page='.$i.'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">   '.$i.'   </a>';
     }
 }
 
-if ($_GET['page'] == $page_count) {
-    echo '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link">></a>';
-} else {
-    echo '<a href="user_objects.php?page=' . ($_GET['page'] + 1) . '" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">></a>';
-}
+echo ($_GET['page'] == $pageCount) ? '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link">></a>'
+    : '<a href="user_objects.php?page='.($_GET['page']+1).'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">></a>';
+
 
 echo '</div>';
 

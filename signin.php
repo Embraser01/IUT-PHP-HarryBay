@@ -71,7 +71,6 @@ include('includes/header.php');
         </a>
     </p>
 
-
 <?php
 include('includes/footer.php');
 ?>

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marc-Antoine
- * Date: 06/10/2015
- * Time: 14:03
- */
 
 $months = array('01' => "Janvier",
     '02' => "Février",
@@ -33,8 +27,8 @@ include('includes/header.php');
 
 $objPerPage = 10; //nombre d'objets par page
 
-if (!isset($_GET['page']))
-    $_GET['page'] = 1;
+$_GET['page'] = (isset($_GET['page'])) ? abs($_GET['page']) : 1;
+
 
 $offset = ($_GET["page"] - 1) * $objPerPage;
 
@@ -56,80 +50,75 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
 
         <div class="mdl-card mdl-shadow--4dp list_card object_card" id="objet<?php echo $value->_id ?>">
 
-        <div class="mdl-card__title titre_card" style="background: linear-gradient( rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25) ), url('./images/get_obj_img.php?id=<?php echo $value->_id ?>') center / cover;">
-            <h1 class="mdl-card__title-text"><?php echo htmlentities($value->desc); ?></h1>
-        </div>
-
-        <div class="mdl-card__supporting-text">
-            <?php
-                if(is_null($value->best_user_id)){
-                    echo 'Prix de départ: ' . htmlentities($value->prix_now) . ' € <br>';
-                    echo 'Aucune enchère n\'a été proposée <br>';
-                } else {
-                    echo 'Meilleure enchère: ' . htmlentities($value->prix_now) . ' € <br>';
-                    echo 'Par: ' . htmlentities($value->prenom) . " " . htmlentities($value->nom) . '<br>';
-                }
-                echo 'Jusqu\'au '.strftime("%d ", $date_stop) . $months[strftime("%m", $date_stop)] . strftime(" %G", $date_stop).'<br>';
-                echo '<span id="clock'.$value->_id.'"></span>';
-            ?>
-
-            <script>
-
-            //Script gérant le conpte à rebours: affichage du temps restant, affichage en rouge si bientot fini, désactivation du form si timer fini
-
-            $(document).ready(function() {
-                $('#clock<?php echo $value->_id?>').countdown('<?php echo strftime("%Y/%m/%d", $date_stop); ?>')
-            .on('update.countdown', function(event) {
-
-                if (!$(this).hasClass("red") && event.strftime('%D') < 7) {
-                    $(this).addClass("red");
-                }
-                $(this).html(event.strftime('%D jours %H:%M:%S restants'));
-
-            })
-            .on('finish.countdown', function() {
-
-                if ($(this).hasClass("red")) {
-                    $(this).removeClass("red");
-                }
-                $(this).html('L\'enchère est terminée.');
-                $(this).parent().next().find("#prix").val('');
-                $(this).parent().next().find("#prix").parent().find("label").html('Objet indisponible...');
-                $(this).parent().next().find("#prix").attr("disabled", true);
-                $(this).parent().next().find("#submit_button").attr("disabled", true);
-
-            });
-
-            var img<?php echo $value->_id ?> = new Image();
-            img<?php echo $value->_id ?>.onload = function()
-            {
-                //alert(document.getElementById("objet<?php echo $value->_id ?>").getElementsByClassName("titre_card")[0].nodeName);
-                document.getElementById("objet<?php echo $value->_id ?>").getElementsByClassName("titre_card")[0].style.opacity = "1";
-            };
-            img<?php echo $value->_id ?>.src = './images/get_obj_img.php?id=<?php echo $value->_id ?>';
-            });
-
-
-            /*$(document).ready(function() {
-                $("#annuler<?php //echo $value->_id ?>").on('click', function() {
-                $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").val('');
-                $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").parent().find("label").html('Enchère désactivée...');
-                $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").attr("disabled", true);
-                $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#submit_button").attr("disabled", true);
-            });
-            });*/
-
-
-            </script>
-
-<!--
-            <br><div class="mdl-button mdl-js-button" id="annuler<?php echo $value->_id ?>">
-                Désactiver enchère
+            <div class="mdl-card__title titre_card" style="background: linear-gradient( rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25) ), url('./images/get_obj_img.php?id=<?php echo $value->_id ?>') center / cover;">
+                <h1 class="mdl-card__title-text"><?php echo htmlentities($value->desc); ?></h1>
             </div>
--->
 
+            <div class="mdl-card__supporting-text">
+                <?php
+                    if(is_null($value->best_user_id)){
+                        echo 'Prix de départ: ' . htmlentities($value->prix_now) . ' € <br>';
+                        echo 'Aucune enchère n\'a été proposée <br>';
+                    } else {
+                        echo 'Meilleure enchère: ' . htmlentities($value->prix_now) . ' € <br>';
+                        echo 'Par: ' . htmlentities($value->prenom) . " " . htmlentities($value->nom) . '<br>';
+                    }
+                    echo 'Jusqu\'au '.strftime("%d ", $date_stop) . $months[strftime("%m", $date_stop)] . strftime(" %G", $date_stop).'<br>';
+                    echo '<span id="clock'.$value->_id.'"></span>';
+                ?>
 
-        </div>
+                <script>
+
+                //Script gérant le conpte à rebours: affichage du temps restant, affichage en rouge si bientot fini, désactivation du form si timer fini
+
+                $(document).ready(function() {
+                    $('#clock<?php echo $value->_id?>').countdown('<?php echo strftime("%Y/%m/%d", $date_stop); ?>')
+                .on('update.countdown', function(event) {
+
+                    if (!$(this).hasClass("red") && event.strftime('%D') < 7) {
+                        $(this).addClass("red");
+                    }
+                    $(this).html(event.strftime('%D jours %H:%M:%S restants'));
+
+                })
+                .on('finish.countdown', function() {
+
+                    if ($(this).hasClass("red")) {
+                        $(this).removeClass("red");
+                    }
+                    $(this).html('L\'enchère est terminée.');
+                    $(this).parent().next().find("#prix").val('');
+                    $(this).parent().next().find("#prix").parent().find("label").html('Objet indisponible...');
+                    $(this).parent().next().find("#prix").attr("disabled", true);
+                    $(this).parent().next().find("#submit_button").attr("disabled", true);
+
+                });
+
+                var img<?php echo $value->_id ?> = new Image();
+                img<?php echo $value->_id ?>.onload = function()
+                {
+                    //alert(document.getElementById("objet<?php echo $value->_id ?>").getElementsByClassName("titre_card")[0].nodeName);
+                    document.getElementById("objet<?php echo $value->_id ?>").getElementsByClassName("titre_card")[0].style.opacity = "1";
+                };
+                img<?php echo $value->_id ?>.src = './images/get_obj_img.php?id=<?php echo $value->_id ?>';
+                });
+
+                /*$(document).ready(function() {
+                    $("#annuler<?php //echo $value->_id ?>").on('click', function() {
+                    $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").val('');
+                    $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").parent().find("label").html('Enchère désactivée...');
+                    $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").attr("disabled", true);
+                    $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#submit_button").attr("disabled", true);
+                });
+                });*/
+                </script>
+
+    <!--
+                <br><div class="mdl-button mdl-js-button" id="annuler<?php echo $value->_id ?>">
+                    Désactiver enchère
+                </div>
+    -->
+            </div>
 
         <?php
         if (isset($_SESSION['_id'])) {
@@ -155,9 +144,6 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                         <i class="material-icons icone-modifier">thumb_down</i>
                     </div>
                 </div>-->
-
-                </div>
-
                 <?php
             } else {
                 ?>
@@ -185,20 +171,12 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                         Modifier
                     </span>
                 </div>
-
-
-
-                </div>
                 <?php
             }
-        } else {
-            ?>
-
-                </div>
-
-            <?php
-        }
-    }
+        } ?>
+        </div>
+    <?php
+    } // Fin foreach
 
     echo '</div>';
     echo '<div class="page-selector">';
@@ -209,41 +187,27 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
 
     $resQuery = $query->fetch();
 
-    if ((int)(($resQuery->count)%$objPerPage)==0) {
-        $pageCount = (int)(($resQuery->count)/$objPerPage);
-    }
-    else {
-        $pageCount = (int)(($resQuery->count)/$objPerPage)+1;
-    }
+    $pageCount = (int)(($resQuery->count)/$objPerPage);
 
-    if ($_GET['page'] == 1) {
-        echo '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link"><</a>';
-    }
-    else {
-        echo '<a href="objects.php?page='.($_GET['page']-1).'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link"><</a>';
-    }
+    if ((int)(($resQuery->count)%$objPerPage)!= 0) $pageCount += 1;
+
+    echo ($_GET['page'] == 1) ? '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link"><</a>'
+        : '<a href="objects.php?page='.($_GET['page']-1).'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link"><</a>';
+
 
     for ($i = $_GET['page']-2; $i < $_GET['page']+3; $i++) {
         if (($i > 0) && ($i < $pageCount+1)) {
-            if ($i == $_GET['page']) {
-                echo '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link"><b>'.$i.'</b></a>';
-            }
-            else {
-                echo '<a href="objects.php?page='.$i.'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">   '.$i.'   </a>';
-            }
+            echo ($i == $_GET['page']) ? '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link"><b>'.$i.'</b></a>'
+                : '<a href="objects.php?page='.$i.'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">   '.$i.'   </a>';
         }
     }
 
-    if ($_GET['page'] == $pageCount) {
-        echo '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link">></a>';
-    }
-    else {
-        echo '<a href="objects.php?page='.($_GET['page']+1).'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">></a>';
-    }
+    echo ($_GET['page'] == $pageCount) ? '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link">></a>'
+        : '<a href="objects.php?page='.($_GET['page']+1).'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">></a>';
+
 
     echo '</div>';
 }
-
 include('includes/footer.php');
 
 ?>

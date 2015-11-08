@@ -1,197 +1,173 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nicolai
- * Date: 29/10/2015
- * Time: 18:56
- */
+session_start();
 
-if (isset($_GET['id'])) {
+if (!isset($_GET['id'])) {
+    header('Location: index.php');
+    exit;
+}
 
-    include('includes/header.php');
+if (!isset($_SESSION['mail'])) {
+    header('Location: objects.php?error=54');
+    exit;
+}
 
 
-//require __DIR__ . '/lib/class.Database.php';
+include('includes/header.php');
+
 
 //On prépare la requète et on l'execute
-    $req = $db->prepare('SELECT Objet.`_id`, Objet.nom AS `desc`, Objet.prix_min, Objet.prix_now, Objet.date_start, Objet.date_stop, Objet.proprio_id,Objet.best_user_id, User._id AS `userid` FROM Objet JOIN User ON Objet.proprio_id = User._id WHERE Objet.`_id` = :id');
-    $req->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
-    $req->execute();
-
-    if ($req->rowCount() == 1) {
-
-        //fetch la ligne
-        $res = $req->fetch(PDO::FETCH_OBJ);
+$req = $db->prepare('SELECT Objet.`_id`, Objet.nom AS `desc`, Objet.prix_min, Objet.prix_now, Objet.date_start, Objet.date_stop, Objet.proprio_id,Objet.best_user_id, User._id AS `userid` FROM Objet JOIN User ON Objet.proprio_id = User._id WHERE Objet.`_id` = :id');
+$req->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
+$req->execute();
 
 
-        if ($res->date_start <= date("Y-m-d")) {
-            $online = 1;
-        } else {
-            $online = 0;
-        }
+if ($req->rowCount() == 1) {
 
-        if ($res->best_user_id != PDO::PARAM_NULL) {
-            $price_changed = 1;
-        } else {
-            $price_changed = 0;
-        }
+    //fetch la ligne
+    $res = $req->fetch(PDO::FETCH_OBJ);
 
-        /**
-         * On vérifie si l'id du propriétaire est le même que celui de la personna actuellement connectée.
-         * Si c'est pas identique, ou si la personne n'est pas connectée, l'envoyer balader.
-         */
+    $online = ($res->date_start <= date("Y-m-d")) ? 1 : 0;
+    $price_changed = ($res->best_user_id != PDO::PARAM_NULL) ? 1 : 0;
 
-        if ((isset($_SESSION['_id'])) && ($res->userid == $_SESSION['_id'])) {
-            ?>
 
-            <div class="mdl-card mdl-shadow--16dp centre_card edit_card">
+    /**
+     * On vérifie si l'id du propriétaire est le même que celui de la personna actuellement connectée.
+     * Si c'est pas identique, l'envoyer balader.
+     */
 
-                <div class="mdl-card__title titre_card"
-                     style="background: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25) ),url('./images/get_obj_img.php?id=<?php echo $_GET['id'] ?>') center / cover;">
-                    <h1 class="mdl-card__title-text">Modifier un objet</h1>
-                </div>
+    if ($res->userid == $_SESSION['_id']) {
+        ?>
 
-                <div class="mdl-card__supporting-text">
+        <div class="mdl-card mdl-shadow--16dp centre_card edit_card">
 
-                    <form enctype="multipart/form-data" method="POST"
-                          action="action/edit_object.php?id=<?php echo $_GET['id'] . "&online=" . $online . "&price_changed=" . $price_changed ?>">
+            <div class="mdl-card__title titre_card"
+                 style="background: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25) ),url('./images/get_obj_img.php?id=<?php echo $_GET['id'] ?>') center / cover;">
+                <h1 class="mdl-card__title-text">Modifier un objet</h1>
+            </div>
 
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="nom" id="nom"
-                                   value="<?php echo $res->desc ?>" pattern="?+$"/>
-                            <label class="mdl-textfield__label" for="nom">Nom</label>
-                        </div>
+            <div class="mdl-card__supporting-text">
 
-                        <!--<div id="photo-form-file-group">
-                            File label
-                            <div class="mdl-textfield mdl-js-textfield">
-                                <input id="photo-label-input" class="mdl-textfield__input" disabled/>
-                                <label class="mdl-textfield__label" for="photo-label-input" id="photo-label">Vous ne pouvez pas changer de photo.</label>
-                            </div>
+                <form enctype="multipart/form-data" method="POST"
+                      action="action/edit_object.php?id=<?php echo $_GET['id'] . "&online=" . $online . "&price_changed=" . $price_changed ?>">
 
-                            Upload button
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" name="nom" id="nom"
+                               value="<?php echo $res->desc ?>" pattern="?+$"/>
+                        <label class="mdl-textfield__label" for="nom">Nom</label>
+                    </div>
 
-                            <div class="mdl-button mdl-js-button mdl-button--raised fileUpload">
-                                <span>Choisir le fichier</span>
-                                <input type="file" name="img" id="img" class="upload" required/>
-                            </div>
-                        </div>-->
 
-                        <?php
+                    <?php
 
-                        if ($res->best_user_id == PDO::PARAM_NULL) {
-                            //Affichage du prix minimum si aucune enchère n'a été faite.
-                            ?>
-
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="number" name="prix_min" id="prix_min"
-                                       value="<?php echo $res->prix_min ?>" pattern="^\d{1,6}((,|\.)\d{1,2})?$"
-                                       required/>
-                                <label class="mdl-textfield__label" for="prix_min">Prix minimum</label>
-                            </div>
-
-                            <?php
-
-                        } else {
-                            //Affichage du prix minimum si une enchère a été faite sur cet objet
-                            ?>
-
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input no-interaction" type="number" name="prix_min"
-                                       id="prix_min" value="<?php echo $res->prix_min ?>"
-                                       pattern="^\d{1,6}((,|\.)\d{1,2})?$" readonly/>
-                                <label class="mdl-textfield__label" for="prix_min">Prix minimum (prix
-                                    actuel: <?php echo $res->prix_now ?> €)</label>
-                                Vous ne pouvez pas modifier le prix minimum, car une enchère a déjà été proposée.
-                            </div>
-
-                            <?php
-                        }
-
-                        if ($res->date_start <= date("Y-m-d")) {
-                            //Affichage de la date de début mais sans possibilité de la modifier
-                            ?>
-
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input no-interaction" type="date" name="date_start"
-                                       id="date_start" value="<?php echo $res->date_start ?>"
-                                       pattern="(([0-2][0-9]|3[0-1])/(0[0-9]|1[0-2])/20[1-3][0-9])|(20[1-3][0-9]-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1]))"
-                                       readonly/>
-                                <label class="mdl-textfield__label" for="date_start">Date de mise en ligne de
-                                    l'enchère.</label>
-                                <span>Vous ne pouvez pas modifier la date de mise en ligne d'une enchère déjà parue.</span>
-                            </div>
-
-                            <?php
-                        } else {
-                            ?>
-
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="date" name="date_start" id="date_start"
-                                       value="<?php echo $res->date_start ?>" pattern="(([0-2][0-9]|3[0-1])/(0[0-9]|1[0-2])/20[1-3][0-9])|(20[1-3][0-9]-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1]))" required/>
-                                <label class="mdl-textfield__label" for="date_start">Date de mise en ligne de
-                                    l'enchère</label>
-                            </div>
-
-                            <?php
-                        }
-
+                    if ($res->best_user_id == PDO::PARAM_NULL) {
+                        //Affichage du prix minimum si aucune enchère n'a été faite.
                         ?>
 
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="date" name="date_stop" id="date_stop"
-                                   value="<?php echo $res->date_stop ?>" pattern="(([0-2][0-9]|3[0-1])/(0[0-9]|1[0-2])/20[1-3][0-9])|(20[1-3][0-9]-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1]))" required/>
-                            <label class="mdl-textfield__label" for="date_stop">Date de fin de l'enchère</label>
+                            <input class="mdl-textfield__input" type="number" name="prix_min" id="prix_min"
+                                   value="<?php echo $res->prix_min ?>" pattern="^\d{1,6}((,|\.)\d{1,2})?$"
+                                   required/>
+                            <label class="mdl-textfield__label" for="prix_min">Prix minimum</label>
                         </div>
 
-                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
-                            <i class="material-icons">done</i> Valider
-                        </button>
+                        <?php
 
-                    </form>
-                </div>
+                    } else {
+                        //Affichage du prix minimum si une enchère a été faite sur cet objet
+                        ?>
 
-            </div>
-
-            <!--Carte pour supprimer l'objet-->
-
-            <div class="mdl-card mdl-shadow--16dp centre_card delete_card">
-
-                <div class="mdl-card__title titre_card">
-                    <!--<i class="material-icons" style="margin-right: 15px;">delete</i> Supprimer l'enchère-->
-                    <div class="mdl-card__title-text centrer_texte">
-                        Supprimer cet objet
-                    </div>
-                </div>
-
-                <div class="mdl-card__supporting-text">
-                    <!--
-                    <i class="material-icons">edit</i><br/>
-                    work in progress...
-                    -->
-
-                    <form method="POST" action="action/delete_object.php?id=<?php echo $res->_id; ?>">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="password" name="pwd" id="pwd" pattern=".+$"/>
-                            <label class="mdl-textfield__label" for="pwd">Mot de passe:</label>
+                            <input class="mdl-textfield__input no-interaction" type="number" name="prix_min"
+                                   id="prix_min" value="<?php echo $res->prix_min ?>"
+                                   pattern="^\d{1,6}((,|\.)\d{1,2})?$" readonly/>
+                            <label class="mdl-textfield__label" for="prix_min">Prix minimum (prix
+                                actuel: <?php echo $res->prix_now ?> €)</label>
+                            Vous ne pouvez pas modifier le prix minimum, car une enchère a déjà été proposée.
                         </div>
-                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
-                            Wingardium supprimssah!
-                        </button>
-                    </form>
 
+                        <?php
+                    }
+
+                    if ($res->date_start <= date("Y-m-d")) {
+                        //Affichage de la date de début mais sans possibilité de la modifier
+                        ?>
+
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input no-interaction" type="date" name="date_start"
+                                   id="date_start" value="<?php echo $res->date_start ?>"
+                                   pattern="(([0-2][0-9]|3[0-1])/(0[0-9]|1[0-2])/20[1-3][0-9])|(20[1-3][0-9]-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1]))"
+                                   readonly/>
+                            <label class="mdl-textfield__label" for="date_start">Date de mise en ligne de
+                                l'enchère.</label>
+                            <span>Vous ne pouvez pas modifier la date de mise en ligne d'une enchère déjà parue.</span>
+                        </div>
+
+                        <?php
+                    } else {
+                        ?>
+
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="date" name="date_start" id="date_start"
+                                   value="<?php echo $res->date_start ?>"
+                                   pattern="(([0-2][0-9]|3[0-1])/(0[0-9]|1[0-2])/20[1-3][0-9])|(20[1-3][0-9]-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1]))"
+                                   required/>
+                            <label class="mdl-textfield__label" for="date_start">Date de mise en ligne de
+                                l'enchère</label>
+                        </div>
+
+                        <?php
+                    }
+                    ?>
+
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="date" name="date_stop" id="date_stop"
+                               value="<?php echo $res->date_stop ?>"
+                               pattern="(([0-2][0-9]|3[0-1])/(0[0-9]|1[0-2])/20[1-3][0-9])|(20[1-3][0-9]-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1]))"
+                               required/>
+                        <label class="mdl-textfield__label" for="date_stop">Date de fin de l'enchère</label>
+                    </div>
+
+                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
+                        <i class="material-icons">done</i> Valider
+                    </button>
+
+                </form>
+            </div>
+
+        </div>
+
+        <!--Carte pour supprimer l'objet-->
+
+        <div class="mdl-card mdl-shadow--16dp centre_card delete_card">
+
+            <div class="mdl-card__title titre_card">
+                <div class="mdl-card__title-text centrer_texte">
+                    Supprimer cet objet
                 </div>
+            </div>
+
+            <div class="mdl-card__supporting-text">
+                <form method="POST" action="action/delete_object.php?id=<?php echo $res->_id; ?>">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="password" name="pwd" id="pwd" pattern=".+$"/>
+                        <label class="mdl-textfield__label" for="pwd">Mot de passe:</label>
+                    </div>
+                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
+                        Wingardium supprimssah!
+                    </button>
+                </form>
 
             </div>
 
-            <?php
-        } else {
-            header('location: objects.php?error=7');    //pas connecté
-            exit;
-        }
+        </div>
 
+        <?php
+    } else {
+        header('Location: objects.php?error=34');
+        exit;
     }
+} else {
+    header('Location: objects.php?error=34');
+    exit;
 }
-header('Location: index.php');
-
 ?>
