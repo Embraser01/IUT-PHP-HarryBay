@@ -8,7 +8,7 @@ session_start();
 
 $num_error = 0;
 
-if (isset($_POST['pwd']) AND isset($_POST['mail'])) { // Pas déjà co et mot de passe envoyé
+if (isset($_POST['pwd']) AND isset($_POST['mail'])) { // Informations envoyées
 
     if (!isset($_SESSION['mail'])) {
 

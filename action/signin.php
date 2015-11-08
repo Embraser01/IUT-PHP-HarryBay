@@ -8,16 +8,24 @@ session_start();
 
 $num_error = 0;
 
-if (isset($_POST['mail']) AND isset($_POST['nom']) AND isset($_POST['prenom']) AND isset($_POST['num']) AND isset($_POST['mdp']) AND isset($_POST['verif']) AND ($_POST['mail'] != "") AND ($_POST['nom'] != "") AND ($_POST['prenom'] != "") AND ($_POST['num'] != "") AND ($_POST['mdp'] != "") AND ($_POST['verif'] != "")) { // Toutes les infos
+if (isset($_POST['mail'])
+    AND isset($_POST['nom'])
+    AND isset($_POST['prenom'])
+    AND isset($_POST['num'])
+    AND isset($_POST['mdp'])
+    AND isset($_POST['verif'])
+    AND $_POST['mail'] != ""
+    AND $_POST['nom'] != ""
+    AND $_POST['prenom'] != ""
+    AND $_POST['num'] != ""
+    AND $_POST['mdp'] != ""
+    AND $_POST['verif'] != "") { // Toutes les infos
 
     if (!isset($_SESSION['mail'])) {
 
-        if(($_POST['verif'] === $_POST['mdp'])
-        ){
-
+        if($_POST['verif'] === $_POST['mdp']) {
 
             require __DIR__ . '/../lib/class.Database.php';
-
 
             // On essaye d'inserer dans la DB
 
@@ -44,7 +52,6 @@ if (isset($_POST['mail']) AND isset($_POST['nom']) AND isset($_POST['prenom']) A
     } else {
         $num_error = 93;
     }
-
 } else {
     $num_error = 94;
 }

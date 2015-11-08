@@ -10,6 +10,7 @@ $num_error = 0;
 
 if (isset($_SESSION['mail'])) {
     if (isset($_GET['id']) AND isset($_POST['pwd'])) {
+        
         require __DIR__ . '/../lib/class.Database.php';
 
 

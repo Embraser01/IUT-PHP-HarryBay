@@ -6,8 +6,9 @@
 
 session_start();
 
-function upload($index, $maxsize = FALSE, $extensions = FALSE)
-{
+$num_error = 0;
+
+function upload($index, $maxsize = FALSE, $extensions = FALSE) {
     //Test1: fichier correctement uploadé
     if (!isset($_FILES[$index]) OR $_FILES[$index]['error'] > 0) return FALSE;
     //Test2: taille limite
@@ -18,8 +19,6 @@ function upload($index, $maxsize = FALSE, $extensions = FALSE)
     //Déplacement
     return TRUE;
 }
-
-$num_error = 0;
 
 if (isset($_SESSION['mail'])) { //si connecté
     if (isset($_POST['nom'])
@@ -41,7 +40,6 @@ if (isset($_SESSION['mail'])) { //si connecté
 
             require __DIR__ . '/../lib/class.Database.php';
 
-
             // On essaye d'inserer dans la DB
 
             try {
@@ -54,13 +52,9 @@ if (isset($_SESSION['mail'])) { //si connecté
                 $req->bindValue(':prix_now', $_POST['prix_min'], PDO::PARAM_STR);
                 $req->bindValue(':is_max', FALSE, PDO::PARAM_BOOL);
                 $req->bindValue(':proprio_id', $_SESSION['_id'], PDO::PARAM_INT);
-                //$req->bindValue(':best_user_id', $_SESSION['_id'], PDO::PARAM_INT);
                 $req->execute();
 
-
                 move_uploaded_file($_FILES['img']['tmp_name'], __DIR__ . "/../images/objects/" . $db->lastInsertId());
-
-
             } catch (PDOException $ex) {
                 $num_error = 01;
             }

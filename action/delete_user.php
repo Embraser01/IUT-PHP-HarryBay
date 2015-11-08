@@ -58,7 +58,7 @@ if (isset($_POST['accepte']) AND $_POST['accepte'] == true AND isset($_POST['pwd
                         // On détruit les variables de notre session
                         session_unset ();
 
-// On détruit notre session
+                        // On détruit notre session
                         session_destroy ();
 
                     } catch (PDOException $ex) {

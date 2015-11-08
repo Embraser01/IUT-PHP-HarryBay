@@ -125,7 +125,7 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4) 
 
         try {
             $query = "DELETE FROM Objet WHERE `_id` IN (";
-            foreach ($list_to_delete as $value) $query = $query . $value . ',';
+            foreach ($list_to_delete as $value) $query .= $value . ',';
             $query = substr($query, 0, -1) . ')';
 
 
