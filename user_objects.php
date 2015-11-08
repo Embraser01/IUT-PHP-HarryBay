@@ -187,5 +187,4 @@ echo '</div>';
 
 
 include('includes/footer.php');
-
 ?>

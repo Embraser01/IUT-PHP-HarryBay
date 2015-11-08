@@ -208,5 +208,5 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
     header('Location: objects.php?error=73');
     exit;
 }
-
+include('includes/footer.php');
 ?>

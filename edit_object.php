@@ -170,4 +170,6 @@ if ($req->rowCount() == 1) {
     header('Location: objects.php?error=34');
     exit;
 }
+
+include('includes/footer.php');
 ?>
