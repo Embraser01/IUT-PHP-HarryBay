@@ -223,32 +223,25 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
         echo '<a href="objects.php?page='.($_GET['page']-1).'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link"><</a>';
     }
 
-    for ($i = $_GET['page']-2; $i < $_GET['page']+3; $i++)
-    {
-        if (($i > 0) && ($i < $pageCount+1))
-        {
-            if ($i == $_GET['page'])
-            {
+    for ($i = $_GET['page']-2; $i < $_GET['page']+3; $i++) {
+        if (($i > 0) && ($i < $pageCount+1)) {
+            if ($i == $_GET['page']) {
                 echo '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link"><b>'.$i.'</b></a>';
             }
-            else
-            {
+            else {
                 echo '<a href="objects.php?page='.$i.'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">   '.$i.'   </a>';
             }
         }
     }
 
-    if ($_GET['page'] == $pageCount)
-    {
+    if ($_GET['page'] == $pageCount) {
         echo '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link">></a>';
     }
-    else
-    {
+    else {
         echo '<a href="objects.php?page='.($_GET['page']+1).'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">></a>';
     }
 
     echo '</div>';
-
 }
 
 include('includes/footer.php');
