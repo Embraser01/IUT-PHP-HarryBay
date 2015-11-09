@@ -59,7 +59,10 @@ function display_error ($num_error) {
             break;
 
 
-        case 54:
+        case 53:
+            echo 'La date de mise en ligne n\'est pas correcte.';
+            break;
+        case 55:
             echo 'Vous êtes déconnecté. Veuillez vous reconnecter pour modifier vos objets.';
             break;
 
@@ -106,6 +109,7 @@ function display_error ($num_error) {
             echo 'Le mot de passe est erroné.';
             break;
         case 46:
+        case 54:
         case 65:
         case 74:
             echo 'Les champs ne sont pas tous renseignés.';

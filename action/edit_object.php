@@ -53,15 +53,15 @@ if (isset($_SESSION['mail'])) {
             $num_error = 53; //La date de mise en ligne n'est pas correcte
         }
     } else {
-        $num_error = 53; //Les champs ne sont pas tous renseignés
+        $num_error = 54; //Les champs ne sont pas tous renseignés
     }
 } else {
-    $num_error = 54; //L'utilisateur n'est pas ou plus connecté
+    $num_error = 55; //L'utilisateur n'est pas ou plus connecté
 }
 
 if ($num_error == 0) {
     header('Location: ../user_objects.php?page=1&success=50');
-} elseif ($num_error == 54) {
+} elseif ($num_error == 55) {
     header('Location: ../login.php?error=' . $num_error);
 } else {
     header('Location: ../edit_object.php?id=' . $_GET['id'] . '&page=1&error=' . $num_error);

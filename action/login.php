@@ -27,6 +27,7 @@ if (isset($_POST['pwd']) AND isset($_POST['mail'])) { // Informations envoyées
             $_SESSION['mail'] = $_POST['mail'];
             $_SESSION['nom'] = $_POST['nom'];
             $_SESSION['prenom'] = $_POST['prenom'];
+            $_SESSION['errors_tmp'] = array();
 
             $_SESSION['bid_count'] = 0;
 

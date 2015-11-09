@@ -330,7 +330,8 @@ html, body {
 }
 
 .less_padding {
-    padding: 8px 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 /*===== UPLOAD BUTTON =====*/

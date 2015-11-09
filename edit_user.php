@@ -44,10 +44,10 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
                     <h1 class="mdl-card__title-text">Mon compte</h1>
                 </div>
 
-                <div class="mdl-card__supporting-text">
+                <form enctype="multipart/form-data" method="POST"
+                      action="action/edit_user.php?id=<?php echo $_GET['id'] ?>">
 
-                    <form enctype="multipart/form-data" method="POST"
-                          action="action/edit_user.php?id=<?php echo $_GET['id'] ?>">
+                    <div class="mdl-card__supporting-text">
 
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="text" name="nom" id="nom"
@@ -75,23 +75,24 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
                             <span class="mdl-textfield__error">Entrez un numéro de téléphone valide.</span>
                         </div>
 
-                        <div class="mdl-card__title">
-                            Pour valider vos changements, entrez votre mot de passe.
-                        </div>
+                        Pour valider vos changements, entrez votre mot de passe.
 
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="password" name="mdp" id="mdp" pattern=".+$"/>
                             <label class="mdl-textfield__label" for="mdp">Mot de passe:</label>
                         </div>
 
-                        <br>
+                    </div>
+
+                    <div class="mdl-card__actions">
 
                         <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
                             <i class="material-icons">done</i> Valider
                         </button>
 
-                    </form>
-                </div>
+                    </div>
+
+                </form>
 
             </div>
 
@@ -198,6 +199,7 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
             </div>
 
         </div>
+        <script src="js/application.js"></script>
 
         <?php
     } else {

@@ -21,7 +21,7 @@ if (isset($_SESSION['mail']) AND isset($_GET['id']) AND isset($_POST['prix'])) {
     if ($req->rowCount() >= 1) { // L'objet existe
         $res = $req->fetch(PDO::FETCH_BOTH);
 
-        if ($res[1] < $_POST['prix']) {
+        if ($res[1] < intval($_POST['prix'])) {
             if ($_SESSION['bid_count'] < 4) {
                 if ($_SESSION['_id'] != $res[2]) {
                     try {
@@ -51,7 +51,7 @@ if (isset($_SESSION['mail']) AND isset($_GET['id']) AND isset($_POST['prix'])) {
 } else { // Pas les bons paramètres
     $num_error = 16;
 }
-if($num_error == 0)
+if ($num_error == 0)
     header('Location: ../objects.php?page=1&success=10');
 else
     header('Location: ../objects.php?page=1&error=' . $num_error);

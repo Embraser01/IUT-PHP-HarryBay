@@ -42,12 +42,24 @@ if (isset($_POST['mail'])
                 $_SESSION['mail'] = $_POST['mail'];
                 $_SESSION['nom'] = $_POST['nom'];
                 $_SESSION['prenom'] = $_POST['prenom'];
+                $_SESSION['errors_tmp'] = array();
+
+                $_SESSION['bid_count'] = 0;
 
             } catch (PDOException $ex) {
                 $num_error = 91;
+                $_SESSION['errors_tmp'] = array('from' => 'signin',
+                    'nom' => $_POST['nom'],
+                    'prenom' => $_POST['prenom'],
+                    'num' => $_POST['num']);
             }
         } else {
             $num_error = 92;
+            $_SESSION['errors_tmp'] = array('from' => 'signin',
+                'mail' => $_POST['mail'],
+                'nom' => $_POST['nom'],
+                'prenom' => $_POST['prenom'],
+                'num' => $_POST['num']);
         }
     } else {
         $num_error = 93;

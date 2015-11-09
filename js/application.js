@@ -19,11 +19,11 @@ $(document).ready(function () {
 
     $("#edit_card").find(".mdl-card__title").on('click', function () {
 
-        if ($("#edit_card").find(".mdl-card__supporting-text").is(":visible")) {
-            $("#edit_card").find(".mdl-card__supporting-text").slideToggle();
+        if ($("#edit_card").find("form").is(":visible")) {
+            $("#edit_card").find("form").slideToggle();
         }
         else {
-            $("#edit_card").find(".mdl-card__supporting-text").slideDown();
+            $("#edit_card").find("form").slideDown();
             $("#password_card").find(".mdl-card__supporting-text").slideUp();
             $("#delete_user_card").find(".mdl-card__supporting-text").slideUp();
         }
@@ -37,7 +37,7 @@ $(document).ready(function () {
             $("#password_card").find(".mdl-card__supporting-text").slideToggle();
         }
         else {
-            $("#edit_card").find(".mdl-card__supporting-text").slideUp();
+            $("#edit_card").find("form").slideUp();
             $("#password_card").find(".mdl-card__supporting-text").slideDown();
             $("#delete_user_card").find(".mdl-card__supporting-text").slideUp();
         }
@@ -50,7 +50,7 @@ $(document).ready(function () {
             $("#delete_user_card").find(".mdl-card__supporting-text").slideToggle();
         }
         else {
-            $("#edit_card").find(".mdl-card__supporting-text").slideUp();
+            $("#edit_card").find("form").slideUp();
             $("#password_card").find(".mdl-card__supporting-text").slideUp();
             $("#delete_user_card").find(".mdl-card__supporting-text").slideDown();
         }

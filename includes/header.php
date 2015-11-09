@@ -32,7 +32,7 @@ include('success.php');
         <script src="js/material.min.js"></script>
         <script src="js/jquery-2.1.4.min.js"></script>
         <script src="js/jquery.countdown.min.js"></script>
-        <script src="js/application.js"></script>
+
 
         <meta charset="UTF-8"/>
 

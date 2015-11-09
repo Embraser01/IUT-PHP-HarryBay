@@ -87,81 +87,60 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                         $(this).removeClass("red");
                     }
                     $(this).html('L\'enchère est terminée.');
-                    $(this).parent().next().find("#prix").val('');
-                    $(this).parent().next().find("#prix").parent().find("label").html('Objet indisponible...');
-                    $(this).parent().next().find("#prix").attr("disabled", true);
-                    $(this).parent().next().find("#submit_button").attr("disabled", true);
+                    $(this).parent().next().find(".prix").val('');
+                    $(this).parent().next().find(".prix").parent().find("label").html('Objet indisponible...');
+                    $(this).parent().next().find(".prix").attr("disabled", true);
+                    $(this).parent().next().find(".submit_button").attr("disabled", true);
 
                 });
 
                 var img<?php echo $value->_id ?> = new Image();
-                img<?php echo $value->_id ?>.onload = function()
-                {
-                    //alert(document.getElementById("objet<?php echo $value->_id ?>").getElementsByClassName("titre_card")[0].nodeName);
+                img<?php echo $value->_id ?>.onload = function() {
                     document.getElementById("objet<?php echo $value->_id ?>").getElementsByClassName("titre_card")[0].style.opacity = "1";
                 };
                 img<?php echo $value->_id ?>.src = './images/get_obj_img.php?id=<?php echo $value->_id ?>';
                 });
-
-                /*$(document).ready(function() {
-                    $("#annuler<?php //echo $value->_id ?>").on('click', function() {
-                    $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").val('');
-                    $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").parent().find("label").html('Enchère désactivée...');
-                    $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#prix").attr("disabled", true);
-                    $(this).parentsUntil("mdl-card__supporting-text", true).next().find("#submit_button").attr("disabled", true);
-                });
-                });*/
                 </script>
-
-    <!--
-                <br><div class="mdl-button mdl-js-button" id="annuler<?php echo $value->_id ?>">
-                    Désactiver enchère
-                </div>
-    -->
             </div>
 
         <?php
         if (isset($_SESSION['_id'])) {
             if ($value->proprio_id != $_SESSION['_id']) {
                 ?>
-                <div class="mdl-card__actions mdl-card--border">
                     <form method="POST" action="action/bid.php?id=<?php echo $value->_id; ?>">
-                    <div class="custom_textfield">
+                    <div class="mdl-card__supporting-text less_padding">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" width="100px" name="prix"
-                                   id="prix" pattern="^\d{1,6}((,|\.)\d{1,2})?$"/>
+                            <input class="mdl-textfield__input prix" type="text" width="100px" name="prix"
+                                  pattern="^\d{1,6}((,|\.)\d{1,2})?$"/>
                             <label class="mdl-textfield__label" for="prix">Montant de l'enchère:</label>
                             <span class="mdl-textfield__error">Entrez un montant valide.</span>
                         </div>
-                        </div>
-                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" id="submit_button" type="submit">
+                    </div>
+                    <div class="mdl-card__actions">
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
                             Enchérir
                         </button>
-                    </form>
-                </div>
-                <!--<div class="mdl-card__menu">
-                    <div class="mdl-button mdl-js-button mdl-js-ripple-effect" id="annuler<?php echo $value->_id; ?>">
-                        <i class="material-icons icone-modifier">thumb_down</i>
                     </div>
-                </div>-->
+                    </form>
                 <?php
             } else {
                 ?>
-                <div class="mdl-card__actions mdl-card--border">
                     <form method="POST" action="#">
+                    <div class="mdl-card__supporting-text less_padding">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="text" pattern="[0-9]*" width="100px" name="prix"
                                    id="prix" disabled/>
                             <label class="mdl-textfield__label" for="prix">Vous ne pouvez pas enchérir votre
                                 objet</label>
                         </div>
-                        <div class="mdl-layout-spacer"></div>
+                    </div>
+                    <div class="mdl-card__actions">
                         <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit"
                                 disabled>
                             Enchérir
                         </button>
+                    </div>
                     </form>
-                </div>
                 <div class="mdl-card__menu">
 
                     <a href="edit_object.php?id=<?php echo $value->_id ?>" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" id="editobjet<?php echo $value->_id; ?>">
