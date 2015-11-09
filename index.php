@@ -35,29 +35,6 @@ $months = array('01' => "Janvier",
 
     <!-- Carte de description de Harry Potter -->
 
-    <!--<section class="section--center mdl-grid film_card">
-        <header
-            class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--red-500 film_desc">
-        </header>
-        <div class="mdl-card mdl-cell mdl-cell--9-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
-            <div class="mdl-card__title">
-                <h1 class="mdl-card__title-text">La saga Harry Potter</h1>
-            </div>
-            <div class="mdl-card__supporting-text">
-                Blah blah blah on parle des films, du succès qu'ils ont eu, blah blah, les conventions, blah blah, on
-                leur met <a href="https://soundcloud.com/smiggleton/harry-potter-dubstep-3">un lien dubstep</a> (rule
-                34.8 is life), on leur spoile la fin, même s'il faut pas dire que Dumbledore s'endort à la fin. On
-                brode, etc etc...
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-                <a href="http://www.imdb.com/title/tt0241527/"
-                   class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--accent"><i
-                        class="material-icons">local_movies</i> Voir
-                    sur IMDb</a>
-            </div>
-        </div>
-    </section>-->
-
     <div id="description">
         <div class="mdl-card mdl-shadow--4dp object_card centre_card">
             <div class="mdl-card__title">
@@ -68,6 +45,9 @@ $months = array('01' => "Janvier",
                 leur met <a href="https://soundcloud.com/smiggleton/harry-potter-dubstep-3">un lien dubstep</a> (rule
                 34.8 is life), on leur spoile la fin, même s'il faut pas dire que Dumbledore s'endort à la fin. On
                 brode, etc etc...
+            </div>
+            <div class="mdl-card__supporting-text">
+                Harry Potter est une suite romanesque fantasy comprenant sept romans, écrits par J. K. Rowling et parus entre 1997 et 2007. Elle raconte les aventures d'un apprenti sorcier nommé Harry Potter et de ses amis Ron Weasley et Hermione Granger à l'école de sorcellerie Poudlard. L'intrigue principale de la série met en scène le combat du jeune Harry Potter contre un mage noir réputé invincible, Lord Voldemort, qui a tué autrefois ses parents ; à la tête d'un clan de mages noirs, les Mangemorts, Voldemort cherche depuis des décennies à prendre le pouvoir sur le monde des sorciers. Chacun de ces romans ont été adaptés au cinéma par le studio Warner Bros.
             </div>
             <div class="mdl-card__actions mdl-card--border">
                 <a href="http://www.imdb.com/title/tt0241527/"

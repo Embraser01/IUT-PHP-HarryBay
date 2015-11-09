@@ -160,7 +160,7 @@ html, body {
     background-size: cover;
 }
 
-#edit_card > .mdl-card__supporting-text, #password_card > .mdl-card__supporting-text, #delete_user_card > .mdl-card__supporting-text {
+#edit_card > form, #password_card > form, #delete_user_card > form {
     display: none;
 }
 
@@ -184,6 +184,15 @@ html, body {
 
 .custom_textfield {
     margin: 0 8px;
+}
+
+.less_padding {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.form_padding {
+    padding-bottom: 0 !important;
 }
 
 /*===== MENU =====*/
@@ -325,13 +334,8 @@ html, body {
 }
 
 .delete_card > .titre_card {
-    height: 250px;
+    height: 200px;
     background: url('../images/delete_card_bg.png') center / cover;
-}
-
-.less_padding {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
 }
 
 /*===== UPLOAD BUTTON =====*/

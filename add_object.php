@@ -17,9 +17,10 @@ $isFail = (!empty($_SESSION['errors_tmp']) AND $_SESSION['errors_tmp']['from'] =
             <h1 class="mdl-card__title-text">Ajouter un objet</h1>
         </div>
 
-        <div class="mdl-card__supporting-text">
+        <form enctype="multipart/form-data" method="POST" action="action/add_object.php">
 
-            <form enctype="multipart/form-data" method="POST" action="action/add_object.php">
+            <div class="mdl-card__supporting-text">
+
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" name="nom" id="nom"
@@ -65,16 +66,21 @@ $isFail = (!empty($_SESSION['errors_tmp']) AND $_SESSION['errors_tmp']['from'] =
                     <label class="mdl-textfield__label" for="date_stop">Date de fin de l'enchère (jj/mm/yyyy)</label>
                 </div>
 
+            </div>
+
+            <div class="mdl-card__actions">
+
                 <button
-                    class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent submit-button"
+                    class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button"
                     id="submit_button" type="submit">
                     Valider
                 </button>
 
                 <div class="mdl-spinner mdl-js-spinner"></div>
 
-            </form>
-        </div>
+            </div>
+
+        </form>
 
     </div>
 

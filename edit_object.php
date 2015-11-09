@@ -45,10 +45,10 @@ if ($req->rowCount() == 1) {
                 <h1 class="mdl-card__title-text">Modifier un objet</h1>
             </div>
 
-            <div class="mdl-card__supporting-text">
+            <form enctype="multipart/form-data" method="POST"
+                  action="action/edit_object.php?id=<?php echo $_GET['id'] . "&online=" . $online . "&price_changed=" . $price_changed ?>">
 
-                <form enctype="multipart/form-data" method="POST"
-                      action="action/edit_object.php?id=<?php echo $_GET['id'] . "&online=" . $online . "&price_changed=" . $price_changed ?>">
+                <div class="mdl-card__supporting-text form_padding">
 
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" name="nom" id="nom"
@@ -126,13 +126,17 @@ if ($req->rowCount() == 1) {
                                required/>
                         <label class="mdl-textfield__label" for="date_stop">Date de fin de l'enchère</label>
                     </div>
+                </div>
+
+                <div class="mdl-card__actions">
 
                     <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
                         <i class="material-icons">done</i> Valider
                     </button>
 
-                </form>
-            </div>
+                </div>
+
+            </form>
 
         </div>
 
@@ -146,18 +150,20 @@ if ($req->rowCount() == 1) {
                 </div>
             </div>
 
-            <div class="mdl-card__supporting-text">
-                <form method="POST" action="action/delete_object.php?id=<?php echo $res->_id; ?>">
+            <form method="POST" action="action/delete_object.php?id=<?php echo $res->_id; ?>">
+                <div class="mdl-card__supporting-text form_padding">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="password" name="pwd" id="pwd" pattern=".+$"/>
                         <label class="mdl-textfield__label" for="pwd">Mot de passe:</label>
                     </div>
+                </div>
+                <div class="mdl-card__actions">
                     <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
                         Wingardium supprimssah!
                     </button>
-                </form>
+                </div>
+            </form>
 
-            </div>
 
         </div>
 

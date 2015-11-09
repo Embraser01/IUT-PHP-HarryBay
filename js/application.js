@@ -11,7 +11,7 @@ $(document).ready(function () {
         ) {
             event.preventDefault();
             $(".mdl-spinner").addClass("is-active");
-            $(this).hide();
+            $("#submit_button").remove();
             $('form').submit();
         }
 
@@ -24,8 +24,8 @@ $(document).ready(function () {
         }
         else {
             $("#edit_card").find("form").slideDown();
-            $("#password_card").find(".mdl-card__supporting-text").slideUp();
-            $("#delete_user_card").find(".mdl-card__supporting-text").slideUp();
+            $("#password_card").find("form").slideUp();
+            $("#delete_user_card").find("form").slideUp();
         }
 
 
@@ -33,26 +33,26 @@ $(document).ready(function () {
 
     $("#password_card").find(".mdl-card__title").on('click', function () {
 
-        if ($("#password_card").find(".mdl-card__supporting-text").is(":visible")) {
-            $("#password_card").find(".mdl-card__supporting-text").slideToggle();
+        if ($("#password_card").find("form").is(":visible")) {
+            $("#password_card").find("form").slideToggle();
         }
         else {
             $("#edit_card").find("form").slideUp();
-            $("#password_card").find(".mdl-card__supporting-text").slideDown();
-            $("#delete_user_card").find(".mdl-card__supporting-text").slideUp();
+            $("#password_card").find("form").slideDown();
+            $("#delete_user_card").find("form").slideUp();
         }
 
     });
 
     $("#delete_user_card").find(".mdl-card__title").on('click', function () {
 
-        if ($("#delete_user_card").find(".mdl-card__supporting-text").is(":visible")) {
-            $("#delete_user_card").find(".mdl-card__supporting-text").slideToggle();
+        if ($("#delete_user_card").find("form").is(":visible")) {
+            $("#delete_user_card").find("form").slideToggle();
         }
         else {
             $("#edit_card").find("form").slideUp();
-            $("#password_card").find(".mdl-card__supporting-text").slideUp();
-            $("#delete_user_card").find(".mdl-card__supporting-text").slideDown();
+            $("#password_card").find("form").slideUp();
+            $("#delete_user_card").find("form").slideDown();
         }
 
     });

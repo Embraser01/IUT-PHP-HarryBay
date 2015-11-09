@@ -39,13 +39,13 @@ $isFail = (!empty($_SESSION['errors_tmp']) AND $_SESSION['errors_tmp']['from'] =
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="password" name="mdp" id="mdp"
-                           pattern="^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,}$"/>
+                           pattern="^(?=.*\d)(?=.*[a-zA-Zéèàîâêïäëôûöü' ])[0-9a-zA-Zéèàîâêïäëôûöü' ]{8,}$"/>
                     <label class="mdl-textfield__label" for="mdp">Mot de passe:</label>
                     <span class="mdl-textfield__error">Votre mot de passe doit contenir au moins 8 caractères, dont une lettre et un chiffre.</span>
                 </div>
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="password" name="verif" id="verif" pattern=".+$"/>
+                    <input class="mdl-textfield__input" type="password" name="verif" id="verif" pattern="^(?=.*\d)(?=.*[a-zA-Zéèàîâêïäëôûöü' ])[0-9a-zA-Zéèàîâêïäëôûöü' ]{8,}$"/>
                     <label class="mdl-textfield__label" for="verif">Verification mot de passe:</label>
                 </div>
 
