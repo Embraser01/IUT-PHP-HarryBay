@@ -276,7 +276,7 @@ html, body {
 }
 
 .centrer_texte {
-    text-align: center;
+    text-align: center !important;
 }
 
 .red {
@@ -302,6 +302,10 @@ html, body {
     padding: 32px 64px;
     margin: 0 auto;
     text-align: justify;
+}
+
+.no-text-transform {
+    text-transform: none;
 }
 
 /*===== CARDS LIST =====*/

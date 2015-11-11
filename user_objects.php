@@ -57,14 +57,37 @@ $order_string .= ($_GET['desc']=="true") ? ' DESC, Objet.`_id` DESC' : ', Objet.
     <div class="titre_page">
 
         Mes objets<br>
+
+<?php
+// On fait la requete dans la DB Objet pour avoir l'id
+
+$query_string = 'SELECT Objet.`_id`, Objet.nom AS `desc`, Objet.prix_now, Objet.date_start, Objet.date_stop, Objet.best_user_id, User.prenom, User.nom FROM Objet LEFT JOIN User ON Objet.best_user_id = User._id WHERE Objet.proprio_id =:id AND Objet.is_max = FALSE '. $order_string . ' LIMIT :perPage OFFSET :off';
+
+
+$req = $db->prepare($query_string);
+$req->bindValue(':off', $offset, PDO::PARAM_INT);
+$req->bindValue(':perPage', $objPerPage, PDO::PARAM_INT);
+$req->bindValue(':id', $_SESSION['_id'], PDO::PARAM_INT);
+$req->execute();
+
+
+if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
+
+    $res = $req->fetchAll();
+
+    foreach ($res as $key => $value) {
+        $date_stop = strtotime($value->date_stop);
+        $date_start = strtotime($value->date_start);
+        ?>
+
         <button class="mdl-button mdl-js-button mdl-button--icon" id="sort_menu">
-          <i class="material-icons">sort</i>
+            <i class="material-icons">sort</i>
         </button>
         <span class="mdl-tooltip" for="sort_menu">
             Trier
         </span>
 
-        <a href="objects.php?order=<?php echo $_GET['order'];?>&desc=<?php echo ($_GET['desc'] == "true") ? "false" : "true"; ?>" class="mdl-button mdl-js-button mdl-button--icon" id="invert_sort">
+        <a href="user_objects.php?order=<?php echo $_GET['order'];?>&desc=<?php echo ($_GET['desc'] == "true") ? "false" : "true"; ?>" class="mdl-button mdl-js-button mdl-button--icon" id="invert_sort">
             <i class="material-icons">import_export</i>
         </a>
         <span class="mdl-tooltip" for="invert_sort">
@@ -91,35 +114,13 @@ $order_string .= ($_GET['desc']=="true") ? ' DESC, Objet.`_id` DESC' : ', Objet.
                 : '<a href="user_objects.php?order=2&desc=true" class="link-no-style"><li class="mdl-menu__item">Prix</li></a>';
             ?>
         </ul>
-    </div>
+        </div>
 
-    <div class="simple_text">
-        Les objets que vous avez déposés sur le site sont affichés ici, triés par date d'ajout. Vous pouvez voir pour chaque objet s'il est actuellement ouvert aux enchères ou non, et vous pouvez modifier vos objets, y compris ceux qui seront proposés ultérieurement.
-    </div>
+        <div class="simple_text">
+            Les objets que vous avez déposés sur le site sont affichés ici, triés par date d'ajout. Vous pouvez voir pour chaque objet s'il est actuellement ouvert aux enchères ou non, et vous pouvez modifier vos objets, y compris ceux qui seront proposés ultérieurement.
+        </div>
 
-    <div class="list_card_wrapper">
-
-<?php
-// On fait la requete dans la DB Objet pour avoir l'id
-
-$query_string = 'SELECT Objet.`_id`, Objet.nom AS `desc`, Objet.prix_now, Objet.date_start, Objet.date_stop, Objet.best_user_id, User.prenom, User.nom FROM Objet LEFT JOIN User ON Objet.best_user_id = User._id WHERE Objet.proprio_id =:id AND Objet.is_max = FALSE '. $order_string . ' LIMIT :perPage OFFSET :off';
-
-
-$req = $db->prepare($query_string);
-$req->bindValue(':off', $offset, PDO::PARAM_INT);
-$req->bindValue(':perPage', $objPerPage, PDO::PARAM_INT);
-$req->bindValue(':id', $_SESSION['_id'], PDO::PARAM_INT);
-$req->execute();
-
-
-if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
-
-    $res = $req->fetchAll();
-
-    foreach ($res as $key => $value) {
-        $date_stop = strtotime($value->date_stop);
-        $date_start = strtotime($value->date_start);
-        ?>
+        <div class="list_card_wrapper">
 
         <div class="mdl-card mdl-shadow--4dp list_card object_card" id="objet<?php echo $value->_id; ?>">
 
@@ -207,40 +208,60 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
 
     <?php
     }
-}
-
-echo '</div>';
-echo '<div class="page-selector">';
-
-//Sélecteur de page
-
-$query = $db->prepare('SELECT COUNT(_id) AS `count` FROM Objet WHERE proprio_id=:user_id');
-$query->bindParam(':user_id', $_SESSION['_id'], PDO::PARAM_INT);
-$query->execute();
-
-$resQuery = $query->fetch();
-
-$pageCount = (int)(($resQuery->count)/$objPerPage);
-
-if ((int)(($resQuery->count)%$objPerPage)!= 0) $pageCount += 1;
-
-echo ($_GET['page'] == 1) ? '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link"><</a>'
-    : '<a href="user_objects.php?page='.($_GET['page']-1).'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link"><</a>';
 
 
-for ($i = $_GET['page']-2; $i < $_GET['page']+3; $i++) {
-    if (($i > 0) && ($i < $pageCount+1)) {
-        echo ($i == $_GET['page']) ? '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link"><b>'.$i.'</b></a>'
-            : '<a href="user_objects.php?page='.$i.'&order='.$_GET['order'].'&desc='.$_GET['desc'].'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">   '.$i.'   </a>';
+    echo '</div>';
+    echo '<div class="page-selector">';
+
+    //Sélecteur de page
+
+    $query = $db->prepare('SELECT COUNT(_id) AS `count` FROM Objet WHERE proprio_id=:user_id');
+    $query->bindParam(':user_id', $_SESSION['_id'], PDO::PARAM_INT);
+    $query->execute();
+
+    $resQuery = $query->fetch();
+
+    $pageCount = (int)(($resQuery->count)/$objPerPage);
+
+    if ((int)(($resQuery->count)%$objPerPage)!= 0) $pageCount += 1;
+
+    echo ($_GET['page'] == 1) ? '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link"><</a>'
+        : '<a href="user_objects.php?page='.($_GET['page']-1).'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link"><</a>';
+
+
+    for ($i = $_GET['page']-2; $i < $_GET['page']+3; $i++) {
+        if (($i > 0) && ($i < $pageCount+1)) {
+            echo ($i == $_GET['page']) ? '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link"><b>'.$i.'</b></a>'
+                : '<a href="user_objects.php?page='.$i.'&order='.$_GET['order'].'&desc='.$_GET['desc'].'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">   '.$i.'   </a>';
+        }
     }
+
+    echo ($_GET['page'] == $pageCount) ? '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link">></a>'
+        : '<a href="user_objects.php?page='.($_GET['page']+1).'&order='.$_GET['order'].'&desc='.$_GET['desc'].'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">></a>';
+
+
+    echo '</div>';
 }
+else
+{
+    ?>
 
-echo ($_GET['page'] == $pageCount) ? '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link">></a>'
-    : '<a href="user_objects.php?page='.($_GET['page']+1).'&order='.$_GET['order'].'&desc='.$_GET['desc'].'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">></a>';
+    </div>
 
+    <div style="margin-top: auto; margin-bottom: auto;">
 
-echo '</div>';
+    <div class="centrer_texte">
+        <img src="images/empty_box.png" alt="Y'a rien ici!" style="opacity: 0.25;"/>
+    </div>
 
+    <div class="simple_text centrer_texte">
+        Oups. Vous n'avez proposé aucun objet pour le moment. Vous pouvez dès maintenant <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--accent" href="add_object.php">en déposer un</a> ou <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--accent" href="objects.php">parcourir ceux en vente</a>.
+    </div>
+
+    </div>
+
+    <?php
+}
 
 include('includes/footer.php');
 ?>

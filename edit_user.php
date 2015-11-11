@@ -40,7 +40,7 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
 
             <div class="mdl-card mdl-shadow--16dp list_card" id="edit_user_card">
 
-                <div class="mdl-card__title titre_card mdl-button mdl-js-button mdl-js-ripple-effect">
+                <div class="mdl-card__title titre_card mdl-button mdl-js-button mdl-js-ripple-effect no-text-transform">
                     <h1 class="mdl-card__title-text">Mon compte</h1>
                 </div>
 
@@ -100,8 +100,7 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
 
             <div class="mdl-card mdl-shadow--16dp list_card" id="password_card">
 
-                <div class="mdl-card__title titre_card mdl-button mdl-js-button mdl-js-ripple-effect">
-                    <!--<i class="material-icons" style="margin-right: 15px;">delete</i> Supprimer l'enchère-->
+                <div class="mdl-card__title titre_card mdl-button mdl-js-button mdl-js-ripple-effect no-text-transform">
                     <div class="mdl-card__title-text centrer_texte">
                         Modifier le mot de passe
                     </div>
@@ -151,7 +150,7 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
 
             <div class="mdl-card mdl-shadow--16dp list_card" id="delete_user_card">
 
-                <div class="mdl-card__title titre_card mdl-button mdl-js-button mdl-js-ripple-effect">
+                <div class="mdl-card__title titre_card mdl-button mdl-js-button mdl-js-ripple-effect no-text-transform">
                     <div class="mdl-card__title-text centrer_texte">
                         Supprimer le compte
                     </div>
