@@ -41,13 +41,15 @@ $months = array('01' => "Janvier",
                 <h1 class="mdl-card__title-text">La saga Harry Potter</h1>
             </div>
             <div class="mdl-card__supporting-text">
-                Blah blah blah on parle des films, du succès qu'ils ont eu, blah blah, les conventions, blah blah, on
-                leur met <a href="https://soundcloud.com/smiggleton/harry-potter-dubstep-3">un lien dubstep</a> (rule
-                34.8 is life), on leur spoile la fin, même s'il faut pas dire que Dumbledore s'endort à la fin. On
-                brode, etc etc...
-            </div>
-            <div class="mdl-card__supporting-text">
-                Harry Potter est une suite romanesque fantasy comprenant sept romans, écrits par J. K. Rowling et parus entre 1997 et 2007. Elle raconte les aventures d'un apprenti sorcier nommé Harry Potter et de ses amis Ron Weasley et Hermione Granger à l'école de sorcellerie Poudlard. L'intrigue principale de la série met en scène le combat du jeune Harry Potter contre un mage noir réputé invincible, Lord Voldemort, qui a tué autrefois ses parents ; à la tête d'un clan de mages noirs, les Mangemorts, Voldemort cherche depuis des décennies à prendre le pouvoir sur le monde des sorciers. Chacun de ces romans ont été adaptés au cinéma par le studio Warner Bros.
+                Harry Potter est une suite romanesque fantasy comprenant sept romans, écrits par J. K. Rowling et parus
+                entre 1997 et 2007. Elle raconte les aventures d'un apprenti sorcier nommé Harry Potter et de ses amis
+                Ron Weasley et Hermione Granger à l'école de sorcellerie Poudlard. L'intrigue principale de la série met
+                en scène le combat du jeune Harry Potter contre un mage noir réputé invincible, Lord Voldemort, qui a
+                tué autrefois ses parents<a class="link-no-style mdl-color-text--primary"
+                                            href="https://soundcloud.com/smiggleton/harry-potter-dubstep-3">;</a> à la
+                tête d'un clan de mages noirs, les Mangemorts, Voldemort cherche depuis des décennies à prendre le
+                pouvoir sur le monde des sorciers. Chacun de ces romans ont été adaptés au cinéma par le studio Warner
+                Bros.
             </div>
             <div class="mdl-card__actions mdl-card--border">
                 <a href="http://www.imdb.com/title/tt0241527/"
@@ -60,7 +62,7 @@ $months = array('01' => "Janvier",
 
 <?php
 
-$req = $db->prepare('SELECT Objet.`_id`, Objet.nom AS `desc`, Objet.prix_now, Objet.date_stop, User.nom, User.prenom FROM Objet JOIN User ON Objet.proprio_id = User._id WHERE is_max = 1 LIMIT 1');
+$req = $db->prepare('SELECT Objet.`_id`, Objet.nom AS `desc`, Objet.prix_now, Objet.date_stop, Objet.proprio_id, User.nom, User.prenom FROM Objet LEFT JOIN User ON Objet.proprio_id = User._id WHERE is_max = 1 LIMIT 1');
 $req->execute();
 
 if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
@@ -84,7 +86,8 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
 
                 <div class="mdl-card__supporting-text">
                     Vendu <?php echo htmlentities($res->prix_now); ?> € <br/>
-                    par <?php echo htmlentities($res->prenom) . " " . htmlentities($res->nom); ?><br>
+                    par <?php echo ($res->proprio_id == 0) ? "inconnu" : (htmlentities($res->prenom) . " " . htmlentities($res->nom)); ?>
+                    <br>
                     le <?php echo strftime("%d ", $date_stop) . $months[strftime("%m", $date_stop)] . strftime(" %G", $date_stop); ?>
                 </div>
 
@@ -92,7 +95,8 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
 
         </div>
 
-        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--accent" href="objects.php"
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--accent"
+           href="objects.php?page=1&order=0&desc=true"
            style="width: 100% !important;">
             Voir les objets en vente
         </a>
@@ -120,9 +124,9 @@ if (!isset($_SESSION['mail'])) {
 
     <div class="invitation">
         <div class="simple_text centrer_texte white">
-            Vous souhaitez faire comme tous ces gens sur l'image de fond?<br><a class="mdl-button mdl-button--colored mdl-color-text--accent"
-                                                                      href="login.php">connectez-vous</a> ou <a
-                class="mdl-button mdl-button--colored mdl-color-text--accent" href="signin.php">inscrivez-vous</a>
+            Vous souhaitez faire comme tous ces gens sur l'image de fond?<br>
+                <a class="mdl-button mdl-button--colored mdl-color-text--accent" href="login.php">Connectez-vous</a> ou
+                <a class="mdl-button mdl-button--colored mdl-color-text--accent" href="signin.php">inscrivez-vous</a>
         </div>
     </div>
 

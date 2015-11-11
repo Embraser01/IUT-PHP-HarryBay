@@ -20,7 +20,7 @@ if (isset($_SESSION['mail'])) {
         AND $_POST['date_stop'] != ""
     ) { // Si tous les champs sont renseignés + utilisateur connecté
 
-        if ($_POST['date_start'] >= date("Y-m-d")) { //si la date de mise en ligne n'est pas dans le passé
+        if (($_POST['date_start'] >= date("Y-m-d") AND $_GET['online']==0) OR ($_GET['online']==1)){ //si la date de mise en ligne n'est pas dans le passé
 
             if ($_POST['date_stop'] > date("Y-m-d") AND strtotime($_POST['date_start']) < strtotime($_POST['date_stop'])) { //si la date de fin est bien dans le futur et postérieure à la date de mise en ligne
 
@@ -60,9 +60,9 @@ if (isset($_SESSION['mail'])) {
 }
 
 if ($num_error == 0) {
-    header('Location: ../user_objects.php?page=1&success=50');
+    header('Location: ../user_objects.php?page=1&success=50&order=0&desc=true');
 } elseif ($num_error == 55) {
     header('Location: ../login.php?error=' . $num_error);
 } else {
-    header('Location: ../edit_object.php?id=' . $_GET['id'] . '&page=1&error=' . $num_error);
+    header('Location: ../edit_object.php?id=' . $_GET['id'] . '&error=' . $num_error);
 }

@@ -3,7 +3,9 @@
  */
 
 $(document).ready(function () {
-    $("#submit_button").on('click', function () {
+
+
+    /*$("#submit_button").on('click', function () {
         if ($("#nom").val() !== ""
             && $("#prix_min").val() !== ""
             && $("#date_start").val() !== ""
@@ -15,7 +17,7 @@ $(document).ready(function () {
             $('form').submit();
         }
 
-    });
+    });*/
 
     $("#edit_card").find(".mdl-card__title").on('click', function () {
 

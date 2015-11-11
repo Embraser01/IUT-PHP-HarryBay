@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marc-Antoine
- * Date: 06/10/2015
- * Time: 14:03
- */
-
 session_start();
 if (!isset($_SESSION['mail'])) {
     header('Location: login.php');
@@ -27,10 +20,65 @@ $months = array('01' => "janvier",
 
 include('includes/header.php');
 
+/* Valeurs par defaut */
+
+$_GET['page'] = (isset($_GET['page'])) ? abs($_GET['page']) : 1;
+$_GET['order'] = (isset($_GET['order'])) ? $_GET['order'] : 0;
+$_GET['desc'] = (isset($_GET['desc'])) ? $_GET['desc'] : "true";
+
+$objPerPage = 10; //nombre d'objets par page
+$offset = ($_GET['page'] - 1) * $objPerPage;
+
+$order_string = "ORDER BY Objet.";
+
+switch ($_GET['order']) {
+    case 0:
+        $order_string .= "date_start";
+        break;
+    case 1:
+        $order_string .= "date_stop";
+        break;
+    case 2:
+        $order_string .= "prix_now";
+        break;
+    case 3:
+        $order_string .= "_id";
+        break;
+    case 4:
+        $order_string .= "nom";
+        break;
+    default:
+        $order_string .= "date_start";
+        break;
+}
+$order_string .= ($_GET['desc']=="true") ? ' DESC, Objet.`_id` DESC' : ', Objet.`_id`';
 ?>
 
     <div class="titre_page">
-        Mes objets
+
+        Mes objets<br>
+        <button class="mdl-button mdl-js-button mdl-button--icon" id="sort_menu">
+          <i class="material-icons">sort</i>
+        </button>
+        <span class="mdl-tooltip" for="sort_menu">
+            Trier
+        </span>
+
+        <a href="objects.php?order=<?php echo $_GET['order'];?>&desc=<?php echo ($_GET['desc'] == "true") ? "false" : "true"; ?>" class="mdl-button mdl-js-button mdl-button--icon" id="invert_sort">
+            <i class="material-icons">import_export</i>
+        </a>
+        <span class="mdl-tooltip" for="invert_sort">
+            Inverser l'ordre
+        </span>
+
+        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+            for="sort_menu">
+          <a href="user_objects.php?order=4&desc=false" class="link-no-style"><li class="mdl-menu__item">Nom</li></a>
+          <a href="user_objects.php?order=3&desc=true" class="link-no-style"><li class="mdl-menu__item">Date d'ajout</li></a>
+          <a href="user_objects.php?order=0&desc=true" class="link-no-style"><li class="mdl-menu__item">Date de mise en ligne</li></a>
+          <a href="user_objects.php?order=1&desc=true" class="link-no-style"><li class="mdl-menu__item">Date de fin</li></a>
+          <a href="user_objects.php?order=2&desc=false" class="link-no-style"><li class="mdl-menu__item">Prix</li></a>
+        </ul>
     </div>
 
     <div class="simple_text">
@@ -40,16 +88,12 @@ include('includes/header.php');
     <div class="list_card_wrapper">
 
 <?php
-$objPerPage = 10; //nombre d'objets par page
-
-$_GET['page'] = (isset($_GET['page'])) ? abs($_GET['page']) : 1;
-
-$offset = ($_GET["page"] - 1) * $objPerPage;
-
-
 // On fait la requete dans la DB Objet pour avoir l'id
 
-$req = $db->prepare('SELECT Objet.`_id`, Objet.nom AS `desc`, Objet.prix_now, Objet.date_start, Objet.date_stop, Objet.best_user_id, User.prenom, User.nom FROM Objet LEFT JOIN User ON Objet.best_user_id = User._id WHERE Objet.proprio_id =:id AND Objet.is_max = FALSE ORDER BY Objet.`_id` DESC LIMIT :perPage OFFSET :off');
+$query_string = 'SELECT Objet.`_id`, Objet.nom AS `desc`, Objet.prix_now, Objet.date_start, Objet.date_stop, Objet.best_user_id, User.prenom, User.nom FROM Objet LEFT JOIN User ON Objet.best_user_id = User._id WHERE Objet.proprio_id =:id AND Objet.is_max = FALSE '. $order_string . ' LIMIT :perPage OFFSET :off';
+
+
+$req = $db->prepare($query_string);
 $req->bindValue(':off', $offset, PDO::PARAM_INT);
 $req->bindValue(':perPage', $objPerPage, PDO::PARAM_INT);
 $req->bindValue(':id', $_SESSION['_id'], PDO::PARAM_INT);
@@ -175,12 +219,12 @@ echo ($_GET['page'] == 1) ? '<a class="mdl-button mdl-js-button mdl-button--icon
 for ($i = $_GET['page']-2; $i < $_GET['page']+3; $i++) {
     if (($i > 0) && ($i < $pageCount+1)) {
         echo ($i == $_GET['page']) ? '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link"><b>'.$i.'</b></a>'
-            : '<a href="user_objects.php?page='.$i.'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">   '.$i.'   </a>';
+            : '<a href="user_objects.php?page='.$i.'&order='.$_GET['order'].'&desc='.$_GET['desc'].'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">   '.$i.'   </a>';
     }
 }
 
 echo ($_GET['page'] == $pageCount) ? '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link">></a>'
-    : '<a href="user_objects.php?page='.($_GET['page']+1).'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">></a>';
+    : '<a href="user_objects.php?page='.($_GET['page']+1).'&order='.$_GET['order'].'&desc='.$_GET['desc'].'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">></a>';
 
 
 echo '</div>';

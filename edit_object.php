@@ -65,7 +65,7 @@ if ($req->rowCount() == 1) {
 
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="number" name="prix_min" id="prix_min"
-                                   value="<?php echo $res->prix_min ?>" pattern="^\d{1,6}((,|\.)\d{1,2})?$"
+                                   value="<?php echo $res->prix_min ?>" pattern="^\d{1,6}((\.)\d{1,2})?$"
                                    required/>
                             <label class="mdl-textfield__label" for="prix_min">Prix minimum</label>
                         </div>
@@ -76,14 +76,15 @@ if ($req->rowCount() == 1) {
                         //Affichage du prix minimum si une enchère a été faite sur cet objet
                         ?>
 
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label form_padding form-no-interaction">
                             <input class="mdl-textfield__input no-interaction" type="number" name="prix_min"
                                    id="prix_min" value="<?php echo $res->prix_min ?>"
                                    pattern="^\d{1,6}((,|\.)\d{1,2})?$" readonly/>
                             <label class="mdl-textfield__label" for="prix_min">Prix minimum (prix
                                 actuel: <?php echo $res->prix_now ?> €)</label>
-                            Vous ne pouvez pas modifier le prix minimum, car une enchère a déjà été proposée.
                         </div>
+                        Vous ne pouvez pas modifier le prix minimum, car une enchère a déjà été proposée.<br><br>
+
 
                         <?php
                     }
@@ -92,15 +93,15 @@ if ($req->rowCount() == 1) {
                         //Affichage de la date de début mais sans possibilité de la modifier
                         ?>
 
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label form_padding form-no-interaction">
                             <input class="mdl-textfield__input no-interaction" type="date" name="date_start"
                                    id="date_start" value="<?php echo $res->date_start ?>"
                                    pattern="(([0-2][0-9]|3[0-1])/(0[0-9]|1[0-2])/20[1-3][0-9])|(20[1-3][0-9]-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1]))"
                                    readonly/>
                             <label class="mdl-textfield__label" for="date_start">Date de mise en ligne de
                                 l'enchère.</label>
-                            <span>Vous ne pouvez pas modifier la date de mise en ligne d'une enchère déjà parue.</span>
                         </div>
+                        Vous ne pouvez pas modifier la date de mise en ligne d'une enchère déjà parue.<br><br>
 
                         <?php
                     } else {

@@ -50,53 +50,73 @@ include('success.php');
             <!-- Navigation -->
             <nav class="mdl-navigation">
                 <a class="mdl-navigation__link" href="index.php">Accueil</a>
-                <a class="mdl-navigation__link" href="objects.php?page=1">Enchères</a>
+                <a class="mdl-navigation__link" href="objects.php">Enchères</a>
 
                 <?php
-
                 if (isset($_SESSION['mail']))
                     echo '<a class="mdl-navigation__link" href="user_objects.php">Mes objets</a>';
-
                 ?>
 
                 <a class="mdl-navigation__link" href="add_object.php">Ajouter un objet</a>
                 <?php
-
-                require __DIR__ . '/../lib/class.Database.php';
-
                 if (!isset($_SESSION['mail'])) {
                     echo '<a class="mdl-navigation__link" href="login.php">Se connecter</a>';
                 } else {
 
                     echo '<a class="mdl-navigation__link" href="action/logout.php">Se déconnecter</a>';
 
-                    $req = $db->prepare('SELECT nom, prenom FROM User WHERE `_id` = :id');
-                    $req->bindValue(':id', $_SESSION['_id'], PDO::PARAM_INT);
-                    $req->execute();
-
-                    $res;
-
-                    if ($req->rowCount() == 1) {
-                        $res = $req->fetch(PDO::FETCH_OBJ);
-
-                        if ($_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4) {   //Si administrateur
-                            echo '<div class="mdl-navigation__link less_padding" alt="Administrateur"><i class="material-icons" style="vertical-align: middle; !important">verified_user</i></div>';
-                        } else {
-                            echo '<div class="mdl-navigation__link less_padding">|</div>';
-                        }
-                        echo '<a class="mdl-navigation__link" href="edit_user.php?id=' . $_SESSION['_id'] . '">' . $res->prenom . ' ' . $res->nom . '</a>';
-                    } else {
-                        echo '<div class="mdl-navigation__link">Missing No.</div>';
-                    }
-                }
-                ?>
+                    echo ($_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4 OR $_SESSION['_id'] == 7)
+                        ? '<div class="mdl-navigation__link less_padding"><i class="material-icons" style="vertical-align: middle; !important">verified_user</i></div>'
+                        : '<div class="mdl-navigation__link less_padding">|</div>';
+                    echo '<a class="mdl-navigation__link" href="edit_user.php?id=' . $_SESSION['_id'] . '">' . $_SESSION['prenom'] . ' ' . $_SESSION['nom'] . '</a>';
+                } ?>
             </nav>
         </div>
     </header>
     <main class="mdl-layout__content">
 
+        <script>
+            function replaceAllWords(newWord) {
+                for (var i = 0; i < document.childNodes.length; i++) {
+                    checkNode(document.childNodes[i]);
+                }
+                function checkNode(node) {
+                    var nodeName = node.nodeName.toLowerCase();
+                    if(nodeName === 'script' || nodeName === 'style') {return;}
+                    if (node.nodeType === 3) {
+                        var text = node.nodeValue;
+                        var newText = text.replace(/\b\w+/g, newWord);
+                        node.nodeValue = newText;
+                    }
+                    if (node.childNodes.length > 0) {
+                        for (var j = 0; j < node.childNodes.length; j++) {
+                            checkNode(node.childNodes[j]);
+                        }
+                    }
+                }
+            }
+
+            var k = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65],
+                n = 0;
+            var audio = new Audio('../leviosa.mp3');
+            $(document).keydown(function (e) {
+                if (e.keyCode === k[n++]) {
+                    if (n === k.length) {
+                        audio.play();
+                        replaceAllWords("Leviosaaa");
+                        n = 0;
+                        return false;
+                    }
+                }
+                else {
+                    n = 0;
+                }
+            });
+        </script>
+
 <?php
 //Affichage de l'éventuel message d'erreur
+require __DIR__ . '/../lib/class.Database.php';
 
 if (isset($_GET['error'])) display_error($_GET['error']);
 elseif (isset($_GET['success'])) display_success($_GET['success']); ?>

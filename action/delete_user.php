@@ -45,11 +45,12 @@ if (isset($_POST['accepte']) AND $_POST['accepte'] == true AND isset($_POST['pwd
                         $delete->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
                         $delete->execute();
 
-                        foreach ($res as $key => $value) {
+                        $update = $db->prepare('UPDATE Objet SET Objet.proprio_id = 0 WHERE proprio_id = :id AND is_max = 1');
+                        $update->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
+                        $update->execute();
 
-                            unlink(__DIR__ . "/../images/objects/" . basename($value->_id));
 
-                        }
+                        foreach ($res as $key => $value) unlink(__DIR__ . "/../images/objects/" . basename($value->_id));
 
                         $deleteuser = $db->prepare('DELETE FROM User WHERE _id = :id');
                         $deleteuser->bindValue(':id', $_GET['id'], PDO::PARAM_INT);

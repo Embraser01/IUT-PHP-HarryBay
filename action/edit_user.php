@@ -44,6 +44,11 @@ if (isset($_SESSION['_id'])) { //Si l'utilisateur est connecté
                         $req->bindValue(':num', $_POST['num'], PDO::PARAM_STR);
                         $req->bindValue(':mail', strtolower($_POST['mail']), PDO::PARAM_STR);
                         $req->execute();
+
+                        $_SESSION['mail'] = $_POST['mail'];
+                        $_SESSION['nom'] = $_POST['nom'];
+                        $_SESSION['prenom'] = $_POST['prenom'];
+
                     } catch (PDOException $ex) {
                         $num_error = 71;
                     }

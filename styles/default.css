@@ -10,10 +10,16 @@
     /* This background is dark, so we set text to white. Use 87% black instead if
        your background is light. */
     background: url('../images/header.png') center / cover;
+    /*background: rgba(0, 0, 0, 0);*/
+    /*position: fixed;*/
 }
 
 .mdl-layout__header-row {
     background: rgba(0, 0, 0, .25);
+}
+
+.mdl-layout__content {
+    /*padding-top: 64px;*/
 }
 
 @media screen and (max-width: 1024px) {
@@ -63,6 +69,10 @@ html, body {
     cursor: default !important;
 }
 
+.form-no-interaction {
+    pointer-events: none;
+}
+
 .titre_page > img {
     max-width: 320px;
     width: 50%;
@@ -99,7 +109,7 @@ html, body {
     }
 
     #meilleure_enchere > .more_padding {
-        padding: 0 64px;
+        padding: 64px 0;
     }
 
     #meilleure_enchere > a {

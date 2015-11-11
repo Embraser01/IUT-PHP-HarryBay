@@ -58,7 +58,9 @@ function display_error ($num_error) {
             echo 'Vous êtes déconnecté. Veuillez vous reconnecter pour supprimer votre compte.';
             break;
 
-
+        case 52:
+            echo 'La date de fin d\'enchère n\'est pas correcte.';
+            break;
         case 53:
             echo 'La date de mise en ligne n\'est pas correcte.';
             break;

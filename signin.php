@@ -11,9 +11,9 @@ $isFail = (!empty($_SESSION['errors_tmp']) AND $_SESSION['errors_tmp']['from'] =
             <h1 class="mdl-card__title-text">S'inscrire</h1>
         </div>
 
-        <div class="mdl-card__supporting-text">
+        <form method="POST" action="action/signin.php">
 
-            <form method="POST" action="action/signin.php">
+            <div class="mdl-card__supporting-text form_padding">
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" name="nom" id="nom"
@@ -45,7 +45,8 @@ $isFail = (!empty($_SESSION['errors_tmp']) AND $_SESSION['errors_tmp']['from'] =
                 </div>
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="password" name="verif" id="verif" pattern="^(?=.*\d)(?=.*[a-zA-Zéèàîâêïäëôûöü' ])[0-9a-zA-Zéèàîâêïäëôûöü' ]{8,}$"/>
+                    <input class="mdl-textfield__input" type="password" name="verif" id="verif"
+                           pattern="^(?=.*\d)(?=.*[a-zA-Zéèàîâêïäëôûöü' ])[0-9a-zA-Zéèàîâêïäëôûöü' ]{8,}$"/>
                     <label class="mdl-textfield__label" for="verif">Verification mot de passe:</label>
                 </div>
 
@@ -56,14 +57,38 @@ $isFail = (!empty($_SESSION['errors_tmp']) AND $_SESSION['errors_tmp']['from'] =
                     <span class="mdl-textfield__error">Entrez un numéro de téléphone valide.</span>
                 </div>
 
+            </div>
+
+            <div class="mdl-card__actions">
                 <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
                     S'inscrire
                 </button>
-
                 <div class="mdl-spinner mdl-js-spinner"></div>
+            </div>
 
-            </form>
-        </div>
+        </form>
+
+        <script>
+            $(document).ready(function () {
+
+
+                $("#submit_button").on('click', function () {
+                    if ($("#nom").val() !== ""
+                        && $("#prenom").val() !== ""
+                        && $("#mdp").val() !== ""
+                        && $("#verif").val() !== ""
+                        && $("#num").val() !== ""
+                        && $("#email").val() !== ""
+                    ) {
+                        event.preventDefault();
+                        $(".mdl-spinner").addClass("is-active");
+                        $("#submit_button").remove();
+                        $('form').submit();
+                    }
+
+                });
+            });
+        </script>
 
     </div>
 

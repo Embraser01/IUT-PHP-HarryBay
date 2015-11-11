@@ -16,7 +16,7 @@ function sendMail($value, $is_max = FALSE)
     //===== Définition du footer.
     $footer = "--<br>Harry Bay,<br>Projet de PHP fait dans le cadre du DUT Informatique S3<br>A l'IUT Lyon 1 - Site du Bourg-en-Bresse<br>Par:<br> - Nicolas POURPRIX<br> - Marc-Antoine FERNANDES</body></html>";
     //=========
-    if($is_max) $footer = "<br>PS: Cet objet détient désormais le record de la plus cher enchère ! <br>Félicitation !<br>" . $footer;
+    if($is_max) $footer = "<br>PS: Cet objet détient désormais le record de l'objet vendu le plus cher!<br>Félicitations!<br>" . $footer;
 
 
     //=====Création de la boundary

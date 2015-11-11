@@ -15,27 +15,68 @@ $months = array('01' => "Janvier",
 
 include('includes/header.php');
 
+/* Valeurs par defaut */
+
+$_GET['page'] = (isset($_GET['page'])) ? abs($_GET['page']) : 1;
+$_GET['order'] = (isset($_GET['order'])) ? $_GET['order'] : 0;
+$_GET['desc'] = (isset($_GET['desc'])) ? $_GET['desc'] : "true";
+
+$objPerPage = 10; //nombre d'objets par page
+$offset = ($_GET['page'] - 1) * $objPerPage;
+
+$order_string = "ORDER BY Objet.";
+
+switch ($_GET['order']) {
+    case 0:
+        $order_string .= "date_start";
+        break;
+    case 1:
+        $order_string .= "date_stop";
+        break;
+    case 2:
+        $order_string .= "prix_now";
+        break;
+    default:
+        $order_string .= "date_start";
+        break;
+}
+$order_string .= ($_GET['desc']=="true") ? ' DESC, Objet.`_id` DESC' : ', Objet.`_id`';
 ?>
 
     <div class="titre_page">
-        Enchères
+
+        Enchères<br>
+        <!-- Left aligned menu below button -->
+        <button class="mdl-button mdl-js-button mdl-button--icon" id="sort_menu">
+          <i class="material-icons">sort</i>
+        </button>
+        <span class="mdl-tooltip" for="sort_menu">
+            Trier
+        </span>
+
+        <a href="objects.php?order=<?php echo $_GET['order'];?>&desc=<?php echo ($_GET['desc'] == "true") ? "false" : "true"; ?>" class="mdl-button mdl-js-button mdl-button--icon" id="invert_sort">
+            <i class="material-icons">import_export</i>
+        </a>
+        <span class="mdl-tooltip" for="invert_sort">
+            Inverser l'ordre
+        </span>
+
+        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+            for="sort_menu">
+          <a href="objects.php?order=0&desc=true" class="link-no-style"><li class="mdl-menu__item">Date de mise en ligne</li></a>
+          <a href="objects.php?order=1&desc=true" class="link-no-style"><li class="mdl-menu__item">Date de fin</li></a>
+          <a href="objects.php?order=2&desc=false" class="link-no-style"><li class="mdl-menu__item">Prix</li></a>
+        </ul>
     </div>
 
     <div class="list_card_wrapper">
 
 <?php
-
-$objPerPage = 10; //nombre d'objets par page
-
-$_GET['page'] = (isset($_GET['page'])) ? abs($_GET['page']) : 1;
-
-
-$offset = ($_GET["page"] - 1) * $objPerPage;
-
-
 // On fait la requete dans la DB Objet pour avoir l'id
 
-$req = $db->prepare('SELECT Objet.`_id`, Objet.nom AS `desc`, Objet.prix_now, Objet.date_stop, Objet.proprio_id, Objet.best_user_id, User.prenom, User.nom FROM Objet LEFT JOIN User ON Objet.best_user_id = User._id WHERE Objet.date_start <= NOW() AND date_stop >= NOW() ORDER BY Objet.date_start DESC, Objet.`_id` DESC LIMIT :perPage OFFSET :off');
+$query_string = 'SELECT Objet.`_id`, Objet.nom AS `desc`, Objet.prix_now, Objet.date_stop, Objet.proprio_id, Objet.best_user_id, User.prenom, User.nom FROM Objet LEFT JOIN User ON Objet.best_user_id = User._id WHERE Objet.date_start <= NOW() AND date_stop >= NOW() '. $order_string . ' LIMIT :perPage OFFSET :off';
+
+$req = $db->prepare($query_string);
 $req->bindValue(':off', $offset, PDO::PARAM_INT);
 $req->bindValue(':perPage', $objPerPage, PDO::PARAM_INT);
 $req->execute();
@@ -68,7 +109,6 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                 ?>
 
                 <script>
-
                 //Script gérant le conpte à rebours: affichage du temps restant, affichage en rouge si bientot fini, désactivation du form si timer fini
 
                 $(document).ready(function() {
@@ -111,8 +151,8 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                     <div class="mdl-card__supporting-text less_padding">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input prix" type="text" width="100px" name="prix"
-                                  pattern="^\d{1,6}((,|\.)\d{1,2})?$"/>
-                            <label class="mdl-textfield__label" for="prix">Montant de l'enchère:</label>
+                                  id="prix<?php echo $value->_id; ?>" pattern="^\d{1,6}((\.)\d{1,2})?$"/>
+                            <label class="mdl-textfield__label" for="prix<?php echo $value->_id; ?>">Montant de l'enchère:</label>
                             <span class="mdl-textfield__error">Entrez un montant valide.</span>
                         </div>
                     </div>
@@ -129,8 +169,8 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                     <div class="mdl-card__supporting-text less_padding">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="text" pattern="[0-9]*" width="100px" name="prix"
-                                   id="prix" disabled/>
-                            <label class="mdl-textfield__label" for="prix">Vous ne pouvez pas enchérir votre
+                                   id="prix<?php echo $value->_id; ?>" disabled/>
+                            <label class="mdl-textfield__label" for="prix<?php echo $value->_id; ?>">Vous ne pouvez pas enchérir votre
                                 objet</label>
                         </div>
                     </div>
@@ -177,12 +217,12 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
     for ($i = $_GET['page']-2; $i < $_GET['page']+3; $i++) {
         if (($i > 0) && ($i < $pageCount+1)) {
             echo ($i == $_GET['page']) ? '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link"><b>'.$i.'</b></a>'
-                : '<a href="objects.php?page='.$i.'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">   '.$i.'   </a>';
+                : '<a href="objects.php?page='.$i.'&order='.$_GET['order'].'&desc='.$_GET['desc'].'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">   '.$i.'   </a>';
         }
     }
 
     echo ($_GET['page'] == $pageCount) ? '<a class="mdl-button mdl-js-button mdl-button--icon mdl-button--disabled link-no-style page-link">></a>'
-        : '<a href="objects.php?page='.($_GET['page']+1).'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">></a>';
+        : '<a href="objects.php?page='.($_GET['page']+1).'&order='.$_GET['order'].'&desc='.$_GET['desc'].'" class="mdl-button mdl-js-button mdl-button--icon link-no-style page-link">></a>';
 
 
     echo '</div>';

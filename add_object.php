@@ -19,7 +19,7 @@ $isFail = (!empty($_SESSION['errors_tmp']) AND $_SESSION['errors_tmp']['from'] =
 
         <form enctype="multipart/form-data" method="POST" action="action/add_object.php">
 
-            <div class="mdl-card__supporting-text">
+            <div class="mdl-card__supporting-text form_padding">
 
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
