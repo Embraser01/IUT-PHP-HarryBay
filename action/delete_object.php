@@ -36,7 +36,7 @@ if (isset($_SESSION['mail'])) {
                         $req->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
                         $req->execute();
 
-                        unlink(__DIR__ . "/../images/objects/" . basename($_GET['id']));
+                        unlink(__DIR__ . "/../images/objects/" . basename($_GET['id'] . '.jpg'));
 
                     } catch (PDOException $ex) {
                         $num_error = 31; //Problème dans la base de données

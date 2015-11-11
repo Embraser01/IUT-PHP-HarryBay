@@ -60,7 +60,7 @@ if (isset($_SESSION['mail'])) {
 }
 
 if ($num_error == 0) {
-    header('Location: ../user_objects.php?page=1&success=50&order=0&desc=true');
+    header('Location: ../user_objects.php?page=1&success=50');
 } elseif ($num_error == 55) {
     header('Location: ../login.php?error=' . $num_error);
 } else {

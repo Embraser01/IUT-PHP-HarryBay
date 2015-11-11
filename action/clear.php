@@ -113,7 +113,7 @@ if (isset($_SESSION['_id']) AND $_SESSION['_id'] == 1 OR $_SESSION['_id'] == 4) 
         foreach ($res as $key => $value) {
             if ($value->_id != $id_max) {
                 array_push($list_to_delete, $value->_id);
-                unlink(__DIR__ . "/../images/objects/" . basename($value->_id));
+                unlink(__DIR__ . "/../images/objects/" . basename($value->_id) . '.jpg');
                 sendMail($value, FALSE);
             } else {
                 sendMail($value, TRUE);

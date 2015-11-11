@@ -20,6 +20,29 @@ function upload($index, $maxsize = FALSE, $extensions = FALSE) {
     return TRUE;
 }
 
+function compress($source, $destination, $quality) {
+    /* From : https://www.apptha.com/blog/how-to-reduce-image-file-size-while-uploading-using-php-code/ */
+
+    $info = getimagesize($source);
+    if ($info['mime'] == 'image/jpeg') $image = imagecreatefromjpeg($source);
+    elseif ($info['mime'] == 'image/gif') $image = imagecreatefromgif($source);
+    elseif ($info['mime'] == 'image/png') $image = imagecreatefrompng($source);
+    else return FALSE;
+
+    if(filesize($source) > 128000)
+        imagejpeg($image, $destination, $quality);
+    else
+        imagejpeg($image, $destination);
+
+    /* Resize until filesize under ???ko OR quality too bad */
+
+    for($quality = 80;filesize($source) > 128000 && $quality > 30;$quality -= 10,clearstatcache()) {
+        $img = imagecreatefromjpeg($source);
+        imagejpeg($img,$source,$quality);
+    }
+    return $destination;
+}
+
 if (isset($_SESSION['mail'])) { //si connecté
     if (isset($_POST['nom'])
         AND isset($_FILES['img'])
@@ -31,37 +54,47 @@ if (isset($_SESSION['mail'])) { //si connecté
         AND $_POST['date_start'] != ""
         AND $_POST['date_stop'] != ""
     ) { //si tous les champs sont renseignés
+        if($_POST['prix_min'] > 0) {
 
-        if ($_POST['date_start'] >= date("Y-m-d")
-            AND $_POST['date_stop'] > date("Y-m-d")
-            AND strtotime($_POST['date_start']) < strtotime($_POST['date_stop'])
-        ) {
+            if ($_POST['date_start'] >= date("Y-m-d")
+                AND $_POST['date_stop'] > date("Y-m-d")
+                AND strtotime($_POST['date_start']) < strtotime($_POST['date_stop'])
+            ) {
 
 
-            if (upload('img', FALSE, array('png', 'PNG', 'JPEG', 'jpg', 'JPG', 'jpeg', 'bmp', 'BMP', 'GIF', 'gif'))) {
+                if (upload('img', 2097152, array('png', 'PNG', 'JPEG', 'jpg', 'JPG', 'jpeg', 'GIF', 'gif'))) {
 
-                require __DIR__ . '/../lib/class.Database.php';
+                    require __DIR__ . '/../lib/class.Database.php';
 
-                // On essaye d'inserer dans la DB
+                    // On essaye d'inserer dans la DB
 
-                try {
-                    $req = $db->prepare('INSERT INTO Objet(nom, prix_min, date_start, date_stop, prix_now, is_max, proprio_id) VALUE (:nom, :prix_min, :date_start, :date_stop, :prix_now, :is_max, :proprio_id)');
+                    try {
+                        $req = $db->prepare('INSERT INTO Objet(nom, prix_min, date_start, date_stop, prix_now, is_max, proprio_id) VALUE (:nom, :prix_min, :date_start, :date_stop, :prix_now, :is_max, :proprio_id)');
 
-                    $req->bindValue(':nom', $_POST['nom'], PDO::PARAM_STR);
-                    $req->bindValue(':prix_min', $_POST['prix_min'], PDO::PARAM_STR);
-                    $req->bindValue(':date_start', $_POST['date_start'], PDO::PARAM_STR);
-                    $req->bindValue(':date_stop', $_POST['date_stop'], PDO::PARAM_STR);
-                    $req->bindValue(':prix_now', $_POST['prix_min'], PDO::PARAM_STR);
-                    $req->bindValue(':is_max', FALSE, PDO::PARAM_BOOL);
-                    $req->bindValue(':proprio_id', $_SESSION['_id'], PDO::PARAM_INT);
-                    $req->execute();
+                        $req->bindValue(':nom', $_POST['nom'], PDO::PARAM_STR);
+                        $req->bindValue(':prix_min', $_POST['prix_min'], PDO::PARAM_STR);
+                        $req->bindValue(':date_start', $_POST['date_start'], PDO::PARAM_STR);
+                        $req->bindValue(':date_stop', $_POST['date_stop'], PDO::PARAM_STR);
+                        $req->bindValue(':prix_now', $_POST['prix_min'], PDO::PARAM_STR);
+                        $req->bindValue(':is_max', FALSE, PDO::PARAM_BOOL);
+                        $req->bindValue(':proprio_id', $_SESSION['_id'], PDO::PARAM_INT);
+                        $req->execute();
 
-                    move_uploaded_file($_FILES['img']['tmp_name'], __DIR__ . "/../images/objects/" . $db->lastInsertId());
-                } catch (PDOException $ex) {
-                    $num_error = 01;
+                        $d = compress($_FILES['img']['tmp_name'], __DIR__ . "/../images/objects/" . $db->lastInsertId() . ".jpg", 50);
+
+                    } catch (PDOException $ex) {
+                        $num_error = 01;
+                    }
+                } else {
+                    $num_error = 02;
+                    $_SESSION['errors_tmp'] = array('from' => 'add_object',
+                        'nom' => $_POST['nom'],
+                        'prix_min' => $_POST['prix_min'],
+                        'date_start' => $_POST['date_start'],
+                        'date_stop' => $_POST['date_stop']);
                 }
             } else {
-                $num_error = 02;
+                $num_error = 03;
                 $_SESSION['errors_tmp'] = array('from' => 'add_object',
                     'nom' => $_POST['nom'],
                     'prix_min' => $_POST['prix_min'],

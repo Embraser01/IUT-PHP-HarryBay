@@ -73,11 +73,23 @@ $order_string .= ($_GET['desc']=="true") ? ' DESC, Objet.`_id` DESC' : ', Objet.
 
         <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
             for="sort_menu">
-          <a href="user_objects.php?order=4&desc=false" class="link-no-style"><li class="mdl-menu__item">Nom</li></a>
-          <a href="user_objects.php?order=3&desc=true" class="link-no-style"><li class="mdl-menu__item">Date d'ajout</li></a>
-          <a href="user_objects.php?order=0&desc=true" class="link-no-style"><li class="mdl-menu__item">Date de mise en ligne</li></a>
-          <a href="user_objects.php?order=1&desc=true" class="link-no-style"><li class="mdl-menu__item">Date de fin</li></a>
-          <a href="user_objects.php?order=2&desc=false" class="link-no-style"><li class="mdl-menu__item">Prix</li></a>
+            <?php
+            echo ($_GET['order']==4)
+                ? '<li class="mdl-menu__item" disabled>Nom</li>'
+                : '<a href="user_objects.php?order=4&desc=true" class="link-no-style"><li class="mdl-menu__item">Nom</li></a>';
+            echo ($_GET['order']==3)
+                ? '<li class="mdl-menu__item" disabled>Date d\'ajout</li>'
+                : '<a href="user_objects.php?order=3&desc=true" class="link-no-style"><li class="mdl-menu__item">Date d\'ajout</li></a>';
+            echo ($_GET['order']==0)
+                ? '<li class="mdl-menu__item" disabled>Date de mise en ligne</li>'
+                : '<a href="user_objects.php?order=0&desc=true" class="link-no-style"><li class="mdl-menu__item">Date de mise en ligne</li></a>';
+            echo ($_GET['order']==1)
+                ? '<li class="mdl-menu__item" disabled>Date de fin</li>'
+                : '<a href="user_objects.php?order=1&desc=true" class="link-no-style"><li class="mdl-menu__item">Date de fin</li></a>';
+            echo ($_GET['order']==2)
+                ? '<li class="mdl-menu__item" disabled>Prix</li>'
+                : '<a href="user_objects.php?order=2&desc=true" class="link-no-style"><li class="mdl-menu__item">Prix</li></a>';
+            ?>
         </ul>
     </div>
 

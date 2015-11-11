@@ -63,9 +63,17 @@ $order_string .= ($_GET['desc']=="true") ? ' DESC, Objet.`_id` DESC' : ', Objet.
 
         <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
             for="sort_menu">
-          <a href="objects.php?order=0&desc=true" class="link-no-style"><li class="mdl-menu__item">Date de mise en ligne</li></a>
-          <a href="objects.php?order=1&desc=true" class="link-no-style"><li class="mdl-menu__item">Date de fin</li></a>
-          <a href="objects.php?order=2&desc=false" class="link-no-style"><li class="mdl-menu__item">Prix</li></a>
+            <?php
+            echo ($_GET['order']==0)
+                ? '<li class="mdl-menu__item" disabled>Date de mise en ligne</li>'
+                : '<a href="objects.php?order=0&desc=true" class="link-no-style"><li class="mdl-menu__item">Date de mise en ligne</li></a>';
+            echo ($_GET['order']==1)
+                ? '<li class="mdl-menu__item" disabled>Date de fin</li>'
+                : '<a href="objects.php?order=1&desc=true" class="link-no-style"><li class="mdl-menu__item">Date de fin</li></a>';
+            echo ($_GET['order']==2)
+                ? '<li class="mdl-menu__item" disabled>Prix</li>'
+                : '<a href="objects.php?order=2&desc=true" class="link-no-style"><li class="mdl-menu__item">Prix</li></a>';
+            ?>
         </ul>
     </div>
 
@@ -148,38 +156,38 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
             if ($value->proprio_id != $_SESSION['_id']) {
                 ?>
                     <form method="POST" action="action/bid.php?id=<?php echo $value->_id; ?>">
-                    <div class="mdl-card__supporting-text less_padding">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input prix" type="text" width="100px" name="prix"
-                                  id="prix<?php echo $value->_id; ?>" pattern="^\d{1,6}((\.)\d{1,2})?$"/>
-                            <label class="mdl-textfield__label" for="prix<?php echo $value->_id; ?>">Montant de l'enchère:</label>
-                            <span class="mdl-textfield__error">Entrez un montant valide.</span>
+                        <div class="mdl-card__supporting-text less_padding">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input prix" type="text" width="100px" name="prix"
+                                      id="prix<?php echo $value->_id; ?>" pattern="^\d{1,6}((\.)\d{1,2})?$"/>
+                                <label class="mdl-textfield__label" for="prix<?php echo $value->_id; ?>">Montant de l'enchère:</label>
+                                <span class="mdl-textfield__error">Entrez un montant valide.</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mdl-card__actions">
-                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
-                            Enchérir
-                        </button>
-                    </div>
+                        <div class="mdl-card__actions">
+                            <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
+                                Enchérir
+                            </button>
+                        </div>
                     </form>
                 <?php
             } else {
                 ?>
                     <form method="POST" action="#">
-                    <div class="mdl-card__supporting-text less_padding">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" pattern="[0-9]*" width="100px" name="prix"
-                                   id="prix<?php echo $value->_id; ?>" disabled/>
-                            <label class="mdl-textfield__label" for="prix<?php echo $value->_id; ?>">Vous ne pouvez pas enchérir votre
-                                objet</label>
+                        <div class="mdl-card__supporting-text less_padding">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="text" pattern="[0-9]*" width="100px" name="prix"
+                                       id="prix<?php echo $value->_id; ?>" disabled/>
+                                <label class="mdl-textfield__label" for="prix<?php echo $value->_id; ?>">Vous ne pouvez pas enchérir votre
+                                    objet</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mdl-card__actions">
-                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit"
-                                disabled>
-                            Enchérir
-                        </button>
-                    </div>
+                        <div class="mdl-card__actions">
+                            <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit"
+                                    disabled>
+                                Enchérir
+                            </button>
+                        </div>
                     </form>
                 <div class="mdl-card__menu">
 
