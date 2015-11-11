@@ -43,6 +43,7 @@ function compress($source, $destination, $quality) {
     return $destination;
 }
 
+
 if (isset($_SESSION['mail'])) { //si connecté
     if (isset($_POST['nom'])
         AND isset($_FILES['img'])
