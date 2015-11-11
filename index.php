@@ -20,9 +20,7 @@ $months = array('01' => "Janvier",
     '10' => "Octobre",
     '11' => "Novembre",
     '12' => "Décembre");
-
 ?>
-
     <div class="titre_page">
         <img src="./images/logo.png" alt="Logo de Harry Bay"/>
     </div>
@@ -35,7 +33,7 @@ $months = array('01' => "Janvier",
 
     <!-- Carte de description de Harry Potter -->
 
-    <div id="description">
+    <div id="site-description">
         <div class="mdl-card mdl-shadow--4dp object_card centre_card">
             <div class="mdl-card__title">
                 <h1 class="mdl-card__title-text">La saga Harry Potter</h1>
@@ -70,14 +68,12 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
     $res = $req->fetch(PDO::FETCH_OBJ);
     $date_stop = strtotime($res->date_stop);
     ?>
-    <div id="meilleure_enchere">
-
+    <div id="best-object-card">
         <div class="more_padding">
-
             <div class="centrer_texte mdl-typography--title-color-contrast">Meilleure vente à ce jour:</div>
 
             <div class="mdl-card mdl-shadow--4dp object_card centre_card"
-                 id="objet<?php echo $res->_id ?>">
+                 id="best-object">
 
                 <div class="mdl-card__title titre_card"
                      style="background: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25) ),url('./images/get_obj_img.php?id=<?php echo $res->_id ?>') center / cover;">
@@ -90,34 +86,28 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                     <br>
                     le <?php echo strftime("%d ", $date_stop) . $months[strftime("%m", $date_stop)] . strftime(" %G", $date_stop); ?>
                 </div>
-
             </div>
-
         </div>
-
-        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--accent"
-           href="objects.php?page=1&order=0&desc=true"
-           style="width: 100% !important;">
-            Voir les objets en vente
-        </a>
-
     </div>
 
     <script>
         $(document).ready(function () {
-            var img<?php echo $res->_id ?> = new Image();
-            img<?php echo $res->_id ?>.onload = function () {
-                document.getElementById("objet<?php echo $res->_id ?>").getElementsByClassName("titre_card")[0].style.opacity = "1";
-                //$("#meilleure_enchere").css({"-webkit-filter: blur(10px); -moz-filter: blur");
-
+            var imgBest = new Image();
+            imgBest.onload = function () {
+                document.getElementById("best-object").getElementsByClassName("titre_card")[0].style.opacity = "1";
             };
-            img<?php echo $res->_id ?>.src = './images/get_obj_img.php?id=<?php echo $res->_id ?>';
+            imgBest.src = './images/get_obj_img.php?id=<?php echo $res->_id ?>';
         });
     </script>
 
+    <a id="link-objects"
+        class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--accent"
+       href="objects.php">
+        Voir les objets en vente
+    </a>
+
     <?php
 }
-
 if (!isset($_SESSION['mail'])) {
 
     ?>

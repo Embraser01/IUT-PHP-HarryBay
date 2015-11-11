@@ -36,7 +36,7 @@ function compress($source, $destination, $quality) {
 
     /* Resize until filesize under ???ko OR quality too bad */
 
-    for($quality = 80;filesize($source) > 128000 && $quality > 30;$quality -= 10,clearstatcache()) {
+    for($quality = 80;filesize($source) > 128000 && $quality > 20;$quality -= 10,clearstatcache()) {
         $img = imagecreatefromjpeg($source);
         imagejpeg($img,$source,$quality);
     }

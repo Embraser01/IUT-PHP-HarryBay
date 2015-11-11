@@ -32,6 +32,7 @@ include('success.php');
         <script src="js/material.min.js"></script>
         <script src="js/jquery-2.1.4.min.js"></script>
         <script src="js/jquery.countdown.min.js"></script>
+        <script src="js/harrykonami.js"></script>
 
 
         <meta charset="UTF-8"/>
@@ -41,10 +42,9 @@ include('success.php');
 <body>
 <div class="mdl-layout mdl-js-layout">
     <header class="mdl-layout__header mdl-layout--fixed-header">
-        <div class="mdl-layout__header-row mdl-layout--fixed-header tabulation">
+        <div class="mdl-layout__header-row mdl-layout--fixed-header layout-no-menu">
             <!-- Title -->
-                    <span class="mdl-layout-title "><a class="link-no-style mdl-color-text--white " href="index.php">Harry
-                            Bay</a></span>
+            <span class="mdl-layout-title "><a class="link-no-style mdl-color-text--white " href="index.php">Harry Bay</a></span>
             <!-- Add spacer, to align navigation to the right -->
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation -->
@@ -75,48 +75,10 @@ include('success.php');
     </header>
     <main class="mdl-layout__content">
 
-        <script>
-            function replaceAllWords(newWord) {
-                for (var i = 0; i < document.childNodes.length; i++) {
-                    checkNode(document.childNodes[i]);
-                }
-                function checkNode(node) {
-                    var nodeName = node.nodeName.toLowerCase();
-                    if(nodeName === 'script' || nodeName === 'style') {return;}
-                    if (node.nodeType === 3) {
-                        var text = node.nodeValue;
-                        var newText = text.replace(/\b\w+/g, newWord);
-                        node.nodeValue = newText;
-                    }
-                    if (node.childNodes.length > 0) {
-                        for (var j = 0; j < node.childNodes.length; j++) {
-                            checkNode(node.childNodes[j]);
-                        }
-                    }
-                }
-            }
-
-            var k = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65],
-                n = 0;
-            var audio = new Audio('../leviosa.mp3');
-            $(document).keydown(function (e) {
-                if (e.keyCode === k[n++]) {
-                    if (n === k.length) {
-                        audio.play();
-                        replaceAllWords("Leviosaaa");
-                        n = 0;
-                        return false;
-                    }
-                }
-                else {
-                    n = 0;
-                }
-            });
-        </script>
-
 <?php
-//Affichage de l'éventuel message d'erreur
 require __DIR__ . '/../lib/class.Database.php';
+
+//Affichage de l'éventuel message d'erreur
 
 if (isset($_GET['error'])) display_error($_GET['error']);
 elseif (isset($_GET['success'])) display_success($_GET['success']); ?>

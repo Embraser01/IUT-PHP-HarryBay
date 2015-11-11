@@ -1,31 +1,67 @@
 /*
  * Default ressources
- * @Embraser01
  * Under Creative Commons - 2015
  */
+
+/*===== MISC =====*/
+
+html, body {
+    background-color: #E9E9E9;
+    font-family: 'Roboto', sans-serif;
+}
+
+.no-interaction {
+    cursor: default !important;
+}
+
+.form-no-interaction {
+    pointer-events: none;
+}
+
+.less_padding {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.icone-modifier {
+    color: #fff;
+}
+
+.fileUpload {
+    overflow: hidden;
+}
+
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
 
 /*=====HEADER=====*/
 
 .mdl-layout__header {
-    /* This background is dark, so we set text to white. Use 87% black instead if
-       your background is light. */
     background: url('../images/header.png') center / cover;
-    /*background: rgba(0, 0, 0, 0);*/
-    /*position: fixed;*/
 }
 
 .mdl-layout__header-row {
     background: rgba(0, 0, 0, .25);
 }
 
-.mdl-layout__content {
-    /*padding-top: 64px;*/
+.layout-no-menu {
+    padding: 0 20px;
 }
 
 @media screen and (max-width: 1024px) {
     .mdl-layout__header {
         display: flex !important;
     }
+
     .mdl-layout__header-row {
         overflow-x: scroll;
     }
@@ -39,219 +75,6 @@
         padding: 0 !important;
         width: 100%;
     }
-}
-
-/*===== MISC =====*/
-
-html, body {
-    background-color: #E9E9E9;
-    font-family: 'Roboto', sans-serif;
-}
-
-.tabulation {
-    padding: 0 20px;
-}
-
-.page-selector {
-    text-align: center;
-    margin: 50px auto;
-    padding: 25px;
-    font-size: 1em;
-}
-
-.page-link {
-    /*margin: 10px;*/
-    /*font-size: 1em;*/
-    color: #999;
-}
-
-.no-interaction {
-    cursor: default !important;
-}
-
-.form-no-interaction {
-    pointer-events: none;
-}
-
-.titre_page > img {
-    max-width: 320px;
-    width: 50%;
-}
-
-#description > .mdl-card {
-    margin-right: 64px;
-}
-
-#description {
-    background: url('../images/desc_bg.jpg') center / cover;
-    background-attachment: fixed;
-    padding: 64px;
-    margin-top: 32px;
-}
-
-#meilleure_enchere{
-    padding-top: 64px;
-}
-
-#meilleure_enchere > .more_padding {
-    padding: 0 64px;
-}
-
-#meilleure_enchere > a {
-    padding: 32px 0;
-}
-
-@media screen and (max-width: 600px) {
-
-    #meilleure_enchere {
-        background-attachment: fixed;
-        padding-top: 64px;
-    }
-
-    #meilleure_enchere > .more_padding {
-        padding: 64px 0;
-    }
-
-    #meilleure_enchere > a {
-        padding: 32px 0;
-    }
-
-    #description {
-        background: url('../images/desc_bg.jpg') center / cover;
-        background-attachment: fixed;
-        padding: 64px 0;
-        margin-top: 32px;
-    }
-
-    #description > .mdl-card {
-        margin: 0 auto;
-    }
-
-}
-
-.invitation {
-    background: url('../images/chemin_de_traverse.jpg') center / cover;
-    background-attachment: fixed;
-    width: 100%;
-    padding: 128px 0;
-}
-
-/*===== CARDS =====*/
-
-.film_card {
-    max-width: 75%;
-    margin: 20px auto 50px;
-}
-
-.film_desc {
-    background: url('../images/hp_desc_bg.jpg') center / cover;
-}
-
-.signin_card > .titre_card {
-    height: 200px;
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/add_user_bg.png') center / cover;
-}
-
-#edit_card > .titre_card {
-    min-height: 200px;
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/edit_user_bg.png');
-    background-size: cover;
-}
-
-#password_card > .titre_card {
-    min-height: 200px;
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/edit_password_bg.png');
-    background-size: cover;
-}
-
-#delete_user_card > .titre_card {
-    min-height: 200px;
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/delete_user_bg.png');
-    background-size: cover;
-}
-
-#edit_card > form, #password_card > form, #delete_user_card > form {
-    display: none;
-}
-
-.object_card > .titre_card {
-    opacity: 0;
-    animation-duration: .5s;
-    -webkit-animation-duration: .5s;
-    -moz-animation-duration: .5s;
-    -o-animation-duration: .5s;
-    transition-duration: .5s;
-    -webkit-transition-duration: .5s;
-    -moz-transition-duration: .5s;
-    -o-transition-duration: .5s;
-
-}
-
-/*.object_card > .mdl-textfield {
-    margin-left: 8px !important;
-    width: 100% !important;
-}*/
-
-.custom_textfield {
-    margin: 0 8px;
-}
-
-.less_padding {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-.form_padding {
-    padding-bottom: 0 !important;
-}
-
-/*===== MENU =====*/
-
-#header-row {
-    padding-left: 30px !important;
-}
-
-/*===== FONT STYLE =====*/
-
-.link-no-style {
-    text-decoration: none;
-}
-
-.centrer_texte {
-    text-align: center;
-}
-
-.left_text {
-    text-align: left;
-}
-
-.red {
-    color: #F44336;
-}
-
-.white {
-    color: #fff;
-}
-
-.mdl-button > .mdl-card__title-text {
-    text-transform: none;
-}
-
-.titre_page {
-    width: 80%;
-    line-height: normal;
-    font-size: 3em;
-    font-weight: 300;
-    padding: 64px 0;
-    text-align: center;
-    margin: 0 auto;
-}
-
-.simple_text {
-    max-width: 640px;
-    padding: 32px 64px;
-    /*text-align: center;*/
-    margin: 0 auto;
 }
 
 /*===== NOTIFICATIONS =====*/
@@ -287,11 +110,198 @@ html, body {
     font-size: 2em;
 }
 
-/*===== DESC CARD =====*/
+/*===== PAGE TITLE =====*/
+
+.titre_page > img {
+    max-width: 320px;
+    width: 50%;
+}
+
+/*===== SITE CONTENT =====*/
+
+/* Index content */
+
+#site-description > .mdl-card {
+    margin-right: 64px;
+}
+
+#site-description {
+    background: url('../images/desc_bg.jpg') fixed center;
+    padding: 64px;
+    margin-top: 32px;
+}
+
+#best-object-card {
+    padding-top: 64px;
+}
+
+#best-object-card > .more_padding {
+    padding: 0 64px;
+}
+
+#link-objects {
+    padding: 32px 0;
+    width: 100% !important;
+}
+
+.invitation {
+    background: url('../images/chemin_de_traverse.jpg') fixed center;
+    width: 100%;
+    padding: 128px 0;
+}
+
+@media screen and (max-width: 600px) {
+
+    #site-description {
+        background: url('../images/desc_bg.jpg') fixed center;
+        padding: 64px 0;
+        margin-top: 32px;
+    }
+
+    #site-description > .mdl-card {
+        margin: 0 auto;
+    }
+
+    #best-object-card {
+        background-attachment: fixed;
+        padding-top: 64px;
+    }
+
+    #best-object-card > .more_padding {
+        padding: 64px 0;
+    }
+
+    #link-objects {
+        padding: 32px 0;
+    }
+}
+
+/*===== CARDS =====*/
+
+.centre_card {
+    margin: 50px auto;
+}
+
+.titre_card {
+    color: #fff;
+    -webkit-background-size: cover !important;
+    background: #C83737 no-repeat;
+}
+
+/* Description card (index) */
 
 .object_card > .mdl-card__supporting-text {
     font-weight: 500;
     font-size: 1em;
+}
+
+/* OBJECT card */
+
+.object_card > .titre_card {
+    height: 178px;
+    opacity: 0;
+    animation-duration: .5s;
+    -webkit-animation-duration: .5s;
+    -moz-animation-duration: .5s;
+    -o-animation-duration: .5s;
+    transition-duration: .5s;
+    -webkit-transition-duration: .5s;
+    -moz-transition-duration: .5s;
+    -o-transition-duration: .5s;
+}
+
+.object_card > .material-icons {
+    height: 24px;
+}
+
+/* EDIT OBJECT card */
+
+#edit-object-card > .titre_card {
+    height: 178px;
+}
+
+/* DELETE OBJECT card */
+
+#delete-object-card > .titre_card {
+    height: 200px;
+    background: #F44336 url('../images/delete_card_bg.png') center;
+    text-align: center;
+}
+
+/* SIGNING card */
+
+#signin_card > .titre_card {
+    height: 200px;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/add_user_bg.png') center / cover;
+}
+
+/* EDIT USER card */
+
+#edit_user_card > .titre_card {
+    min-height: 200px;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/edit_user_bg.png');
+    background-size: cover;
+}
+
+/* PASSWORD USER card */
+
+#password_card > .titre_card {
+    min-height: 200px;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/edit_password_bg.png');
+    background-size: cover;
+}
+
+/* DELETE USER card */
+
+#delete_user_card > .titre_card {
+    min-height: 200px;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url('../images/delete_user_bg.png');
+    background-size: cover;
+}
+
+/*===== FORMS =====*/
+
+.form_padding {
+    padding-bottom: 0 !important;
+}
+
+#edit_user_card > form, #password_card > form, #delete_user_card > form {
+    display: none;
+}
+
+/*===== FONT STYLE =====*/
+
+.link-no-style {
+    text-decoration: none;
+}
+
+.centrer_texte {
+    text-align: center;
+}
+
+.red {
+    color: #F44336;
+}
+
+.white {
+    color: #fff;
+}
+
+.titre_page {
+    width: 80%;
+    line-height: normal;
+    font-size: 3em;
+    font-weight: 300;
+    padding: 64px 0;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.simple_text {
+    max-width: 640px;
+    padding: 32px 64px;
+    margin: 0 auto;
+    text-align: justify;
 }
 
 /*===== CARDS LIST =====*/
@@ -316,54 +326,17 @@ html, body {
     -o-transition-duration: .5s;
 }
 
-.centre_card {
-    margin: 50px auto;
-}
+/*===== PAGE SELECTOR =====*/
 
-.titre_card {
-    color: #fff;
-    -webkit-background-size: cover !important;
-    background: #C83737 no-repeat;
-}
-
-.object_card > .titre_card, .edit_card > .titre_card {
-    height: 178px;
-}
-
-.delete_card > .titre_card {
-    background: #F44336;
+.page-selector {
     text-align: center;
+    margin: 50px auto;
+    padding: 25px;
+    font-size: 1em;
 }
 
-.icone-modifier {
-    color: #fff;
-}
-
-.object_card > .material-icons {
-    height: 24px;
-}
-
-.delete_card > .titre_card {
-    height: 200px;
-    background: url('../images/delete_card_bg.png') center / cover;
-}
-
-/*===== UPLOAD BUTTON =====*/
-
-.fileUpload {
-    overflow: hidden;
-}
-
-.fileUpload input.upload {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    padding: 0;
-    font-size: 20px;
-    cursor: pointer;
-    opacity: 0;
-    filter: alpha(opacity=0);
+.page-link {
+    color: #999;
 }
 
 /*===== STICKY FOOTER =====*/
@@ -386,10 +359,6 @@ footer p {
 }
 
 @media screen and (max-height: 600px) {
-    main {
-        height: 100% !important;
-    }
-
     footer {
         visibility: hidden !important;
         height: 0 !important;

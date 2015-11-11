@@ -72,7 +72,7 @@ $isFail = (!empty($_SESSION['errors_tmp']) AND $_SESSION['errors_tmp']['from'] =
 
                 <button
                     class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button"
-                    id="submit_button" type="submit">
+                    id="submit_button_add_object" type="submit">
                     Valider
                 </button>
 

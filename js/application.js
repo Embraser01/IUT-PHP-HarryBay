@@ -5,7 +5,7 @@
 $(document).ready(function () {
 
 
-    /*$("#submit_button").on('click', function () {
+    $("#submit_button_add_object").on('click', function () {
         if ($("#nom").val() !== ""
             && $("#prix_min").val() !== ""
             && $("#date_start").val() !== ""
@@ -13,19 +13,19 @@ $(document).ready(function () {
         ) {
             event.preventDefault();
             $(".mdl-spinner").addClass("is-active");
-            $("#submit_button").remove();
+            $("#submit_button_add_object").remove();
             $('form').submit();
         }
 
-    });*/
+    });
 
-    $("#edit_card").find(".mdl-card__title").on('click', function () {
+    $("#edit_user_card").find(".mdl-card__title").on('click', function () {
 
-        if ($("#edit_card").find("form").is(":visible")) {
-            $("#edit_card").find("form").slideToggle();
+        if ($("#edit_user_card").find("form").is(":visible")) {
+            $("#edit_user_card").find("form").slideToggle();
         }
         else {
-            $("#edit_card").find("form").slideDown();
+            $("#edit_user_card").find("form").slideDown();
             $("#password_card").find("form").slideUp();
             $("#delete_user_card").find("form").slideUp();
         }
@@ -39,7 +39,7 @@ $(document).ready(function () {
             $("#password_card").find("form").slideToggle();
         }
         else {
-            $("#edit_card").find("form").slideUp();
+            $("#edit_user_card").find("form").slideUp();
             $("#password_card").find("form").slideDown();
             $("#delete_user_card").find("form").slideUp();
         }
@@ -52,7 +52,7 @@ $(document).ready(function () {
             $("#delete_user_card").find("form").slideToggle();
         }
         else {
-            $("#edit_card").find("form").slideUp();
+            $("#edit_user_card").find("form").slideUp();
             $("#password_card").find("form").slideUp();
             $("#delete_user_card").find("form").slideDown();
         }

@@ -5,7 +5,7 @@ include('includes/header.php');
 $isFail = (!empty($_SESSION['errors_tmp']) AND $_SESSION['errors_tmp']['from'] == 'signin') ? $isFail = TRUE : $isFail = FALSE;
 ?>
 
-    <div class="mdl-card mdl-shadow--16dp centre_card signin_card">
+    <div id="signin_card" class="mdl-card mdl-shadow--16dp centre_card">
 
         <div class="mdl-card__title titre_card">
             <h1 class="mdl-card__title-text">S'inscrire</h1>

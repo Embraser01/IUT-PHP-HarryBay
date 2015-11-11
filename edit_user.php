@@ -38,7 +38,7 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
 
         <div class="list_card_wrapper">
 
-            <div class="mdl-card mdl-shadow--16dp list_card" id="edit_card">
+            <div class="mdl-card mdl-shadow--16dp list_card" id="edit_user_card">
 
                 <div class="mdl-card__title titre_card mdl-button mdl-js-button mdl-js-ripple-effect">
                     <h1 class="mdl-card__title-text">Mon compte</h1>

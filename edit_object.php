@@ -38,7 +38,7 @@ if ($req->rowCount() == 1) {
     if ($res->userid == $_SESSION['_id']) {
         ?>
 
-        <div class="mdl-card mdl-shadow--16dp centre_card edit_card">
+        <div class="mdl-card mdl-shadow--16dp centre_card" id="edit-object-card">
 
             <div class="mdl-card__title titre_card"
                  style="background: linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25) ),url('./images/get_obj_img.php?id=<?php echo $_GET['id'] ?>') center / cover;">
@@ -143,7 +143,7 @@ if ($req->rowCount() == 1) {
 
         <!--Carte pour supprimer l'objet-->
 
-        <div class="mdl-card mdl-shadow--16dp centre_card delete_card">
+        <div class="mdl-card mdl-shadow--16dp centre_card" id="delete-object-card">
 
             <div class="mdl-card__title titre_card">
                 <div class="mdl-card__title-text centrer_texte">
