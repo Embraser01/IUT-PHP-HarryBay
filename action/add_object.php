@@ -5,6 +5,7 @@
  */
 
 session_start();
+ini_set('memory_limit', '-1'); // Cache from compress image...
 
 $num_error = 0;
 
@@ -36,9 +37,10 @@ function compress($source, $destination, $quality) {
 
     /* Resize until filesize under ???ko OR quality too bad */
 
-    for($quality = 80;filesize($source) > 128000 && $quality > 20;$quality -= 10,clearstatcache()) {
-        $img = imagecreatefromjpeg($source);
-        imagejpeg($img,$source,$quality);
+    clearstatcache();
+    for($quality = 80;filesize($destination) > 128000 && $quality >= 20;$quality -= 10,clearstatcache()) {
+        $img = imagecreatefromjpeg($destination);
+        imagejpeg($img,$destination,$quality);
     }
     return $destination;
 }
@@ -62,8 +64,8 @@ if (isset($_SESSION['mail'])) { //si connecté
                 AND strtotime($_POST['date_start']) < strtotime($_POST['date_stop'])
             ) {
 
-
-                if (upload('img', 2097152, array('png', 'PNG', 'JPEG', 'jpg', 'JPG', 'jpeg', 'GIF', 'gif'))) {
+                // Limit image size is 1.25 Mo ! 1310720
+                if (upload('img', 1310720, array('png', 'PNG', 'JPEG', 'jpg', 'JPG', 'jpeg', 'GIF', 'gif'))) {
 
                     require __DIR__ . '/../lib/class.Database.php';
 

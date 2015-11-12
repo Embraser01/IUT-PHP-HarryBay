@@ -38,6 +38,8 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
 
         <div class="list_card_wrapper">
 
+            <!--Carte pour modifier les infos utilisateur-->
+
             <div class="mdl-card mdl-shadow--16dp list_card" id="edit_user_card">
 
                 <div class="mdl-card__title titre_card mdl-button mdl-js-button mdl-js-ripple-effect no-text-transform">
@@ -63,7 +65,7 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
 
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="text" name="mail" id="mail"
-                                   value="<?php echo $res->mail ?>" pattern="?+$"/>
+                                   value="<?php echo $res->mail ?>" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$"/>
                             <label class="mdl-textfield__label" for="mail">Adresse email</label>
                             <span class="mdl-textfield__error">Entrez une adresse email valide.</span>
                         </div>
@@ -96,7 +98,7 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
 
             </div>
 
-            <!--Carte pour supprimer l'objet-->
+            <!--Carte pour modifier le mot de passe-->
 
             <div class="mdl-card mdl-shadow--16dp list_card" id="password_card">
 
@@ -148,6 +150,8 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
 
             </div>
 
+            <!--Carte pour supprimer le compte-->
+
             <div class="mdl-card mdl-shadow--16dp list_card" id="delete_user_card">
 
                 <div class="mdl-card__title titre_card mdl-button mdl-js-button mdl-js-ripple-effect no-text-transform">
@@ -182,8 +186,7 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
                         </label>
 
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="password" name="pwd" id="pwd"
-                                   pattern="^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,}$"/>
+                            <input class="mdl-textfield__input" type="password" name="pwd" id="pwd"/>
                             <label class="mdl-textfield__label" for="pwd">Mot de passe:</label>
                         </div>
                     </div>
@@ -191,7 +194,7 @@ if ($req->rowCount() == 1) {   //si l'utilisateur existe
                     <div class="mdl-card__actions">
 
                         <button class="mdl-button mdl-js-button mdl-js-ripple-effect submit-button" type="submit">
-                            <i class="material-icons">clear</i> DROP ACCOUNT IF EXISTS!
+                            <i class="material-icons">clear</i> SE DÉSINSCRIRE
                         </button>
 
                     </div>

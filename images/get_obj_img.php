@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 if (isset($_GET['id'])) {
 
     if (file_exists(__DIR__ . "/objects/" . basename($_GET['id']) . '.jpg')) {

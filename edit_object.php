@@ -64,7 +64,7 @@ if ($req->rowCount() == 1) {
                         ?>
 
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="number" name="prix_min" id="prix_min"
+                            <input class="mdl-textfield__input" type="text" name="prix_min" id="prix_min"
                                    value="<?php echo $res->prix_min ?>" pattern="^\d{1,6}((\.)\d{1,2})?$"
                                    required/>
                             <label class="mdl-textfield__label" for="prix_min">Prix minimum</label>
@@ -79,7 +79,7 @@ if ($req->rowCount() == 1) {
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label form_padding form-no-interaction">
                             <input class="mdl-textfield__input no-interaction" type="number" name="prix_min"
                                    id="prix_min" value="<?php echo $res->prix_min ?>"
-                                   pattern="^\d{1,6}((,|\.)\d{1,2})?$" readonly/>
+                                   pattern="^\d{1,6}((\.)\d{1,2})?$" readonly/>
                             <label class="mdl-textfield__label" for="prix_min">Prix minimum (prix
                                 actuel: <?php echo $res->prix_now ?> €)</label>
                         </div>

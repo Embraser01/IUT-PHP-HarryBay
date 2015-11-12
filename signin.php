@@ -17,17 +17,14 @@ $isFail = (!empty($_SESSION['errors_tmp']) AND $_SESSION['errors_tmp']['from'] =
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" name="nom" id="nom"
-                           pattern="[a-zA-Zéèàîâêïäëôûöü' ]+$" <?php echo ($isFail) ? 'value="' . $_SESSION['errors_tmp']['nom'] . '"' : ''; ?>/>
+                           pattern=".+$" <?php echo ($isFail) ? 'value="' . $_SESSION['errors_tmp']['nom'] . '"' : ''; ?>/>
                     <label class="mdl-textfield__label" for="nom">Nom:</label>
-                    <span class="mdl-textfield__error">Votre nom doit uniquement contenir des lettres et espaces.</span>
                 </div>
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" name="prenom" id="prenom"
-                           pattern="[a-zA-Zéèàîâêïäëôûöü' ]+$" <?php echo ($isFail) ? 'value="' . $_SESSION['errors_tmp']['prenom'] . '"' : ''; ?>/>
+                           pattern=".+$" <?php echo ($isFail) ? 'value="' . $_SESSION['errors_tmp']['prenom'] . '"' : ''; ?>/>
                     <label class="mdl-textfield__label" for="prenom">Prénom:</label>
-                    <span
-                        class="mdl-textfield__error">Votre prénom doit uniquement contenir des lettres et espaces.</span>
                 </div>
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

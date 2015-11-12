@@ -66,7 +66,7 @@ $uorder_string .= (isset($_GET['desc'])) ? ' DESC, Objet.`_id` DESC' : ', Objet.
 
 $query = 'SELECT Objet.`_id`, Objet.nom AS `desc`,Objet.prix_min, Objet.prix_now, Objet.date_start, Objet.date_stop, Objet.proprio_id, Objet.best_user_id, User.prenom, User.nom FROM Objet JOIN User ON Objet.proprio_id = User._id ';
 
-$query .= $uorder_string;
+$query .= $uorder_string . ' LIMIT 200';
 
 
 $req = $db->prepare($query);
@@ -197,7 +197,7 @@ $order_string .= (isset($_GET['desc'])) ? ' DESC, User.`_id` DESC' : ', User.`_i
 
 $query = 'SELECT User.`_id`, User.mail, User.nom, User.prenom, User.num_tel FROM User ';
 
-$query .= $order_string;
+$query .= $order_string . ' LIMIT 200';
 
 
 $req = $db->prepare($query);

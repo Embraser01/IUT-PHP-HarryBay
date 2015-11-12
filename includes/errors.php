@@ -8,7 +8,7 @@ function display_error ($num_error) {
 
     switch ($_GET['error']) {
         case 2:
-            echo 'L\'image que vous avez envoyée n\'est pas valide (extension, poids ou erreur d\'envoi).';
+            echo 'L\'image que vous avez envoyée n\'est pas valide (extension, poids (doit être inférieur à 1.25 Mo) ou erreur d\'envoi).';
             break;
         case 3:
             echo 'Les informations que vous avez envoyées ne sont pas correctes.';
@@ -106,6 +106,7 @@ function display_error ($num_error) {
             echo 'Veuillez renseigner tous les champs.'; break;
 
 
+        case 33:
         case 43:
         case 72:
             echo 'Le mot de passe est erroné.';

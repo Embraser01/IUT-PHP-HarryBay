@@ -58,7 +58,7 @@ if (isset($_SESSION['mail'])) {
 }
 
 if ($num_error == 0) {
-    header('Location: ../objects.php?page=1&success=30');
+    header('Location: ../user_objects.php?page=1&success=30');
 } elseif ($num_error == 33 || $num_error == 35) {
     header('Location: ../edit_object.php?id=' . $_GET['id'] . '&error=' . $num_error);
 } else {

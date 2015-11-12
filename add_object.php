@@ -47,7 +47,7 @@ $isFail = (!empty($_SESSION['errors_tmp']) AND $_SESSION['errors_tmp']['from'] =
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" name="prix_min" id="prix_min"
-                           pattern="^\d{1,6}((,|\.)\d{1,2})?$" <?php echo ($isFail) ? 'value="' . $_SESSION['errors_tmp']['prix_min'] . '"' : ''; ?>/>
+                           pattern="^\d{1,6}((\.)\d{1,2})?$" <?php echo ($isFail) ? 'value="' . $_SESSION['errors_tmp']['prix_min'] . '"' : ''; ?>/>
                     <label class="mdl-textfield__label" for="prix_min">Prix minimum</label>
                 </div>
 

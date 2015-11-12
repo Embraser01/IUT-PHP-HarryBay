@@ -145,7 +145,7 @@ html, body {
 }
 
 .invitation {
-    background: url('../images/chemin_de_traverse.jpg') fixed center;
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../images/chemin_de_traverse.jpg') fixed center;
     width: 100%;
     padding: 128px 0;
 }

@@ -75,52 +75,58 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
 
     $res = $req->fetchAll();
 
+    ?>
+
+
+    <button class="mdl-button mdl-js-button mdl-button--icon" id="sort_menu">
+        <i class="material-icons">sort</i>
+    </button>
+    <span class="mdl-tooltip" for="sort_menu">
+            Trier
+        </span>
+
+    <a href="user_objects.php?order=<?php echo $_GET['order'];?>&desc=<?php echo ($_GET['desc'] == "true") ? "false" : "true"; ?>" class="mdl-button mdl-js-button mdl-button--icon" id="invert_sort">
+        <i class="material-icons">import_export</i>
+    </a>
+    <span class="mdl-tooltip" for="invert_sort">
+            Inverser l'ordre
+        </span>
+
+    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+        for="sort_menu">
+        <?php
+        echo ($_GET['order']==4)
+            ? '<li class="mdl-menu__item" disabled>Nom</li>'
+            : '<a href="user_objects.php?order=4&desc=true" class="link-no-style"><li class="mdl-menu__item">Nom</li></a>';
+        echo ($_GET['order']==3)
+            ? '<li class="mdl-menu__item" disabled>Date d\'ajout</li>'
+            : '<a href="user_objects.php?order=3&desc=true" class="link-no-style"><li class="mdl-menu__item">Date d\'ajout</li></a>';
+        echo ($_GET['order']==0)
+            ? '<li class="mdl-menu__item" disabled>Date de mise en ligne</li>'
+            : '<a href="user_objects.php?order=0&desc=true" class="link-no-style"><li class="mdl-menu__item">Date de mise en ligne</li></a>';
+        echo ($_GET['order']==1)
+            ? '<li class="mdl-menu__item" disabled>Date de fin</li>'
+            : '<a href="user_objects.php?order=1&desc=true" class="link-no-style"><li class="mdl-menu__item">Date de fin</li></a>';
+        echo ($_GET['order']==2)
+            ? '<li class="mdl-menu__item" disabled>Prix</li>'
+            : '<a href="user_objects.php?order=2&desc=true" class="link-no-style"><li class="mdl-menu__item">Prix</li></a>';
+        ?>
+    </ul>
+    </div>
+
+    <div class="simple_text">
+        Les objets que vous avez déposés sur le site sont affichés ici, triés par date d'ajout. Vous pouvez voir pour chaque objet s'il est actuellement ouvert aux enchères ou non, et vous pouvez modifier vos objets, y compris ceux qui seront proposés ultérieurement.
+    </div>
+
+    <div class="list_card_wrapper">
+
+    <?php
+
     foreach ($res as $key => $value) {
         $date_stop = strtotime($value->date_stop);
         $date_start = strtotime($value->date_start);
         ?>
 
-        <button class="mdl-button mdl-js-button mdl-button--icon" id="sort_menu">
-            <i class="material-icons">sort</i>
-        </button>
-        <span class="mdl-tooltip" for="sort_menu">
-            Trier
-        </span>
-
-        <a href="user_objects.php?order=<?php echo $_GET['order'];?>&desc=<?php echo ($_GET['desc'] == "true") ? "false" : "true"; ?>" class="mdl-button mdl-js-button mdl-button--icon" id="invert_sort">
-            <i class="material-icons">import_export</i>
-        </a>
-        <span class="mdl-tooltip" for="invert_sort">
-            Inverser l'ordre
-        </span>
-
-        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-            for="sort_menu">
-            <?php
-            echo ($_GET['order']==4)
-                ? '<li class="mdl-menu__item" disabled>Nom</li>'
-                : '<a href="user_objects.php?order=4&desc=true" class="link-no-style"><li class="mdl-menu__item">Nom</li></a>';
-            echo ($_GET['order']==3)
-                ? '<li class="mdl-menu__item" disabled>Date d\'ajout</li>'
-                : '<a href="user_objects.php?order=3&desc=true" class="link-no-style"><li class="mdl-menu__item">Date d\'ajout</li></a>';
-            echo ($_GET['order']==0)
-                ? '<li class="mdl-menu__item" disabled>Date de mise en ligne</li>'
-                : '<a href="user_objects.php?order=0&desc=true" class="link-no-style"><li class="mdl-menu__item">Date de mise en ligne</li></a>';
-            echo ($_GET['order']==1)
-                ? '<li class="mdl-menu__item" disabled>Date de fin</li>'
-                : '<a href="user_objects.php?order=1&desc=true" class="link-no-style"><li class="mdl-menu__item">Date de fin</li></a>';
-            echo ($_GET['order']==2)
-                ? '<li class="mdl-menu__item" disabled>Prix</li>'
-                : '<a href="user_objects.php?order=2&desc=true" class="link-no-style"><li class="mdl-menu__item">Prix</li></a>';
-            ?>
-        </ul>
-        </div>
-
-        <div class="simple_text">
-            Les objets que vous avez déposés sur le site sont affichés ici, triés par date d'ajout. Vous pouvez voir pour chaque objet s'il est actuellement ouvert aux enchères ou non, et vous pouvez modifier vos objets, y compris ceux qui seront proposés ultérieurement.
-        </div>
-
-        <div class="list_card_wrapper">
 
         <div class="mdl-card mdl-shadow--4dp list_card object_card" id="objet<?php echo $value->_id; ?>">
 
@@ -135,14 +141,54 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                 if ($value->date_start <= date("Y-m-d") AND $value->date_stop >= date("Y-m-d")) {
                     if(is_null($value->best_user_id)){
                         echo 'Prix de départ: ' . htmlentities($value->prix_now) . ' € <br>';
-                        echo 'Aucune enchère n\'a été proposée <br>';
+                        echo 'Aucune enchère n\'a été proposée<br>';
                     } else {
                         echo 'Meilleure enchère: ' . htmlentities($value->prix_now) . ' € <br>';
                         echo 'Par: ' . htmlentities($value->prenom) . " " . htmlentities($value->nom) . '<br>';
                     }
+
+                    ?>
+
+                    <script>
+                        $(document).ready( function() {
+
+                            $('#clock<?php echo $value->_id?>').countdown('<?php echo strftime("%Y/%m/%d", $date_stop); ?>').on('update.countdown', function(event) {
+                                $(this).html(event.strftime('Fin dans %D jours %H:%M:%S'));
+                            });
+
+                            var img<?php echo $value->_id ?> = new Image();
+                            img<?php echo $value->_id ?>.onload = function()
+                            {
+                                document.getElementById("objet<?php echo $value->_id ?>").getElementsByClassName("titre_card")[0].style.opacity = "1";
+                            };
+                            img<?php echo $value->_id ?>.src = './images/get_obj_img.php?id=<?php echo $value->_id ?>';
+                        });
+                    </script>
+
+                <?php
+
                 } elseif($value->date_start > date("Y-m-d")) {
                     echo 'Prix de départ: ' . htmlentities($value->prix_now) . ' € <br>';
-                    echo 'Votre objet sortira le: ' . strftime("%d ", $date_start) . $months[strftime("%m", $date_start)] . strftime(" %G", $date_start) . '<br>';
+                    echo 'L\'enchère débutera le ' . strftime("%d ", $date_start) . $months[strftime("%m", $date_start)] . strftime(" %G", $date_start) . '<br>';
+                    ?>
+
+                    <script>
+                        $(document).ready( function() {
+
+                            $('#clock<?php echo $value->_id?>').countdown('<?php echo strftime("%Y/%m/%d", $date_start); ?>').on('update.countdown', function(event) {
+                                $(this).html(event.strftime('Publication dans %D jours %H:%M:%S'));
+                            });
+
+                            var img<?php echo $value->_id ?> = new Image();
+                            img<?php echo $value->_id ?>.onload = function()
+                            {
+                                document.getElementById("objet<?php echo $value->_id ?>").getElementsByClassName("titre_card")[0].style.opacity = "1";
+                            };
+                            img<?php echo $value->_id ?>.src = './images/get_obj_img.php?id=<?php echo $value->_id ?>';
+                        });
+                    </script>
+
+                    <?php
                 } elseif($value->date_stop < date("Y-m-d")) {
                     echo 'Meilleure enchère: ' . htmlentities($value->prix_now) . ' € <br>';
                     echo 'Votre objet est sorti le: ' . strftime("%d ", $date_start) . $months[strftime("%m", $date_start)] . strftime(" %G", $date_start) . '<br>';
@@ -152,25 +198,6 @@ if ($req->rowCount() >= 1) { // Correspondance trouvé dans la DB
                 echo '<span id="clock'.$value->_id.'"></span>';
             ?>
             </div>
-            <script>
-                $(document).ready( function() {
-
-                    $('#clock<?php echo $value->_id?>').countdown('<?php echo strftime("%Y/%m/%d", $date_stop); ?>').on('update.countdown', function(event) {
-
-                    if (!$(this).hasClass("red") && event.strftime('%D') < 7) {
-                        $(this).addClass("red");
-                    }
-                    $(this).html(event.strftime('%D jours %H:%M:%S restants'));
-                    });
-
-                    var img<?php echo $value->_id ?> = new Image();
-                    img<?php echo $value->_id ?>.onload = function()
-                    {
-                        document.getElementById("objet<?php echo $value->_id ?>").getElementsByClassName("titre_card")[0].style.opacity = "1";
-                    };
-                    img<?php echo $value->_id ?>.src = './images/get_obj_img.php?id=<?php echo $value->_id ?>';
-                });
-            </script>
 
             <div class="mdl-card__menu">
             <?php if($value->date_start <= date("Y-m-d") AND $value->date_stop >= date("Y-m-d")){
